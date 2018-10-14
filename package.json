@@ -1,22 +1,33 @@
 {
-  "name": "photonics",
+  "name": "photonicsdb",
   "version": "1.0.0",
-  "description": ".",
+  "description": "Industrial components standardization and browsing UI",
   "main": "app.js",
+  "dependencies": {
+    "clipboard": "^2.0.1",
+    "collapse": "^1.0.1",
+    "mongoose": "^5.2.7",
+    "nodemon": "^1.18.1",
+    "transition": "^0.1.1"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "body-parser": "1.18.3",
-    "clipboard": "^2.0.1",
-    "collapse": "^1.0.1",
-    "express": "4.16.3",
-    "mongoose": "^5.2.7",
-    "transition": "^0.1.1"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhdbnbd/photonicsdb.git"
   },
-  "author": "MHD",
+  "keywords": [
+    "CRUD",
+    "Filter",
+    "Angularjs",
+    "Industrial"
+  ],
+  "author": "mhdbnbd",
   "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^1.18.1"
-  }
+  "bugs": {
+    "url": "https://github.com/mhdbnbd/photonicsdb/issues"
+  },
+  "homepage": "https://github.com/mhdbnbd/photonicsdb#readme"
 }
