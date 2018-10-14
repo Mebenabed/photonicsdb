@@ -1,0 +1,50 @@
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom text-monospace">
+          <h1 class="h2">Edit {{foundry.name}}</h1>
+        </div>
+      </div>
+      <div class="panel-body border border-warning p-5 text-center d-flex bd-highlight">
+        <div class="p-2 flex-sm-fill bd-highlight">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12">
+                <form ng-submit="updateFoundry()" ng-init="getFoundry()">
+                  <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" ng-model="foundry.name" placeholder="name">
+                    <div class="panel-body border border-light p-2 text-center"> Contact
+                      <div class="col">
+                        <label><span data-feather="user"></span></label>
+                        <input type="text" class="form-control" ng-model="foundry.contact" placeholder="contact person">
+                      </div>
+                      <div class="col">
+                        <label><span data-feather="phone"></span></label>
+                        <input type="text" class="form-control" ng-model="foundry.phone" placeholder="phone">
+                      </div>
+                      <div class="col">
+                        <label><span data-feather="at-sign"></span></label>
+                        <input type="text" class="form-control" ng-model="foundry.mail" placeholder="mail">
+                      </div>
+                      <div class="col">
+                        <label><span data-feather="globe"></span></label>
+                        <input type="text" class="form-control" ng-model="foundry.url" placeholder="url">
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-dark btn-block my-4">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+  feather.replace()
+</script>

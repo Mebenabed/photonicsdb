@@ -1,0 +1,88 @@
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <main role="main" class="col-md-12 ml-sm-auto">
+      </div>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#/mains">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="foundry">{{foundry.name}}</li>
+        </ol>
+      </nav>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div ng-init="getFoundry()">
+              <div class="card border-elegant" style="width: 100%; height: 100%;">
+                <div class="card-body">
+                  <button class="btn btn-sm float-right btn-elegant mb-2" data-clipboard-target="#CardCopy">
+                    <img data-feather="copy" alt="Copy to clipboard">
+                  </button>
+                  <div id="CardCopy">
+                    <h4 class="card-title text-center h1">{{foundry.name}}</h4>
+                    <h6 class="card-subtitle mb-2 text-muted"><span data-feather="user"></span> {{foundry.contact}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted"><span data-feather="phone"></span> {{foundry.phone}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted"><span data-feather="at-sign"></span> {{foundry.mail}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted"><span data-feather="globe"></span> {{foundry.url}}</h6>
+                    <br>
+                    <div class="card-footer bg-transparent border-elegant">
+                      <button class="btn btn-sm btn-lg btn-block btn-outline-elegant btn-rounded waves-effect" type="button" data-toggle="collapse" data-target="#collapseBlock" aria-expanded="true" aria-controls="collapseBlock">
+                        Blocks
+                      </button>
+                      <br>
+                      <div class="collapse show" id="collapseBlock" ng-init="getBlocks()">
+                        <div class="panel-body">
+                          <div class="row d-flex justify-content-center">
+                            <div ng-repeat="block in blocks" ng-if="block.foundry==foundry.name">
+                              <h5><a href="#/block/{{block._id}}" class="badge badge-dark"> {{block.name}}</a></h5>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <br>
+                      <div class="float-left">
+                        <a href="#/foundry/edit/{{foundry._id}}" class="btn btn-warning btn-sm">
+                          Edit
+                        </a>
+                      </div>
+                      <div class="float-right">
+                        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#fModal">
+                          Delete
+                        </button>
+                      </div>
+                      <!-- Modal -->
+                      <div class="modal fade" id="fModal" tabindex="-1" role="dialog" aria-labelledby="fModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div ng-init="getFoundry()">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="fModalLabel">Deleting {{foundry.name}} ...</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                Are you sure you want to delete {{foundry.name}} ?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-elegant" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-warning" ng-click="removeFoundry(foundry._id)">Yes, delete !</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+  feather.replace()
+</script>

@@ -1,36 +1,31 @@
-<!doctype html>
-<html lang="en" ng-app="myApp">
+  <!doctype html>
+  <html lang="en" ng-app="myApp">
+
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="bower_components/bootstrap/site/favicon.ico">
-
+    <meta name="Industrial components standardization and browsing UI" content="">
+    <meta name="mhdbnbd" content="">
     <title>Photonicsdb</title>
-
     <!-- Bootstrap core CSS -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="bower_components/bootstrap/site/docs/4.1/examples/dashboard/dashboard.css" rel="stylesheet">
-
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Material Design Bootstrap -->
+    <link href="/bower_components/mdbootstrap/css/mdb.min.css" rel="stylesheet">
   </head>
 
   <body style="background-color:#E4E4E4">
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarPh" aria-controls="navbarPh" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
-      <div class="collapse navbar-collapse justify-content-md-center" style="background-color:#353535" id="navbarPh">
-        <ul class="navbar-nav">
+      <div class="collapse navbar-collapse justify-content-md-center" id="navbarPh">
+        <ul class="navbar-nav" >
           <li class="nav-item">
-            <a class="nav-link" href="#/foundries" data-toggle="tooltip" data-placement="bottom" title="Foundries"><span data-feather="home"></span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#/processes" data-toggle="tooltip" data-placement="bottom" title="Processes"><span data-feather="settings"></span></a>
+            <a class="nav-link" href="#/mains" data-toggle="tooltip" data-placement="bottom" title="Foundries"><span data-feather="home"></span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#/blocks" data-toggle="tooltip" data-placement="bottom" title="Blocks"><span data-feather="cpu"></span></a>
@@ -39,56 +34,47 @@
             <a class="nav-link" href="#/definitions" data-toggle="tooltip" data-placement="bottom" title="Library of standard building blocks"><span data-feather="book-open"></span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#/parameters" data-toggle="tooltip" data-placement="bottom" title="Parameters"><span data-feather="percent"></span></a>
+            <a class="nav-link" href="#/components" data-toggle="tooltip" data-placement="bottom" title="Components"><span data-feather="archive"></span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#/foundries/add" data-toggle="tooltip" data-placement="bottom" title="Add"><span data-feather="plus-circle"></span></a>
+            <a class="nav-link" href="#/add" data-toggle="tooltip" data-placement="bottom" title="Add"><span data-feather="plus-circle"></span></a>
           </li>
         </ul>
       </div>
     </nav>
-
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12 text-monospace">
-              <div ng-view></div>
-          </div>
-        </div><!-- /.container -->
-
-      </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div ng-view></div>
+        </div>
+      </div><!-- /.container -->
     </div>
+  </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="bower_components/bootstrap/site/docs/4.1/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="bower_components/bootstrap/site/docs/4.1/assets/js/vendor/popper.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/bower_components/angular/angular.js"></script>
-    <script src="/bower_components/angular-filter/dist/angular-filter.min.js"></script>
-    <script src="/bower_components/angular-animate.js"></script>
-    <script src="/bower_components/angular-route/angular-route.js"></script>
-    <script src="/app.js"></script>
-    <script src="/controllers/blocks.js"></script>
-
-    <!-- ClipboardJS -->
-    <script src="bower_components/bootstrap/site/docs/4.1/assets/js/vendor/clipboard.min.js"></script>
-    <script>
-    var clipboard = new ClipboardJS('.btn');
-    clipboard.on('success', function(e) {
-        console.log(e);
-    });
-    clipboard.on('error', function(e) {
-        console.log(e);
-    });
-    </script>
-
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-      feather.replace()
-    </script>
-
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="bower_components/bootstrap/site/docs/4.1/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+  <script src="bower_components/bootstrap/site/docs/4.1/assets/js/vendor/popper.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/bower_components/angular/angular.js"></script>
+  <script src="/bower_components/angular-route/angular-route.js"></script>
+  <script src="/app.js"></script>
+  <script src="/controllers/mains.js"></script>
+  <<script type="text/javascript" src="/bower_components/mdbootstrap/js/mdb.min.js"></script>
+  <!-- ClipboardJS -->
+  <script src="bower_components/bootstrap/site/docs/4.1/assets/js/vendor/clipboard.min.js"></script>
+  <script>
+  var clipboard = new ClipboardJS('.btn');
+  clipboard.on('success', function(e) {
+    console.log(e);
+  });
+  clipboard.on('error', function(e) {
+    console.log(e);
+  });
+  </script>
+  <!-- Icons -->
+  <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+  <script>
+  feather.replace()
+  </script>
   </body>
-</html>
+  </html>

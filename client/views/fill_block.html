@@ -1,0 +1,74 @@
+  <div class="panel panel-default">
+  <div class="panel-heading">
+    <main role="main" class="col-md-12 ml-sm-auto">
+      <div class="d-flex justify-content-center border-bottom">
+        <h1>{{block.name}}</h1>
+      </div>
+    </div>
+    <form ng-submit="updateBlock()" ng-init="getBlock()">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12 d-flex justify-content-center">
+            <div ng-init="getBlock()">
+              <div class="card border-info mb-3 sticky-top mx-auto" style="width: 40rem; height: 100%;">
+                <div class="card-body">
+                  <h4 class="card-subtitle mb-2 text-muted">Foundry : {{block.foundry}}</h4>
+                  <h4 class="card-subtitle mb-2 text-muted">Class : {{block.class}}</h4>
+                  <div ng-init="getDefinitions()">
+                    <div ng-repeat="definition in definitions" ng-if="block.class==definition.name">
+                      <h4 class="card-subtitle mb-2 text-muted">Function : {{definition.function}}</h4>
+                      <div class="card-footer bg-transparent border-info">
+                        <table class="table table-hover table-sm table-striped h5" >
+                          <thead>
+                            <tr>
+                              <th scope="col"></th>
+                              <th scope="col">Class bound parameter</th>
+                              <th scope="col">Value</th>
+                            </tr>
+                          </thead>
+                          <tbody ng-repeat="specifications in definition.specifications" ng-if="block.class==definition.name">
+                            <tr>
+                              <th scope="row">{{$index+1}}</th>
+                              <td>{{definition.specifications[$index]}}</td>
+                              <td>{{block.valuec[$index]}}</td>
+                              <td style="width: 5rem"><input type="text" class="form-control" ng-model="block.valuec[$index]"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <table class="table table-hover table-sm table-striped h5" >
+                          <thead>
+                            <tr>
+                              <th scope="col"></th>
+                              <th scope="col">Outstanding parameters</th>
+                              <th scope="col">Value</th>
+                            </tr>
+                          </thead>
+                          <tbody ng-repeat="parameters in block.parameters">
+                            <tr>
+                              <th scope="row">{{$index+1}}</th>
+                              <td>{{block.parameters[$index]}}</td>
+                              <td>{{block.valueo[$index]}}</td>
+                              <td style="width: 5rem"><input type="text" class="form-control" ng-model="block.valueo[$index]"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <button type="submit" class="btn btn-primary">Fill</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  </div>
+  </div>
+
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+  feather.replace()
+</script>

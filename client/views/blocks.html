@@ -1,106 +1,107 @@
-  <div class="panel panel-default" ng-init="getBlocks()">
+  <div class="panel panel-default">
   <div class="panel-heading">
-  <main role="main" class="col-md-12 ml-sm-auto">
-    <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center border-bottom text-monospace">
-      <h1>Blocks</h1>
-      <!-- Trigger -->
-      <button class="btn float-right mb-2" data-clipboard-target="#BlocksCopy">
-        <img data-feather="copy" alt="Copy to clipboard">
-      </button>
-    </div>
-  </div>
-
-  <form>
-    <label class="sr-only" for="inlineFormInputGroupAll">All</label>
-    <div class="input-group mb-2 mr-sm-2">
-      <div class="input-group-prepend">
-        <div class="input-group-text"><span data-feather="search"></span></div>
-      </div>
-      <input type="text" class="form-control" id="inlineFormInputGroupAll" ng-model="m" placeholder="Keyword" aria-label="filter blocks" placeholder="Keyword">
-    </div>
-  </form>
-
-  <form>
-    <div class="form-row">
-      <div class="col">
-        <div class="panel panel-default">
-          <select class="custom-select custom-select mb-2" ng-model="l">
-            <option value="{{block.class.function}}" selected>Select Function</option>
-            <option value="{{block.class.function}}" ng-repeat="block in blocks">{{block.class.function}}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="panel panel-default">
-          <select class="custom-select custom-select mb-2" ng-model="n">
-            <option value="{{block.class.name}}" selected>Select Class</option>
-            <option value="{{block.class.name}}" ng-repeat="block in blocks | filter: l">{{block.class.name}}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="panel panel-default">
-        <select class="custom-select custom-select mb-2" ng-model="k">
-          <option value="{{block.foundry}}" selected>Select Foundry</option>
-          <option value="{{block.foundry}}" ng-repeat="block in blocks">{{block.foundry}}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="panel panel-default">
-        <select class="custom-select custom-select mb-2" ng-model="g">
-          <option value="{{block.process}}" selected>Select Process</option>
-          <option value="{{block.process}}" ng-repeat="block in blocks | filter : k">{{block.process}}</option>
-        </select>
-      </div>
-    </div>
-  </form>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <button class="btn btn-sm btn-light btn-lg btn-block" type="button" data-toggle="collapse" data-target="#collapseClass" aria-expanded="false" aria-controls="collapseclass">
-          Classification show/hide
+    <main role="main" class="col-md-12 ml-sm-auto">
+      <div class="d-flex justify-content-center border-bottom text-monospace">
+        <h1>Blocks</h1>
+        <button class="btn float-right mb-2 btn-elegant btn-sm" data-clipboard-target="#BlocksCopy">
+          <img data-feather="copy" alt="Copy to clipboard">
         </button>
       </div>
     </div>
-  </div>
-
-<br><br>
-
-  <div class="panel-body">
-    <div class="row d-flex justify-content-center" id="BlocksCopy">
-      <div ng-repeat="block in blocks | filter:m | filter:n | filter:l | filter:k | filter:g">
-        <div class="card border-secondary" style="width: 23.5rem; height: 100%;">
-          <div class="card-body">
-            <h5 class="card-title">{{block.name}}</h5>
-            <p class="card-text"><a href="{{block.reference.source}}" target="_blank" role="button" class="badge badge-primary">{{block.reference.source}}</a></p>
-            <a class="badge badge-dark text-white">{{block.reference.form.DM}}</a>
-            <a class="badge badge-danger text-white">{{block.reference.form.Paper}}</a>
-            <a class="badge badge-secondary">{{block.reference.form.VLC}}</a>
-<br><br>
-  <div class="card-footer bg-transparent border-secondary">
-    <a href="#/block/{{block._id}}" class="btn btn-sm btn-light btn-lg btn-block" role="button" aria-pressed="true">More info</a>
-<br>
-  <div class="collapse" id="collapseClass">
-    <h6 class="card-subtitle mb-2 text-muted">Class : {{block.class.name}}</h6>
-    <h6 class="card-subtitle mb-2 text-muted">Function : {{block.class.function}}</h6>
-    <h6 class="card-subtitle mb-2 text-muted">process : {{block.process}}</h6>
-    <h6 class="card-subtitle mb-2 text-muted">Foundry : {{block.foundry}}</h6>
-  </div>
-  </div>
+    <form>
+      <label class="sr-only" for="inlineFormInputGroupAll">All</label>
+      <div class="input-group mb-2 mr-sm-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><span data-feather="search"></span></div>
+        </div>
+        <input type="text" class="form-control" id="inlineFormInputGroupAll" ng-model="m" placeholder="Keyword" aria-label="filter blocks" placeholder="Keyword">
+      </div>
+      <div ng-init="getFoundries()">
+        <div class="form-row">
+          <div class="col">
+            <div class="panel panel-default">
+              <select class="custom-select custom-select mb-2" ng-model="k">
+                <option value="{{foundry.name}}" selected>Select Foundry</option>
+                <option value="{{foundry.name}}" ng-repeat="foundry in foundries">{{foundry.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <form>
+      <div class="form-row">
+        <div class="panel panel-default" ng-init="getComponents()">
+          <select class="custom-select custom-select mb-2" ng-model="s">
+            <option value="{{component.name}}"selected>Select Function</option>
+            <option value="{{component.name}}" ng-repeat="component in components | filter : {type: 'function'}">{{component.name}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <div class="panel panel-default">
+            <select class="custom-select custom-select mb-2" ng-model="d">
+              <option value="{{definition.name}}" selected>Select Class</option>
+              <option value="{{definition.name}}" ng-repeat="definition in definitions | filter:s">{{definition.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+    <br>
+    <div ng-init="getBlocks()">
+      <div class="panel-body">
+        <div class="card bg-dark">
+        <div class="card-body">
+          <div class="btn-group" role="group">
+            <button class="btn text-dark">
+              <span class="badge badge-warning">{{(blocks | filter:k | filter:m | filter:d | filter:block.status).length}}</span> Blocks
+            </button>
+            <button class="btn btn-elegant d-block p-2" type="button" data-toggle="collapse" data-target="#collapseClass" aria-expanded="true" aria-controls="collapseclass">
+              Show/Hide Classification
+            </button>
+          </div>
+            <label class="bs-switch float-right">
+              <input type="checkbox" ng-model="block.status" ng-checked="block.status" ng-true-value="'active'" ng-false-value="'obsolete'" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+          <br><br>
+          <div class="row d-flex justify-content-center" id="BlocksCopy">
+            <div ng-repeat="block in blocks | filter:k | filter:m | filter:d | filter:block.status" >
+              <div class="card border-elegant" style="width: 23.5rem; height: 100%;">
+                <div class="card-body">
+                  <h5 class="card-title font-weight-bold">{{block.name}}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted" ng-if="block.status=='active'"><span class="badge badge-pill indigo">{{block.status}}</span></h6>
+                  <h6 class="card-subtitle mb-2 text-muted" ng-if="block.status=='obsolete'"><span class="badge badge-pill purple">{{block.status}}</span></h6>
+                  <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='process'"><span class="badge badge-pill green">{{block.reference}}</span></h6>
+                  <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='paper'"><span class="badge badge-pill badge-danger">{{block.reference}}</span></h6>
+                  <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='VLC'"><span class="badge badge-pill badge-warning">{{block.reference}}</span></h6>
+                  <div class="collapse show" id="collapseClass">
+                    <h6 class="card-subtitle mb-2 text-muted">Foundry : {{block.foundry}}</h6>
+                    <div ng-init="getDefinitions()">
+                      <div ng-repeat="definition in definitions" ng-if="block.class==definition.name">
+                        <h6 class="card-subtitle mb-2 text-muted">Class : {{definition.name}}</h6>
+                        <div ng-init="getComponents()">
+                          <div ng-repeat="component in components" ng-if="definition.function==component.name" ng-model="s">
+                            <h6 class="card-subtitle mb-2 text-muted">Function : {{component.name}}</h6>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer bg-transparent border-elegant">
+                    <a href="#/block/{{block._id}}" class="btn btn-sm btn-lg btn-block btn-outline-elegant btn-rounded waves-effect" role="button" aria-pressed="true">More info</a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-    </div>
-    </div>
 
-<!-- Icons -->
+  <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 <script>
   feather.replace()
