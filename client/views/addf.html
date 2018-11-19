@@ -1,0 +1,244 @@
+      <main role="main" class="col-md-12 ml-sm-auto">
+        <div class="d-flex justify-content-center border-bottom text-monospace">
+          <h1>
+            Insert a document
+          </h1>
+        </div>
+        <div class="accordion" id="accordionHS">
+          <div class="card bg-dark text-light">
+            <div class="card-header" id="headingOne">
+              <a class="text-warning" href="#/addf" data-toggle="tooltip" data-placement="bottom" title="Components">
+                <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning waves-effect">
+                  Add an attribute
+                  <span data-feather="archive">
+                  </span>
+                </button>
+              </a>
+              </div>
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionHS">
+                <div class="card-body">
+                  <div class="border border-warning p-4 text-center">
+                    <div class="col-md-12">
+                      <div class="h5 font-weight-bold">
+                        Block attributes
+                        <span data-feather="archive" class="text-warning">
+                        </span>
+                      </div>
+                      <br>
+                      <form name="myForm" ng-submit="addComponent()">
+                        <div class="form-group">
+                          <small class="form-text text-muted">
+                            Please verify similar attributes
+                          </small>
+                          <input type="text" class="form-control" ng-model="component.name" placeholder="name ( include [unit] to parameters )" required>
+                          <br>
+                          <div class="form-row">
+                            <input type="checkbox" class="custom-control-input custom-control-sm" id="customCheck1" ng-model="checked">
+                            <label class="custom-control-label" for="customCheck1" ng-if="component.name">
+                              check matching existing components
+                            </label>
+                            <hr>
+                            <span ng-if="checked&&component.name.length>0">
+                              <select class="form-control mdb-color white-text border-0" ng-init="getComponents()">
+                                <option>
+                                  This name has not been used
+                                </option>
+                                <option ng-repeat="component in components | filter : component.name" selected>
+                                  {{component.name}}
+                                </option>
+                              </select>
+                              <br>
+                            </span>
+                          </div>
+                          <br>
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="ReferenceR" ng-model="component.type" value="reference">
+                            <label class="custom-control-label font-weight-bold active" for="ReferenceR">
+                              Reference
+                              <small class="form-text text-muted">
+                                PDK version/Literature reference/VLC description
+                              </small>
+                            </label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="ParameterR" ng-model="component.type" ng-value="parameter">
+                            <label class="custom-control-label font-weight-bold active" for="ParameterR">
+                              Parameter
+                              <small class="form-text text-muted">
+                                Custom and/or standard for blocks/classes
+                              </small>
+                            </label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="FunctionR" ng-model="component.type" value="function">
+                            <label class="custom-control-label font-weight-bold" for="FunctionR">
+                              Function
+                              <small class="form-text text-muted">
+                                Extensive classification for blocks/classes
+                              </small>
+                            </label>
+                          </div>
+                        </div>
+                        <br>
+                        <span ng-if="component.type=='reference'">
+                        <hr class="bg-warning">
+                        <div class="form-group">
+                          <div ng-init="getFoundries()">
+                            <label class="font-weight-bold">
+                              Assign a foundry
+                            </label>
+                              <select class="custom-select mb-2" ng-model="component.foundry">
+                                <option value="{{foundry.name}}" selected>
+                                  Select Foundry
+                                </option>
+                                <option value="{{foundry.name}}" ng-repeat="foundry in foundries | orderBy : 'name'">
+                                  {{foundry.name}}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          <br>
+                          <div class="form-group">
+                            <div ng-init="getBlocks()">
+                              <label class="font-weight-bold">
+                                Assign blocks
+                                <small class="form-text text-muted">
+                                  Hold <kbd class="bg-warning text-dark">Ctrl</kbd> for multiple selection
+                                </small>
+                              </label>
+                              <select class="form-control" size="8" ng-model="component.blocks" multiple>
+                                <option ng-repeat="block in blocks | orderBy : 'name' | filter: component.foundry" value="{{block.name}}">
+                                  {{block.name}}
+                                </option>
+                              </select>
+                              <br>
+                            </div>
+                          </div>
+                          </span>
+                        <button type="submit" class="btn btn-warning btn-block my-4">
+                          Submit
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="border border-warning p-4">
+                    <div class="col-md-12">
+                      <div class="h5 text-center font-weight-bold">
+                        Foundry
+                        <span data-feather="home" class="text-warning">
+                        </span>
+                      </div>
+                      <br>
+                      <form name="myForm" ng-submit="addFoundry()">
+                        <div class="form-group">
+                          <input type="text" class="form-control" ng-model="foundry.name" placeholder="name" required>
+                          <div role="alert">
+                            <span class="error" ng-show="myForm.input.$error.required">
+                              Required!
+                            </span>
+                            </div>
+                          <br>
+                          <div class="form-row">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2" ng-model="checkedF">
+                            <label class="custom-control-label" for="customCheck2" ng-if="foundry.name">
+                              check matching existing foundries
+                            </label>
+                          </div>
+                          <div class="form-row float-right">
+                            <span ng-if="checkedF&&foundry.name.length>0">
+                              <select class="form-control mdb-color white-text border-0" ng-init="getFoundries()">
+                                <option ng-repeat="foundry in foundries | filter : foundry.name">
+                                  {{foundry.name}}
+                                </option>
+                              </select>
+                            </span>
+                          </div>
+                          <br>
+                          <input type="text" class="form-control" ng-model="foundry.notes" placeholder="notes">
+                          <br>
+                          <br>
+                          <div class="border border-warning p-2 text-center font-weight-bold">
+                            Contact
+                            <br>
+                            <br>
+                            <div class="col">
+                              <label>
+                                <span data-feather="user" class="text-primary">
+                              </span>
+                            </label>
+                              <input type="text" class="form-control" ng-model="foundry.contact" placeholder="contact person">
+                            </div>
+                            <br>
+                            <div class="col">
+                              <label>
+                                <span data-feather="phone" class="text-primary">
+                              </span>
+                            </label>
+                              <input type="text" class="form-control" ng-model="foundry.phone" placeholder="phone">
+                            </div>
+                            <br>
+                            <div class="col">
+                              <label>
+                                <span data-feather="at-sign" class="text-primary">
+                                </span>
+                              </label>
+                              <input type="email" class="form-control" ng-model="foundry.mail" placeholder="mail">
+                              <div role="alert">
+                                <span class="error" ng-show="myForm.input.$error.email">
+                                  Not valid email!
+                                </span>
+                              </div>
+                            </div>
+                            <br>
+                            <div class="col">
+                              <label>
+                                <span data-feather="globe" class="text-primary">
+                                </span>
+                              </label>
+                              <input  type="url" class="form-control" ng-model="foundry.url" placeholder="url">
+                              <div role="alert">
+                                <span class="error" ng-show="myForm.input.$error.url">
+                                  Not valid url!
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <br>
+                        </div>
+                        <button type="submit" class="btn btn-warning btn-block my-4">
+                          Submit
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card bg-dark">
+              <div class="card-header" id="headingTwo">
+                <a class="text-warning" href="#/addc" data-toggle="tooltip" data-placement="bottom" title="Classes">
+                  <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning waves-effect">
+                    Define a class
+                    <span data-feather="book-open">
+                    </span>
+                  </button>
+                </a>
+              </div>
+          </div>
+          <div class="card bg-dark">
+            <div class="card-header" id="headingThree">
+              <a class="text-warning" href="#/addb" data-toggle="tooltip" data-placement="bottom" title="Blocks">
+                <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning waves-effect">
+                  Create a block
+                  <span data-feather="cpu">
+                  </span>
+                </button>
+              </a>
+              </div>
+
+      <!-- Icons -->
+      <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+      <script>
+      feather.replace()
+    </script>

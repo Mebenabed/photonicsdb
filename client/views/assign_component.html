@@ -1,0 +1,55 @@
+<main role="main" class="col-md-9 mx-auto">
+  <div class="d-flex justify-content-center align-items-center border-bottom">
+    <h1 class="h2">
+      Assign to {{component.name}}
+    </h1>
+  </div>
+  <br>
+  <div class="border border-warning p-4 text-center d-flex bd-highlight bg-dark text-light">
+    <div class="p-2 flex-sm-fill bd-highlight">
+      <div class="row">
+        <div class="col-md-12">
+          <form ng-submit="updateComponent()" ng-init="getComponent()">
+            <div class="form-group">
+              <div ng-init="getFoundries()">
+                <label class="font-weight-bold">
+                  Assign a foundry
+                </label>
+                  <select class="custom-select mb-2" ng-model="component.foundry">
+                    <option value="" selected>
+                      Select Foundry
+                    </option>
+                    <option value="{{foundry.name}}" ng-repeat="foundry in foundries | orderBy : 'name'">
+                      {{foundry.name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <br>
+              <div class="form-group">
+                <div ng-init="getBlocks()">
+                  <label class="font-weight-bold">
+                    Assign blocks
+                    <small class="form-text text-muted">
+                      Hold <kbd class="bg-warning text-dark">Ctrl</kbd> for multiple selection
+                    </small>
+                  </label>
+                  <select class="form-control" size="8" ng-model="component.blocks" multiple>
+                    <option value="" selected>
+                      none
+                    </option>
+                    <option ng-repeat="block in blocks | filter: component.foundry" value="{{block.name}}">
+                      {{block.name}}
+                    </option>
+                  </select>
+                  <br>
+                </div>
+              </div>
+            <button type="submit" class="btn btn-warning btn-block my-4">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
