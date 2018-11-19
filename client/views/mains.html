@@ -1,43 +1,83 @@
-  <div class="panel panel-default" ng-init="getFoundries()">
-    <div class="panel-heading">
-      <main role="main" class="col-md-12 ml-sm-auto">
-        <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center border-bottom text-monospace">
-          <button class="btn float-right mb-2 btn-elegant" data-clipboard-target="#FoundriesCopy">
-            <img data-feather="copy" alt="Copy to clipboard">
-          </button>
-        </div>
+  <div ng-init="[getFoundries(),getComponents()]"> <!-- Call reading all foundries service-->
+    <main role="main" class="col-md-12 ml-sm-auto">
+      <div class="d-flex justify-content-center align-items-center border-bottom">
+        <h1>
+          Foundries
+        </h1>
+        <button class="btn float-right mb-2 btn-sm" data-clipboard-target="#FoundriesCopy" style="background-color:#E4E4E4;">
+          <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
+        </button>
       </div>
+      <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
+        <div class="card-body">
+      <form>
+        <label class="sr-only" for="inlineFormInputGroupAll">
+          All
+        </label>
+        <div class="input-group mb-2 mr-sm-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span data-feather="search" style="width: 15px; height: 15px;">
+              </span>
+            </div>
+          </div>
+          <!-- Search within the read foundries documents-->
+          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q1" aria-label="filter blocks" placeholder="">
+          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q2" aria-label="filter blocks" placeholder="">
+          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q3" aria-label="filter blocks" placeholder="">
+        </div>
+      </form>
     </div>
-    <form>
-      <label class="sr-only" for="inlineFormInputGroupAll">All</label>
-      <div class="input-group mb-2 mr-sm-2">
-        <div class="input-group-prepend">
-          <div class="input-group-text"><span data-feather="search"></span></div>
-        </div>
-        <input type="text" class="form-control" id="inlineFormInputGroupAll" ng-model="q" placeholder="Keyword" aria-label="filter blocks" placeholder="Keyword">
-      </div>
-    </form>
-    <div class="panel-body">
+  </div>
+  <br>
       <div class="row d-flex justify-content-center" id="FoundriesCopy">
-        <div ng-repeat="foundry in foundries | filter : q">
+        <div ng-repeat="foundry in foundries | orderBy : 'name' | filter:q1  | filter:q2  | filter:q3"> <!-- Display the read documents by foundry scope | filter with reference to searched keywords-->
           <div class="card border-elegant" style="width: 23.5rem; height: 100%;">
             <div class="card-body">
-              <h3 class="card-title text-center">{{foundry.name}}</h3>
-              <h6 class="card-subtitle mb-2 text-muted"><span data-feather="user"></span> {{foundry.contact}}</h6>
-              <h6 class="card-subtitle mb-2 text-muted"><span data-feather="phone"></span> {{foundry.phone}}</h6>
-              <h6 class="card-subtitle mb-2 text-muted"><span data-feather="at-sign"></span> {{foundry.mail}}</h6>
-              <h6 class="card-subtitle mb-2 text-muted"><span data-feather="globe"></span> {{foundry.url}}</h6>
+              <h3 class="card-title text-center">
+                {{::foundry.name}}
+              </h3>
+              <h6 class="card-subtitle mb-2 text-muted">
+                <span data-feather="user" class="text-primary" style="width: 15px; height: 15px;">
+                </span>
+                {{::foundry.contact}}
+              </h6>
+              <h6 class="card-subtitle mb-2 text-muted">
+                <span data-feather="phone" class="text-primary" style="width: 15px; height: 15px;">
+                </span>
+                {{::foundry.phone}}
+              </h6>
+              <a href="mailto:{{foundry.mail}}" class="card-subtitle mb-2 text-muted" role="button" aria-pressed="true">
+                <span data-feather="at-sign" class="text-primary" style="width: 15px; height: 15px;">
+                </span>
+                {{::foundry.mail}}
+              </a>
               <br>
+              <a href="{{foundry.url}}" class="card-subtitle mb-2 text-muted" role="button" aria-pressed="true" target="_blank">
+                <span data-feather="globe" class="text-primary" style="width: 15px; height: 15px;">
+                </span>
+                {{::foundry.url}}
+              </a>
+              <br>
+              <br>
+              <div ng-repeat="component in components | filter : {foundry: foundry.name}  | filter : {type: 'reference'}">
+                <h6 class="card-subtitle mb-2 text-muted">
+                  <span class="badge badge-pill badge-light">
+                    {{::component.name}}
+                  </span>
+                </h6>
+              </div>
               <div class="card-footer bg-transparent border-elegant">
-                <a href="#/foundry/{{foundry._id}}" class="btn btn-sm btn-lg btn-block btn-outline-elegant btn-rounded waves-effect" role="button" aria-pressed="true">More info</a>
+                <!-- Link to redirect to the foundry by id -->
+                <a href="#/foundry/{{foundry._id}}" class="btn btn-sm btn-lg btn-block btn-outline-elegant waves-effect" role="button" aria-pressed="true">
+                  More info
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
