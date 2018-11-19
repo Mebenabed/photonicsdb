@@ -1,61 +1,112 @@
-  <div class="panel panel-default" ng-init="getComponents()">
-  <div class="panel-heading">
+  <div ng-init="getComponents()">
     <main role="main" class="col-md-12 ml-sm-auto">
-      <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center border-bottom text-monospace">
-        <h1>Components</h1>
+      <div class="d-flex justify-content-center border-bottom">
+        <h1>
+          Attributes
+        </h1>
       </div>
-    </div>
-    <form>
-      <label class="sr-only" for="inlineFormInputGroupAll">All</label>
-      <div class="input-group mb-2 mr-sm-2">
-        <div class="input-group-prepend">
-          <div class="input-group-text"><span data-feather="search"></span></div>
+      <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
+        <div class="card-body">
+      <form>
+        <label class="sr-only" for="inlineFormInputGroupAll">
+          All
+        </label>
+        <div class="input-group mb-2 mr-sm-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span data-feather="search" style="width: 15px; height: 15px;">
+              </span>
+            </div>
+          </div>
+          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q" aria-label="filter blocks" placeholder="">
+          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q0" aria-label="filter blocks" placeholder="">
+          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q1" aria-label="filter blocks" placeholder="">
         </div>
-        <input type="text" class="form-control" id="inlineFormInputGroupAll" ng-model="q" placeholder="Keyword" aria-label="filter blocks" placeholder="Keyword">
+      </form>
+      <hr class="bg-warning">
+      <div class="btn-group d-flex justify-content-center" role="group" aria-label="view">
+        <button class="btn btn-elegant" type="button" data-toggle="collapse" data-target="#collapseFunctions" aria-expanded="true" aria-controls="collapseFunctions">
+          View Functions
+        </button>
+        <button class="btn btn-elegant" type="button" data-toggle="collapse" data-target="#collapseParameters" aria-expanded="false" aria-controls="collapseParameters">
+          View Parameters
+        </button>
+        <button class="btn btn-elegant" type="button" data-toggle="collapse" data-target="#collapseReferences" aria-expanded="false" aria-controls="collapseReferences">
+          View References
+        </button>
       </div>
-    </form>
-    <div class="btn-group d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center" role="group" aria-label="view">
-      <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseFunctions" aria-expanded="false" aria-controls="collapseFunctions">
-        View Functions
-      </button>
-      <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseParameters" aria-expanded="false" aria-controls="collapseParameters">
-        View Parameters
-      </button>
-    </div>
-    <br><br>
-    <div class="collapse" id="collapseFunctions">
-      <div class="panel-body">
+      </div>
+      </div>
+      <br>
+      <div class="collapse show" id="collapseFunctions">
+        <h2 class="d-flex justify-content-center">Functions</h2>
+        <br>
         <div class="row d-flex justify-content-center" id="FoundriesCopy">
-          <div ng-repeat="component in components | filter : {type: 'function'} | filter : q">
+          <div ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'} | filter : q0 | filter : q | filter:q1">
             <div class="card border-elegant" style="width: 20rem; height: 100%;">
               <div class="card-body">
-                <h3 class="card-title text-center">{{component.name}}</h3>
+                <h3 class="card-title text-center">
+                  {{::component.name}}
+                </h3>
                 <div class="float-right">
-                  <a href="#/component/{{component._id}}" class="btn btn-sm btn-dark btn-lg btn-block" role="button" aria-pressed="true"> Edit/Delete</a>
+                  <a href="#/component/{{component._id}}" class="btn btn-sm btn-warning btn-lg btn-block" role="button" aria-pressed="true">
+                    Edit/Delete
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <hr>
       </div>
-    </div>
-    <div class="collapse" id="collapseParameters">
-    <div class="panel-body">
-      <div class="row d-flex justify-content-center" id="FoundriesCopy">
-        <div ng-repeat="component in components | filter : {type: 'parameter'} | filter : q">
-          <div class="card border-elegant" style="width: 30rem; height: 100%;">
-            <div class="card-body">
-              <h3 class="card-title text-center">{{component.name}}</h3>
-              <div class="float-right">
-                <a href="#/component/{{component._id}}" class="btn btn-sm btn-dark btn-lg btn-block" role="button" aria-pressed="true" disabled> Edit/Delete</a>
+      <br>
+      <div class="collapse" id="collapseParameters">
+        <h2 class="d-flex justify-content-center">Parameters</h2>
+        <br>
+        <div class="row d-flex justify-content-center" id="FoundriesCopy">
+          <div ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'} | filter : q">
+            <div class="card border-elegant" style="width: 20rem; height: 100%;">
+              <div class="card-body">
+                <h3 class="card-title text-center">
+                  {{::component.name}}
+                </h3>
+                <div class="float-right">
+                  <a href="#/component/{{component._id}}" class="btn btn-sm btn-warning btn-lg btn-block" role="button" aria-pressed="true">
+                     Edit/Delete
+                   </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <hr>
       </div>
-    </div>
-  </div>
-</div>
+      <br>
+      <div class="collapse show" id="collapseReferences">
+        <h2 class="d-flex justify-content-center">References</h2>
+        <br>
+        <div class="row d-flex justify-content-center" id="FoundriesCopy">
+          <div ng-repeat="component in components | orderBy : 'name' | filter : {type: 'reference'} | filter : q">
+            <div class="card border-elegant" style="width: 20rem; height: 100%;">
+              <div class="card-body">
+                <h3 class="card-title text-center">
+                  {{::component.name}}
+                </h3>
+                <br>
+                <h5 class="card-subtitle mb-2 text-muted" ng-if="component.foundry.length>0">
+                    Foundry: {{::component.foundry}}
+                </h5>
+                <div class="card-footer bg-transparent border-elegant">
+                <div class="float-right">
+                  <a href="#/component/{{component._id}}" class="btn btn-sm btn-warning btn-lg btn-block" role="button" aria-pressed="true">
+                    Edit/Delete
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  
 
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
