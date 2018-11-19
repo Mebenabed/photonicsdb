@@ -1,26 +1,26 @@
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-        <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom text-monospace">
-          <h1 class="h2">Edit {{component.name}}</h1>
-        </div>
-      </div>
-      <div class="panel-body border border-warning p-5 text-center d-flex bd-highlight">
-        <div class="p-2 flex-sm-fill bd-highlight">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-md-12">
-                <form ng-submit="updateComponent()" ng-init="getComponent()">
-                  <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" ng-model="component.name" placeholder="name">
-                  </div>
-                  <button type="submit" class="btn btn-dark btn-block my-4">Submit</button>
-                </form>
+  <main role="main" class="col-md-9 mx-auto">
+    <div class="d-flex justify-content-center align-items-center border-bottom">
+      <h1 class="h2">
+        Edit {{component.name}}
+      </h1>
+    </div>
+    <br>
+    <div class="border border-warning p-4 text-center d-flex bd-highlight bg-dark text-light">
+      <div class="p-2 flex-sm-fill bd-highlight">
+        <div class="row">
+          <div class="col-md-12">
+            <form ng-submit="updateComponent()" ng-init="getComponent()">
+              <div class="form-group">
+                <label class="font-weight-bold">
+                  Name
+                </label>
+                <input type="text" class="form-control" ng-model="component.name" placeholder="name">
               </div>
-            </div>
+              <button type="submit" class="btn btn-warning btn-block my-4">
+                Submit
+              </button>
+            </form>
           </div>
         </div>
       </div>
     </div>
-  </div>
