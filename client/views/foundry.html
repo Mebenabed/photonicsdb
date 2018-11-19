@@ -1,75 +1,135 @@
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <main role="main" class="col-md-12 ml-sm-auto">
-      </div>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#/mains">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="foundry">{{foundry.name}}</li>
-        </ol>
-      </nav>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-md-12">
-            <div ng-init="getFoundry()">
-              <div class="card border-elegant" style="width: 100%; height: 100%;">
-                <div class="card-body">
-                  <button class="btn btn-sm float-right btn-elegant mb-2" data-clipboard-target="#CardCopy">
-                    <img data-feather="copy" alt="Copy to clipboard">
+<div ng-init="[getFoundry(),getComponents(),getDefinitions(),getBlocks()]">
+  <main role="main" class="col-md-12 ml-sm-auto">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#/mains">
+            Foundries
+          </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="foundry">
+          {{foundry.name}}
+        </li>
+      </ol>
+    </nav>
+    <div class="d-flex justify-content-center text-justify">
+      <h2>
+        {{foundry.name}}
+      </h2>
+    </div>
+    <div class="row">
+      <div class="col-md-12 d-flex justify-content-center">
+        <!-- Call reading a foundry service from the controller-->
+          <div class="card border-elegant" style="width: 100%; height: 100%;">
+            <div class="card-body">
+              <button class="btn btn-sm float-right mb-2" data-clipboard-target="#CardCopy" style="background-color:#fff;">
+                <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="height: 15px;">
+              </button>
+              <div ng-if="foundry.notes.length>0">
+                <a tabindex="0" class="btn float-right text-light btn-sm" role="button" data-toggle="popover" data-placement="right" data-trigger="focus" title="notes" data-content="{{foundry.notes}}" style="background-color:#2E2E2E;">
+                  <span data-feather="clipboard" style="width: 15px; height: 15px;">
+                  </span>
+                </a>
+              </div>
+              <div id="CardCopy">
+                <h6 class="card-subtitle mb-2 text-muted">
+                  <span data-feather="user" class="text-primary">
+                  </span>
+                  {{foundry.contact}}
+                </h6>
+                <h6 class="card-subtitle mb-2 text-muted">
+                  <span data-feather="phone" class="text-primary">
+                  </span>
+                  {{foundry.phone}}
+                </h6>
+                <a href="mailto:{{foundry.mail}}" class="card-subtitle mb-2 text-muted" role="button" aria-pressed="true">
+                  <span data-feather="at-sign" class="text-primary">
+                  </span>
+                  {{foundry.mail}}
+                </a>
+                <br>
+                <a href="{{foundry.url}}" class="card-subtitle mb-2 text-muted" role="button" aria-pressed="true" target="_blank">
+                  <span data-feather="globe" class="text-primary">
+                  </span>
+                  {{foundry.url}}
+                </a>
+                <br>
+                <br>
+                <div ng-repeat="component in components | filter : {foundry: foundry.name}  | filter : {type: 'reference'}">
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    <span class="badge badge-pill badge-light">
+                      {{component.name}}
+                    </span>
+                  </h6>
+                </div>
+                <div class="card-footer bg-transparent border-elegant">
+                  <button class="btn btn-sm btn-lg btn-block btn-outline-elegant waves-effect" disabled type="button" data-toggle="collapse" data-target="#collapseBlock" aria-expanded="true" aria-controls="collapseBlock">
+                    Blocks
                   </button>
-                  <div id="CardCopy">
-                    <h4 class="card-title text-center h1">{{foundry.name}}</h4>
-                    <h6 class="card-subtitle mb-2 text-muted"><span data-feather="user"></span> {{foundry.contact}}</h6>
-                    <h6 class="card-subtitle mb-2 text-muted"><span data-feather="phone"></span> {{foundry.phone}}</h6>
-                    <h6 class="card-subtitle mb-2 text-muted"><span data-feather="at-sign"></span> {{foundry.mail}}</h6>
-                    <h6 class="card-subtitle mb-2 text-muted"><span data-feather="globe"></span> {{foundry.url}}</h6>
-                    <br>
-                    <div class="card-footer bg-transparent border-elegant">
-                      <button class="btn btn-sm btn-lg btn-block btn-outline-elegant btn-rounded waves-effect" type="button" data-toggle="collapse" data-target="#collapseBlock" aria-expanded="true" aria-controls="collapseBlock">
-                        Blocks
-                      </button>
-                      <br>
-                      <div class="collapse show" id="collapseBlock" ng-init="getBlocks()">
-                        <div class="panel-body">
-                          <div class="row d-flex justify-content-center">
-                            <div ng-repeat="block in blocks" ng-if="block.foundry==foundry.name">
-                              <h5><a href="#/block/{{block._id}}" class="badge badge-dark"> {{block.name}}</a></h5>
-                            </div>
+                  <br>
+                    <select class="custom-select custom-select-sm mb-2" ng-model="d">
+                      <option value="{{definition.name}}" selected>
+                        Select Class
+                      </option>
+                      <option value="{{definition.name}}" ng-repeat="definition in definitions | orderBy : 'name' | filter:s">
+                        {{definition.name}}
+                      </option>
+                    </select>
+                  <!-- Call reading all the blocks service from the controller-->
+                  <div class="collapse show" id="collapseBlock">
+                    <div class="row d-flex justify-content-center">
+                       <!-- Display the read blocks' documents by block scope | condition: match if the block foundry (from blocks collection) attribute with the block name attribute (from foundries collection)-->
+                      <div ng-repeat="block in blocks | filter : d" ng-if="block.foundry==foundry.name">
+                        <!-- Link to redirect to the block by id -->
+                        <h5>
+                          <a href="#/block/{{block._id}}" class="badge badge-dark">
+                            {{block.name}}
+                          </a>
+                          &nbsp
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="float-left">
+                    <!-- Link to redirect to foundry editing view by id -->
+                    <a href="#/foundry/edit/{{foundry._id}}" class="btn btn-warning btn-sm">
+                      <span data-feather="edit" class="text-white" style="width: 15px; height: 15px;">
+                      </span>
+                    </a>
+                  </div>
+                  <div class="float-right">
+                    <!-- Link to display confirmation window for foundry deleting -->
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#fModal" data-backdrop="false">
+                      <span data-feather="trash-2" class="text-white" style="width: 15px; height: 15px;">
+                      </span>
+                    </button>
+                  </div>
+                  <div class="modal fade" id="fModal" tabindex="-1" role="dialog" aria-labelledby="fModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="fModalLabel">
+                              Deleting {{foundry.name}} ...
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">
+                                &times;
+                              </span>
+                            </button>
                           </div>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="float-left">
-                        <a href="#/foundry/edit/{{foundry._id}}" class="btn btn-warning btn-sm">
-                          Edit
-                        </a>
-                      </div>
-                      <div class="float-right">
-                        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#fModal">
-                          Delete
-                        </button>
-                      </div>
-                      <!-- Modal -->
-                      <div class="modal fade" id="fModal" tabindex="-1" role="dialog" aria-labelledby="fModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div ng-init="getFoundry()">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="fModalLabel">Deleting {{foundry.name}} ...</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">
-                                Are you sure you want to delete {{foundry.name}} ?
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-elegant" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-warning" ng-click="removeFoundry(foundry._id)">Yes, delete !</button>
-                              </div>
-                            </div>
+                          <div class="modal-body">
+                            Are you sure you want to delete {{foundry.name}} ?
                           </div>
-                        </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-elegant" data-dismiss="modal">
+                              Cancel
+                            </button>
+                            <!-- Call deleting a foundry service from the controller-->
+                            <button type="button" class="btn btn-warning" ng-click="removeFoundry(foundry._id)">
+                              Yes, delete !
+                            </button>
+                          </div>
                       </div>
                     </div>
                   </div>
@@ -80,6 +140,13 @@
         </div>
       </div>
     </div>
+
+
+    <script>
+    $(function () {
+    $('[data-toggle="popover"]').popover()
+    })
+    </script>
 
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
