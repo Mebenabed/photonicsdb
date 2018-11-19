@@ -1,106 +1,191 @@
-  <div class="panel panel-default">
-  <div class="panel-heading">
-    <main role="main" class="col-md-12 ml-sm-auto">
-      <div class="d-flex justify-content-center border-bottom text-monospace">
-        <h1>Blocks</h1>
-        <button class="btn float-right mb-2 btn-elegant btn-sm" data-clipboard-target="#BlocksCopy">
-          <img data-feather="copy" alt="Copy to clipboard">
-        </button>
-      </div>
+<div ng-init="[getBlocks(),getFoundries(),getComponents(),getDefinitions()]">
+  <main role="main" class="col-md-12 ml-sm-auto">
+    <div class="d-flex justify-content-center border-bottom">
+      <h1>
+        Blocks
+      </h1>
+      <button class="btn float-right mb-2 btn-sm" data-clipboard-target="#BlocksCopy" style="background-color:#E4E4E4;">
+        <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
+      </button>
     </div>
+
+    <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
+      <div class="card-body">
     <form>
-      <label class="sr-only" for="inlineFormInputGroupAll">All</label>
-      <div class="input-group mb-2 mr-sm-2">
-        <div class="input-group-prepend">
-          <div class="input-group-text"><span data-feather="search"></span></div>
-        </div>
-        <input type="text" class="form-control" id="inlineFormInputGroupAll" ng-model="m" placeholder="Keyword" aria-label="filter blocks" placeholder="Keyword">
-      </div>
-      <div ng-init="getFoundries()">
-        <div class="form-row">
-          <div class="col">
-            <div class="panel panel-default">
-              <select class="custom-select custom-select mb-2" ng-model="k">
-                <option value="{{foundry.name}}" selected>Select Foundry</option>
-                <option value="{{foundry.name}}" ng-repeat="foundry in foundries">{{foundry.name}}</option>
-              </select>
+      <div class="form-row">
+        <div class="col">
+          <label class="sr-only" for="inlineFormInputGroupAll">
+            All
+          </label>
+          <div class="input-group mb-2 mr-sm-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <span data-feather="search" style="width: 15px; height: 15px;">
+                </span>
+              </div>
             </div>
+            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m" aria-label="filter blocks" placeholder="">
+            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="mp" aria-label="filter blocks" placeholder="">
+            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m2" aria-label="filter blocks" placeholder="">
+            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m0" aria-label="filter blocks" placeholder="within blocks' names">
+            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m1" aria-label="filter blocks" placeholder="within blocks' notes">
           </div>
         </div>
       </div>
     </form>
     <form>
       <div class="form-row">
-        <div class="panel panel-default" ng-init="getComponents()">
-          <select class="custom-select custom-select mb-2" ng-model="s">
-            <option value="{{component.name}}"selected>Select Function</option>
-            <option value="{{component.name}}" ng-repeat="component in components | filter : {type: 'function'}">{{component.name}}</option>
-          </select>
+        <div class="col">
+            <div class="form-row">
+              <div class="col">
+                <select class="custom-select custom-select-sm mb-2" ng-model="k">
+                  <option value="" selected>
+                    Select Foundry
+                  </option>
+                  <option value="{{foundry.name}}" ng-repeat="foundry in foundries | orderBy : 'name'">
+                    {{::foundry.name}}
+                  </option>
+                </select>
+              </div>
+          </div>
         </div>
         <div class="col">
-          <div class="panel panel-default">
-            <select class="custom-select custom-select mb-2" ng-model="d">
-              <option value="{{definition.name}}" selected>Select Class</option>
-              <option value="{{definition.name}}" ng-repeat="definition in definitions | filter:s">{{definition.name}}</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </form>
-    <br>
-    <div ng-init="getBlocks()">
-      <div class="panel-body">
-        <div class="card bg-dark">
-        <div class="card-body">
-          <div class="btn-group" role="group">
-            <button class="btn text-dark">
-              <span class="badge badge-warning">{{(blocks | filter:k | filter:m | filter:d | filter:block.status).length}}</span> Blocks
-            </button>
-            <button class="btn btn-elegant d-block p-2" type="button" data-toggle="collapse" data-target="#collapseClass" aria-expanded="true" aria-controls="collapseclass">
-              Show/Hide Classification
-            </button>
-          </div>
-            <label class="bs-switch float-right">
-              <input type="checkbox" ng-model="block.status" ng-checked="block.status" ng-true-value="'active'" ng-false-value="'obsolete'" checked>
-              <span class="slider round"></span>
-            </label>
-          </div>
-        </div>
-          <br><br>
-          <div class="row d-flex justify-content-center" id="BlocksCopy">
-            <div ng-repeat="block in blocks | filter:k | filter:m | filter:d | filter:block.status" >
-              <div class="card border-elegant" style="width: 23.5rem; height: 100%;">
-                <div class="card-body">
-                  <h5 class="card-title font-weight-bold">{{block.name}}</h5>
-                  <h6 class="card-subtitle mb-2 text-muted" ng-if="block.status=='active'"><span class="badge badge-pill indigo">{{block.status}}</span></h6>
-                  <h6 class="card-subtitle mb-2 text-muted" ng-if="block.status=='obsolete'"><span class="badge badge-pill purple">{{block.status}}</span></h6>
-                  <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='process'"><span class="badge badge-pill green">{{block.reference}}</span></h6>
-                  <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='paper'"><span class="badge badge-pill badge-danger">{{block.reference}}</span></h6>
-                  <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='VLC'"><span class="badge badge-pill badge-warning">{{block.reference}}</span></h6>
-                  <div class="collapse show" id="collapseClass">
-                    <h6 class="card-subtitle mb-2 text-muted">Foundry : {{block.foundry}}</h6>
-                    <div ng-init="getDefinitions()">
-                      <div ng-repeat="definition in definitions" ng-if="block.class==definition.name">
-                        <h6 class="card-subtitle mb-2 text-muted">Class : {{definition.name}}</h6>
-                        <div ng-init="getComponents()">
-                          <div ng-repeat="component in components" ng-if="definition.function==component.name" ng-model="s">
-                            <h6 class="card-subtitle mb-2 text-muted">Function : {{component.name}}</h6>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-footer bg-transparent border-elegant">
-                    <a href="#/block/{{block._id}}" class="btn btn-sm btn-lg btn-block btn-outline-elegant btn-rounded waves-effect" role="button" aria-pressed="true">More info</a>
-                  </div>
-                </div>
+            <div class="form-row">
+              <div class="col">
+                <select class="custom-select custom-select-sm mb-2" ng-model="g">
+                  <option value="" selected>
+                    Select Reference
+                  </option>
+                  <option value="{{component.name}}" ng-repeat="component in components | filter : {type: 'reference'} | filter : k | orderBy : 'name'">
+                    {{::component.name}}
+                  </option>
+                </select>
               </div>
             </div>
           </div>
+      </div>
+    </form>
+    <form>
+      <div class="form-row">
+        <div class="col">
+          <select class="custom-select custom-select-sm mb-2" ng-model="s">
+            <option value=""selected>
+              Select Function
+            </option>
+            <option value="{{component.name}}" ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}">
+              {{::component.name}}
+            </option>
+          </select>
+        </div>
+        <div class="col">
+          <select class="custom-select custom-select-sm mb-2" ng-model="d">
+            <option value="" selected>
+              Select Class
+            </option>
+            <option value="{{definition.name}}" ng-repeat="definition in definitions | orderBy : 'name' | filter: {function:s}">
+              {{::definition.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </form>
+        <div class="p-2" style="background-color:#2E2E2E;">
+          <ul class="list-inline p-0 m-0">
+            <li class="list-inline-item">
+              <div class="btn-group" role="group">
+                <button class="btn blue-grey mb-0">
+                  <span class="badge badge-warning">
+                    {{(blocks | filter:k | filter:m | filter:d | filter:m | filter:block.status | filter:s | filter : g | filter:m1  | filter:m2  | filter:mp).length}}
+                  </span>
+                  Blocks
+                </button>
+                <button class="btn btn-lg mb-0" style="background-color:#4B515D;" type="button" data-toggle="collapse" data-target="#collapseClass" aria-expanded="true" aria-controls="collapseclass">
+                  Show/Hide Classification
+                </button>
+              </div>
+            </li>
+            <li class="list-inline-item float-right mt-3 pb-2 mb-0">
+              <div ng-init="block.status='up-to-date'">
+                <label class="bs-switch">
+                  <input type="checkbox" ng-model="block.status" ng-true-value="'up-to-date'" ng-false-value="">
+                  <span class="slider round">
+                  </span>
+                </label>
+              </div>
+            </li>
+            <li class="list-inline-item float-right mt-1 p-2 mb-0">
+              <a tabindex="0" class="btn float-right btn-sm text-light" role="button" data-toggle="popover" data-placement="right" data-trigger="focus" title="switch" data-content="On: Show only 'up-to-date' blocks. &nbsp &nbsp Off: Include the 'to be updated blocks (!)' and 'Obsolete' blocks." style="background-color:#4B515D;">
+                <span data-feather="help-circle" style="width: 20px; height: 20px;">
+                </span>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
+    <br>
+    <div class="row justify-content-center" id="BlocksCopy">
+      <div ng-repeat="block in blocks | orderBy : 'name' | filter: {foundry:k} | filter:m | filter:{class:d} | filter:{name:m0} | filter:block.status | filter: {function:s} | filter : {source:g}  | filter:{notes:m1}  | filter:m2  | filter:mp" >
+        <div class="card border-elegant" style="width: 23rem; height: 100%;">
+          <div class="card-body">
+            <h5 class="card-title font-weight-bold">
+              {{::block.name}}
+            </h5>
+              <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='PDK'">
+                <span class="badge badge-light">
+                  Source: {{::block.reference}}- {{::block.source}}
+                </span>
+              </h6>
+              <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='Literature'">
+                <span class="badge badge-pill badge-danger">
+                  Source: {{::block.reference}}- {{::block.source}}
+                </span>
+              </h6>
+              <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='VLC'">
+                <span class="badge badge-pill badge-warning">
+                  Source: {{::block.reference}}- {{::block.source}}
+                </span>
+              </h6>
+            <br>
+            <div class="collapse show" id="collapseClass">
+              <h6 class="card-subtitle mb-2 text-muted float-right" ng-if="block.status=='up-to-date'">
+                <span data-feather="check-circle" class="text-success" style="width: 15px; height: 15px;">
+                </span>
+              </h6>
+              <h6 class="card-subtitle mb-2 text-muted float-right" ng-if="block.status=='!'">
+                <span data-feather="alert-triangle" class="text-danger" style="width: 15px; height: 15px;">
+                </span>
+              </h6>
+              <h6 class="card-subtitle mb-2 text-muted float-right" ng-if="block.status=='obsolete'">
+                <span class="badge badge-pill amber">
+                  {{::block.status}}
+                </span>
+              </h6>
+              <h6 class="card-subtitle mb-2 text-muted" ng-if="block.foundry.length>0">
+                Foundry: {{::block.foundry}}
+              </h6>
+                <div ng-repeat="definition in definitions" ng-if="block.class==definition.name">
+                    <div ng-repeat="component in components | filter : {type: 'function'}" ng-if="block.function==component.name">
+                      <h6 class="card-subtitle mb-2 text-muted">
+                        Function: {{::component.name}}
+                        <br>
+                          Class: {{::definition.name}}
+                      </h6>
+                    </div>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent border-elegant">
+              <a href="#/block/{{block._id}}" class="btn btn-sm btn-lg btn-block btn-outline-elegant waves-effect" role="button" aria-pressed="true">
+                More info
+              </a>
+            </div>
+          </div>      
 
+    <script>
+    $(function () {
+    $('[data-toggle="popover"]').popover()
+    })
+    </script>
   <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 <script>
