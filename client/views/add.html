@@ -1,199 +1,44 @@
-  <div class="panel panel-default">
-    <div class="panel-heading">
       <main role="main" class="col-md-12 ml-sm-auto">
         <div class="d-flex justify-content-center border-bottom text-monospace">
-          <h1>Insert a document</h1>
+          <h1>
+            Insert a document
+          </h1>
         </div>
-      </div>
-      <br><br>
-      <div class="btn-group-center" role="group" aria-label="Add">
-        <button class="btn btn-outline-elegant btn-block btn-sm" type="button" data-toggle="collapse" data-target="#collapseOther" aria-expanded="false" aria-controls="collapseOther">
-          add a component <span data-feather="archive"></span>
-        </button>
-        <br>
-        <button class="btn btn-outline-elegant btn-block btn-sm" type="button" data-toggle="collapse" data-target="#collapseClass" aria-expanded="false" aria-controls="collapseClass">
-          dephine a class <span data-feather="book-open"></span>
-        </button>
-        <br>
-        <button class="btn btn-outline-elegant btn-block btn-sm" type="button" data-toggle="collapse" data-target="#collapseBlock" aria-expanded="false" aria-controls="collapseBlock">
-          create a block  <span data-feather="cpu"></span>
-        </button>
-      </div>
-      <br><br>
-      <div class="collapse" id="collapseOther">
-        <div class="panel-body border border-dark p-5 text-center">
-          <div class="col-md-12">
-            <div class="h4">
-              component <span data-feather="archive"></span>
+        <div class="accordion" id="accordionHS">
+          <div class="card bg-dark">
+            <div class="card-header" id="headingOne">
+              <a class="text-dark" href="#/addf" data-toggle="tooltip" data-placement="bottom" title="Components">
+                <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning waves-effect">
+                  Add an attribute
+                  <span data-feather="archive">
+                  </span>
+                </button>
+              </a>
+              </div>
             </div>
-            <br><br>
-            <form ng-submit="addComponent()">
-              <div class="form-group">
-                <input type="text" class="form-control" ng-model="component.name" placeholder="name ( include [unit] for a parameter )">
-                <br>
-                <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" id="ParameterR" ng-model="component.type" value="parameter">
-                <label class="custom-control-label" for="ParameterR">Parameter</label>
+            <div class="card bg-dark">
+              <div class="card-header" id="headingTwo">
+                <a class="text-warning" href="#/addc" data-toggle="tooltip" data-placement="bottom" title="Classes">
+                  <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning waves-effect">
+                    Define a class
+                    <span data-feather="book-open">
+                    </span>
+                  </button>
+                </a>
               </div>
-
-                <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" id="FunctionR" ng-model="component.type" value="function">
-                <label class="custom-control-label" for="FunctionR">Function</label>
-              </div>
-              </div>
-              <button type="submit" class="btn btn-dark btn-block my-4">Submit</button>
-            </form>
           </div>
-        </div>
-        <br><br>
-        <div class="panel-body border border-dark p-5">
-          <div class="col-md-12">
-            <div class="h4 text-center">
-              foundry <span data-feather="home"></span>
+          <div class="card bg-dark">
+            <div class="card-header" id="headingThree">
+              <a class="text-warning" href="#/addb" data-toggle="tooltip" data-placement="bottom" title="Blocks">
+                <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning waves-effect">
+                  Create a block
+                  <span data-feather="cpu">
+                  </span>
+                </button>
+              </a>
             </div>
-            <br><br>
-            <form ng-submit="addFoundry()">
-              <div class="form-group">
-                <input type="text" class="form-control" ng-model="foundry.name" data-unique="unique" placeholder="name" required>
-                <div class="panel-body border border-light p-2 text-center"> Contact
-                  <div class="col">
-                    <label><span data-feather="user"></span></label>
-                    <input type="text" class="form-control" ng-model="foundry.contact" placeholder="contact person">
-                  </div>
-                  <div class="col">
-                    <label><span data-feather="phone"></span></label>
-                    <input type="text" class="form-control" ng-model="foundry.phone" placeholder="phone">
-                  </div>
-                  <div class="col">
-                    <label><span data-feather="at-sign"></span></label>
-                    <input type="text" class="form-control" ng-model="foundry.mail" placeholder="mail">
-                  </div>
-                  <div class="col">
-                    <label><span data-feather="globe"></span></label>
-                    <input type="text" class="form-control" ng-model="foundry.url" placeholder="url">
-                  </div>
-                </div>
-                <br>
-              </div>
-              <button type="submit" class="btn btn-dark btn-block my-4">Submit</button>
-            </form>
           </div>
-        </div>
-      </div>
-      <br><br>
-      <div class="collapse" id="collapseClass">
-        <div class="panel-body border border-dark p-5 text-center">
-          <div class="col-md-12">
-            <div class="h4 text-center">
-              class <span data-feather="book-open"></span>
-            </div>
-            <br><br>
-            <form ng-submit="addDefinition()">
-              <div class="form-group">
-                <input type="text" class="form-control" ng-model="definition.name" placeholder="name">
-                <br>
-                <div ng-init="getComponents()">
-                  <select class="form-control" ng-model="definition.function">
-                    <option value="" disabled selected>Choose a function</option>
-                    <option ng-repeat="component in components | filter : {type: 'function'}" value="{{component.name}}">{{component.name}}</option>
-                  </select>
-                  <br>
-                  <label> Parameters </label><br>
-                  <select class="form-control" size="15" ng-model="definition.specifications" multiple>
-                    <option ng-repeat="component in components | filter : {type: 'parameter'}" value="{{component.name}}">{{component.name}}</option>
-                  </select>
-                  <small class="form-text text-muted">Hold <kbd>Ctrl</kbd> for multiple selection</small>
-                </div>
-              </div>
-              <br>
-              <button type="submit" class="btn btn-dark btn-block my-4">Submit</button>
-              <br><br>
-              <label class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3"> Selected parameters </label>
-              <table class="table table-sm">
-                <tbody>
-                  <tr ng-repeat="specifications in definition.specifications">
-                    <th scope="row">{{$index+1}}</th>
-                    <td>{{definition.specifications[$index]}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </form>
           </div>
-        </div>
-      </div>
-      <br><br>
-      <div class="collapse" id="collapseBlock">
-        <div class="panel-body border border-dark p-5 text-center">
-          <div class="col-md-12">
-            <div class="h4 text-center">
-              block <span data-feather="cpu"></span>
-            </div>
-            <br><br>
-            <form ng-submit="addBlock()">
-              <div class="form-group">
-                <input type="text" class="form-control" ng-model="block.name" placeholder="name">
-                <br>
-                <div ng-init="getFoundries()">
-                  <select class="form-control" ng-model="block.foundry">
-                    <option value="" disabled selected>Choose a foundry</option>
-                    <option ng-repeat="foundry in foundries" value="{{foundry.name}}">{{foundry.name}}</option>
-                  </select>
-                </div>
-                <br>
-                <div ng-init="getDefinitions()">
-                  <select class="form-control" ng-model="block.class">
-                    <option value="" disabled selected>Choose a class</option>
-                    <option ng-repeat="definition in definitions" value="{{definition.name}}">{{definition.name}}</option>
-                  </select>
-                </div>
-                <br>
-                <div class="panel-body border border-light p-2 text-center"> Status :
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="ActiveR" ng-model="block.status" value="active">
-                    <label class="custom-control-label" for="ActiveR">active</label>
-                  </div>
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="ObsoleteR" ng-model="block.status" value="obsolete">
-                    <label class="custom-control-label" for="ObsoleteR">obsolete</label>
-                  </div>
-                </div>
-                <br>
-                <div class="panel-body border border-light p-2 text-center"> Reference :
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="ProcessR" ng-model="block.reference" value="process">
-                    <label class="custom-control-label" for="ProcessR">process</label>
-                  </div>
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="PaperR" ng-model="block.reference" value="paper">
-                    <label class="custom-control-label" for="PaperR">paper</label>
-                  </div>
-                </div>
-                <br><br>
-                <div ng-init="getComponents()">
-                  <label> Outstanding parameters </label><br>
-                  <select class="form-control" size="15" ng-model="block.parameters" multiple>
-                    <option ng-repeat="component in components | filter : {type: 'parameter'}" value="{{component.name}}">{{component.name}}</option>
-                  </select>
-                  <small class="form-text text-muted">Hold <kbd>Ctrl</kbd> for multiple selection</small>
-                </div>
-              </div>
-              <br>
-              <button type="submit" class="btn btn-dark btn-block my-4">Submit</button>
-              <br><br>
-              <label class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3"> Selected outstanding parameters </label>
-              <table class="table table-sm">
-                <tbody ng-repeat="parameters in block.parameters">
-                  <tr>
-                    <th scope="row">{{$index+1}}</th>
-                    <td>{{block.parameters[$index]}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </form>
-          </div>
-        </div>
-      </div>
-      <br>
 
       <!-- Icons -->
       <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
