@@ -52,7 +52,7 @@
                     <span ng-if="checkedD&&definition.name.length>0" >
                       <select class="form-control mdb-color white-text border-0" ng-init="getDefinitions()">
                         <option>
-                          This name has not been used
+                          This name has not been used before
                         </option>
                         <option ng-repeat="definition in definitions | filter : definition.name" selected>
                           {{definition.name}}
