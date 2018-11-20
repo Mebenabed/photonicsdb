@@ -1,4 +1,4 @@
-  <div ng-init="getComponents()">
+  <div ng-init="[getComponents(),getFoundries()]">
     <main role="main" class="col-md-12 ml-sm-auto">
       <div class="d-flex justify-content-center border-bottom">
         <h1>
@@ -64,7 +64,7 @@
         <h2 class="d-flex justify-content-center">Parameters</h2>
         <br>
         <div class="row d-flex justify-content-center" id="FoundriesCopy">
-          <div ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'} | filter : q">
+          <div ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'} | filter : q0 | filter : q | filter:q1">
             <div class="card border-elegant" style="width: 20rem; height: 100%;">
               <div class="card-body">
                 <h3 class="card-title text-center">
@@ -85,8 +85,27 @@
       <div class="collapse show" id="collapseReferences">
         <h2 class="d-flex justify-content-center">References</h2>
         <br>
+        <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
+          <div class="card-body">
+        <form>
+          <div class="form-row">
+            <div class="col">
+                <select class="custom-select custom-select-sm mb-2" ng-model="d">
+                  <option value="" selected>
+                    Select foundry
+                  </option>
+                  <option value="{{foundry.name}}" ng-repeat="foundry in foundries | orderBy : 'name'" >
+                    {{::foundry.name}}
+                  </option>
+                </select>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <br>
         <div class="row d-flex justify-content-center" id="FoundriesCopy">
-          <div ng-repeat="component in components | orderBy : 'name' | filter : {type: 'reference'} | filter : q">
+          <div ng-repeat="component in components | orderBy : 'name' | filter : {type: 'reference'} | filter : q0 | filter : q | filter:q1 | filter :{foundry:d}">
             <div class="card border-elegant" style="width: 20rem; height: 100%;">
               <div class="card-body">
                 <h3 class="card-title text-center">
@@ -106,7 +125,7 @@
             </div>
           </div>
         </div>
-      </div>  
+      </div>
 
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
