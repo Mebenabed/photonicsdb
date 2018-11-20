@@ -4,9 +4,6 @@
         <h1>
           Map of scopes
         </h1>
-        <button class="btn float-right mb-2 btn-sm" data-clipboard-target="#DefinitionsCopy" style="background-color:#E4E4E4;">
-          <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
-        </button>
       </div>
       <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
         <div class="card-body">
@@ -29,16 +26,16 @@
         </div>
         <br>
         <div class="card">
-          <div ng-repeat="component in components | filter:{type:'function'}| filter:{name:s}" class="card-body" style="background-color:#e1f5fe;">
+          <div ng-repeat="component in components | filter:{type:'function'}| filter:{name:s}" class="card-body" style="background-color:#4B515D;">
             <div class="card-group">
-              <div class="card" style="background-color:#l80d8ff;">
-                <div class="card-body">
+              <div class="card" style="background-color:#2E2E2E;">
+                <div class="card-body text-light">
                   {{component.name}}
                 </div>
                 <div class="table-responsive">
                   <table class="table table-bordered text-white" >
                     <tbody>
-                      <tr style="background-color:#3E4551" ng-repeat="foundry in foundries">
+                      <tr style="background-color:#4B515D" ng-repeat="foundry in foundries">
                         <td>
                           {{foundry.name}}
                         </td>
@@ -46,11 +43,11 @@
                           <div class="table-responsive">
                             <table>
                               <tbody>
-                                <tr style="background-color:#1C2331" ng-repeat="definition in definitions" ng-if="definition.function==component.name">
+                                <tr style="background-color:#2E2E2E" ng-repeat="definition in definitions" ng-if="definition.function==component.name">
                                   <td>
                                     {{definition.name}}
                                   </td>
-                                  <td style="background-color:#3F729B" ng-repeat="block in blocks" ng-if="definition.name==block.class&&block.foundry==foundry.name">
+                                  <td style="background-color:#ffebee" ng-repeat="block in blocks" ng-if="definition.name==block.class&&block.foundry==foundry.name">
                                     <a href="#/block/{{block._id}}" target="_blank">
                                       {{block.name}} | {{block.source}}
                                     </a>
