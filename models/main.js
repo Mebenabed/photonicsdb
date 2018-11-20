@@ -82,7 +82,7 @@ module.exports.getFoundries = (callback, limit) => {
 	Foundry.find(callback).limit(limit);
 }
 
-//create a module assigining findById function to GET method by passing id and callback arguments
+//create a module assigining findById function to GET method by passing id
 module.exports.getFoundryById = (id, callback) => {
 	Foundry.findById(id, callback);
 }
