@@ -41,7 +41,7 @@
                             <span ng-if="checked&&component.name.length>0">
                               <select class="form-control mdb-color white-text border-0" ng-init="getComponents()">
                                 <option>
-                                  This name has not been used
+                                  This name has not been used before
                                 </option>
                                 <option ng-repeat="component in components | filter : component.name" selected>
                                   {{component.name}}
@@ -184,11 +184,6 @@
                                 </span>
                               </label>
                               <input type="email" class="form-control" ng-model="foundry.mail" placeholder="mail">
-                              <div role="alert">
-                                <span class="error" ng-show="myForm.input.$error.email">
-                                  Not valid email!
-                                </span>
-                              </div>
                             </div>
                             <br>
                             <div class="col">
@@ -197,11 +192,6 @@
                                 </span>
                               </label>
                               <input  type="url" class="form-control" ng-model="foundry.url" placeholder="url">
-                              <div role="alert">
-                                <span class="error" ng-show="myForm.input.$error.url">
-                                  Not valid url!
-                                </span>
-                              </div>
                             </div>
                           </div>
                           <br>
