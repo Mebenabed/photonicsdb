@@ -1,13 +1,14 @@
+<div ng-init="getDefinitions()">
   <main role="main" class="col-md-12 ml-sm-auto">
     <div class="d-flex justify-content-center border-bottom">
       <h1>
         {{block.name}}
       </h1>
     </div>
-    <form ng-submit="updateBlock()" ng-init="getBlock()">
+    <form ng-init="getBlock()">
       <div class="row">
-        <div class="col-md-12 d-flex justify-content-center">    
-            <div class="card border-info mb-3 sticky-top mx-auto" style="width: 40rem; height: 100%;">
+        <div class="col-md-12 d-flex justify-content-center">
+            <div class="card border-info mb-3 sticky-top mx-auto" style="min-width: 40rem; height: 100%;">
               <div class="card-body">
                 <div class="form-group">
                 <h4 class="card-subtitle mb-2 text-muted">
@@ -16,7 +17,6 @@
                 <h4 class="card-subtitle mb-2 text-muted">
                   Class : {{block.class}}
                 </h4>
-                <div ng-init="getDefinitions()">
                   <div ng-repeat="definition in definitions" ng-if="block.class==definition.name">
                     <h4 class="card-subtitle mb-2 text-muted">
                       Function : {{definition.function}}
@@ -72,7 +72,7 @@
                           </tr>
                         </tbody>
                       </table>
-                      <table class="table table-hover table-sm table-striped h5" >
+                      <table class="table table-hover table-sm table-striped h5" ng-if="block.parameters.length>0">
                         <thead>
                           <tr>
                             <th scope="col">
@@ -102,11 +102,8 @@
                           </tr>
                         </tbody>
                       </table>
-                      <button type="submit" class="btn btn-block my-4 btn-info">
-                        Update
-                      </button>
+                       <input type="submit" ng-click="updateBlock()" class="btn btn-block my-4 btn-info" value="Update" />
                     </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -114,6 +111,7 @@
         </div>
       </div>
     </form>
+    </div>
 
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
