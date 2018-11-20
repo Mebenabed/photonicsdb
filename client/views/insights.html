@@ -9,7 +9,7 @@
     <div class="card-header">
       Parameter finder
     </div>
-    <div class="card-body" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
+    <div class="card-body" style="width: 100%; background-color:#2E2E2E; min-width: 18rem;">
       <div class="input-group mb-2 mr-sm-2">
         <div class="input-group-prepend">
           <div class="input-group-text">
@@ -63,11 +63,11 @@
     </div>
     <div class="card-body p-0" >
       <ul class="list-group list-group-flush">
-        <li class="list-group-item" style="width: 100%; background-color:#2E2E2E; min-width: 40rem;">
+        <li class="list-group-item" style="background-color:#2E2E2E; min-width: 18rem;">
             <div class="row">
               <div class="col-md-12">
                 <select class="custom-select custom-select-sm mb-2" ng-model="s">
-                  <option value=""selected>
+                  <option value="" selected>
                     Select Function
                   </option>
                   <option value="{{component.name}}" ng-repeat="component in components | orderBy : 'name'| filter : {type: 'function'}">
@@ -85,7 +85,7 @@
                 </div>
               </div>
         </li>
-        <li class="list-group-item">
+        <li class="list-group-item" style="min-width: 18rem;">
           <div class="table-responsive">
             <table class="table table-bordered">
               <tbody>
@@ -104,13 +104,13 @@
                       </tr>
                     </table>
                   </td>
-                  <td ng-repeat="block in blocks|filter:{foundry:foundry.name}" ng-if="definition.name==block.class&&block.valuec.length>0">
+                  <td ng-repeat="block in blocks" ng-if="definition.name==block.class&&block.valuec.length>0">
                     <a href="#/block/{{block._id}}" class="btn btn-outline-dark btn-sm mx-auto" target="_blank">
                       {{block.foundry}}
                     </a>
                     <hr>
-                    <table ng-repeat="valuec in block.valuec" ng-if="valuec.length>0" class="table-hover table-sm table-borderless">
-                      <tr>
+                    <table>
+                      <tr ng-repeat="valuec in block.valuec" class="table-hover table-sm table-borderless">
                         <th scope="row">
                           ({{$index+1}})
                         </th>
