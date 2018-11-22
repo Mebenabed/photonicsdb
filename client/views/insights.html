@@ -110,7 +110,7 @@
                     </a>
                     <hr>
                     <table>
-                      <tr ng-repeat="valuec in block.valuec" class="table-hover table-sm table-borderless">
+                      <tr ng-repeat="valuec in block.valuec track by $index" class="table-hover table-sm table-borderless">
                         <th scope="row">
                           ({{$index+1}})
                         </th>
