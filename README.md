@@ -3,4 +3,4 @@ Dephine is an ORM based web application that was developped in order to provide 
 ## Usage ##
 Clone or download and run **npm install**, MongoDB acts as a data store through 4 collections that needs to be created : 'foundries', 'blocks', 'definitions' and 'components'. Run **node app** to start the app listening to port :3000
 
-Note: This app is functioning correctly, however, updates might take place in the future as this is not the final version.
+Note: A user's guide is provided in /client/views/source/about/DOC.pdf
