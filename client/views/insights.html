@@ -1,3 +1,4 @@
+<!--under development-->
 <div ng-init="[getComponents(),getDefinitions(),getBlocks()]">
   <main role="main" class="col-md-12 ml-sm-auto">
   <div class="d-flex justify-content-center border-bottom">
@@ -82,10 +83,83 @@
                     {{definition.name}}
                   </option>
                 </select>
-                </div>
+                <button class="btn btn-sm mb-0 mx-auto" style="background-color:#4B515D;" type="button" data-toggle="collapse" data-target="#collapseScore" aria-expanded="true" aria-controls="collapseclass" ng-model="h">
+                  Compute scores
+                </button>
+                <button class="btn btn-sm mb-0 mx-auto" style="background-color:#4B515D;" type="button" data-toggle="collapse" data-target="#collapseRange" aria-expanded="true" aria-controls="collapseclass" ng-model="h">
+                  Range specifications
+                </button>
               </div>
+            </div>
         </li>
+        <div class="collapse show" id="collapseScore">
         <li class="list-group-item" style="min-width: 18rem;">
+          <h2 class="d-flex justify-content-center">Score</h2>
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <tbody>
+                <tr ng-repeat="definition in definitions |filter:{function:s}|filter:{name:k}">
+                  <td>
+                    {{definition.name}}
+                    <hr>
+                    <table>
+                      <tr ng-repeat="specifications in definition.specifications" class="table-hover table-sm table-borderless">
+                        <th scope="row">
+                          ({{$index+1}})
+                        </th>
+                        <td>
+                          <input type="number" class="form-control form-control-sm" ng-model="definition.weight[$index]" name="weight" style="width:5rem;" placeholder="weight">
+                        </td>
+                        <td>
+                          - {{definition.specifications[$index]}}
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td ng-repeat="block in blocks | orderBy : 'foundry'" ng-if="definition.name==block.class&&block.valuec.length>0">
+                    <a href="#/block/{{block._id}}" class="btn btn-outline-dark btn-sm mx-auto" target="_blank">
+                      {{block.foundry}}
+                    </a>
+                    <br>
+                    <br>
+                    <table>
+                      <td>
+                        <div class="form-control">
+                          <p>score- {{block.product[$index]}}</p>
+                        </div>
+                      </td>
+                    </table>
+                    <hr>
+                    <table class="table-hover table-sm table-borderless">
+                      <tr ng-repeat="valuec in block.valuec track by $index">
+                        <th scope="row">
+                          ({{$index+1}})
+                        </th>
+                        <td>
+                          {{block.valuec[$index]}}
+                        </td>
+                        <td class="text-muted" ng-model="block.product[$index]">
+                          {{(definition.weight[$index]*(block.valuec[$index]|number))}}
+                        </td>
+                      </tr>
+                      <table>
+                        <tr>
+                          <td>
+                          score- {{factorial(definition.weight[$index]*block.valuec[$index])}}
+                        </td>
+                        </tr>
+                      </table>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        </div>
+        <div class="collapse" id="collapseRange">
+        <li class="list-group-item" style="min-width: 18rem;">
+          <h2 class="d-flex justify-content-center">Range</h2>
           <div class="table-responsive">
             <table class="table table-bordered">
               <tbody>
@@ -99,23 +173,37 @@
                           ({{$index+1}})
                         </th>
                         <td>
+                          <input type="number" class="form-control form-control-sm" ng-model="definition.min[$index]" style="width:5rem;" placeholder="min">
+                        </td>
+                        <td>
+                          <input type="number" class="form-control form-control-sm" ng-model="definition.max[$index]" style="width:5rem;" placeholder="max">
+                        </td>
+                        <td>
                           - {{definition.specifications[$index]}}
                         </td>
                       </tr>
                     </table>
                   </td>
-                  <td ng-repeat="block in blocks" ng-if="definition.name==block.class&&block.valuec.length>0">
+                  <td ng-repeat="block in blocks | orderBy : 'foundry'" ng-if="definition.name==block.class&&block.valuec.length>0">
                     <a href="#/block/{{block._id}}" class="btn btn-outline-dark btn-sm mx-auto" target="_blank">
                       {{block.foundry}}
                     </a>
                     <hr>
-                    <table>
-                      <tr ng-repeat="valuec in block.valuec track by $index" class="table-hover table-sm table-borderless">
+                    <table class="table-hover table-sm table-borderless">
+                      <tr ng-repeat="valuec in block.valuec track by $index">
                         <th scope="row">
                           ({{$index+1}})
                         </th>
                         <td>
-                          - {{block.valuec[$index]}}
+                          {{block.valuec[$index]}}
+                        </td>
+                        <td>
+                          <div ng-if="((block.valuec[$index]|number)>=definition.min[$index])&&((block.valuec[$index]|number)<=definition.max[$index])&&(definition.min[$index]<=definition.max[$index])">
+                            <span data-feather="check" class="text-success" style="width: 15px; height: 15px;">
+                          </div>
+                          <div ng-if="((block.valuec[$index]|number)<definition.min[$index])||((block.valuec[$index]|number)>definition.max[$index])||(definition.min[$index]>definition.max[$index])">
+                            <span data-feather="x" class="text-danger" style="width: 15px; height: 15px;">
+                          </div>
                         </td>
                       </tr>
                     </table>
@@ -125,12 +213,19 @@
             </table>
           </div>
         </li>
+        </div>
       </ul>
     </div>
+
     <div class="card-footer text-muted">
       <img class="card-img-top" src="/?text=Charts" alt="Chart goes here |bars|line|">
       <b>(Under development)</b>
     </div>
+
+    <script type="text/javascript">
+      let block.product[$index] = definition.weight[$index]*block.valuec[$index]
+    </script>
+
 
     <!-- Icons -->
   <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
