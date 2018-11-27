@@ -160,9 +160,9 @@
                         </label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="VLCR" ng-model="block.reference" value="Local">
+                        <input type="radio" class="custom-control-input" id="VLCR" ng-model="block.reference" value="VLC">
                         <label class="custom-control-label" for="VLCR">
-                          Local
+                          VLC
                         </label>
                       </div>
                       <br>
@@ -189,7 +189,8 @@
                         </small>
                     </div>
                     <br>
-                    <input type="text" class="form-control" ng-model="block.notes" placeholder="notes">
+                    <textarea class="form-control" ng-model="block.notes" placeholder="notes" rows="8" cols="80">
+                    </textarea>
                     <br>
                     <label class="font-weight-bold">
                       Custom parameters
