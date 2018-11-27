@@ -2,13 +2,12 @@
   <main role="main" class="col-md-12 ml-sm-auto">
     <div class="d-flex justify-content-center border-bottom">
       <h1>
+      <button class="btn float-right mb-2 text-dark" data-clipboard-target="#BlocksCopy" style="background-color:#E4E4E4;">
         Blocks
-      </h1>
-      <button class="btn float-right mb-2 btn-sm" data-clipboard-target="#BlocksCopy" style="background-color:#E4E4E4;">
         <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
       </button>
+      </h1>
     </div>
-
     <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
       <div class="card-body">
     <form>
@@ -141,7 +140,7 @@
                   Source: {{::block.reference}}- {{::block.source}}
                 </span>
               </h6>
-              <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='Local'">
+              <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='VLC'">
                 <span class="badge badge-pill badge-warning">
                   Source: {{::block.reference}}- {{::block.source}}
                 </span>
@@ -175,7 +174,7 @@
               </div>
             </div>
             <div class="card-footer bg-transparent border-elegant">
-              <a href="#/block/{{block._id}}" class="btn btn-sm btn-lg btn-block btn-outline-elegant waves-effect" role="button" aria-pressed="true">
+              <a href="#/block/{{block._id}}" class="btn btn-sm btn-block btn-outline-elegant waves-effect" role="button" aria-pressed="true">
                 More info
               </a>
             </div>
