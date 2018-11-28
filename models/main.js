@@ -5,7 +5,11 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 //components collection schema
 const componentSchema = mongoose.Schema({
-	name: String,
+	name: {
+		type: String,
+		unique: true,
+		required: true
+	},
 	type: {
 		type: String,
 		enum: ['parameter', 'function','reference'],
@@ -17,7 +21,11 @@ const componentSchema = mongoose.Schema({
 
 //definitions collection schema
 const definitionSchema = mongoose.Schema({
-	name: String,
+	name: {
+		type: String,
+		unique: true,
+		required: true
+	},
 	function: String,
 	specifications: [String]
 });
@@ -26,7 +34,8 @@ const definitionSchema = mongoose.Schema({
 const blockSchema = mongoose.Schema({
 	name: {
 		type: String,
-		unique: true
+		unique: true,
+		required: true
 	},
 	notes: {
 		type: String,
@@ -39,7 +48,7 @@ const blockSchema = mongoose.Schema({
 	},
 	reference: {
 		type: String,
-		enum: ['PDK', 'Literature', 'Local'],
+		enum: ['PDK', 'Literature', 'VLC'],
 		default: 'PDK'
 	},
 	foundry: String,
@@ -52,17 +61,21 @@ const blockSchema = mongoose.Schema({
 	},
 	valuec: {
 		type: Array,
-		default: []
+		default: null
 	},
 	valueo: {
 		type: Array,
 		default: []
-  },
+  }
 });
 
 //foundries collection schema
 const foundrySchema = mongoose.Schema({
-	name: String,
+	name: {
+		type: String,
+		unique: true,
+		required: true
+	},
 	notes: String,
 	contact:String,
 	phone: String,
@@ -82,7 +95,7 @@ module.exports.getFoundries = (callback, limit) => {
 	Foundry.find(callback).limit(limit);
 }
 
-//create a module assigining findById function to GET method by passing id
+//create a module assigining findById function to GET method by passing id and callback arguments
 module.exports.getFoundryById = (id, callback) => {
 	Foundry.findById(id, callback);
 }
@@ -131,6 +144,7 @@ module.exports.addBlock = (block, callback) => {
 module.exports.updateBlock = (id, block, options, callback) => {
 	var query = {_id: id};
 	var update = {
+		_id:block._id,
 		name: block.name,
 		notes: block.notes,
 		foundry: block.foundry,
