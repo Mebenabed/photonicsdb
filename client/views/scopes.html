@@ -7,48 +7,150 @@
       </div>
       <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
         <div class="card-body">
-      <form>
-        <form>
           <div class="form-row">
             <div class="col">
-              <select class="custom-select custom-select-sm mb-2" ng-model="s">
-                <option value=""selected>
-                  Select Function
-                </option>
-                <option value="{{component.name}}" ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}">
-                  {{::component.name}}
-                </option>
-              </select>
+                <div class="form-row">
+                  <div class="col">
+                    <select class="custom-select custom-select-sm mb-2" ng-model="t">
+                      <option value=""selected>
+                        Select Foundry
+                      </option>
+                      <option value="{{foundry.name}}" ng-repeat="foundry in foundries | orderBy : 'name'">
+                        {{::foundry.name}}
+                      </option>
+                    </select>
+                  </div>
+              </div>
+            </div>
+            <div class="col">
+                <div class="form-row">
+                  <div class="col">
+                    <select class="custom-select custom-select-sm mb-2" ng-model="s">
+                      <option value=""selected>
+                        Select Function
+                      </option>
+                      <option value="{{component.name}}" ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}">
+                        {{::component.name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div><div class="col">
+                  <div class="form-row">
+                    <div class="col">
+                      <select class="custom-select custom-select-sm mb-2" ng-model="v">
+                        <option value=""selected>
+                          Select Class
+                        </option>
+                        <option value="{{definition.name}}" ng-repeat="definition in definitions | orderBy : 'name' | filter : {function:s}">
+                          {{::definition.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="btn-group btn-group-toggle mx-auto" data-toggle="buttons">
+                <button class="btn btn-sm btn-block" type="button" data-toggle="collapse" data-target="#collapseFoundry" aria-expanded="false" aria-controls="collapseParameters" style="background-color:#4B515D;">
+                  Concise
+                </button>
+                <button class="btn btn-sm btn-block" type="button" data-toggle="collapse" data-target="#collapseClass" aria-expanded="true" aria-controls="collapseFunctions" style="background-color:#4B515D;">
+                  Exhaustive
+                </button>
+              </div>
+              </div>
             </div>
           </div>
-        </form>
-        </div>
         </div>
         <br>
+        <div class="collapse" id="collapseFoundry">
+          <h2 class="d-flex justify-content-center">
+          Concise map
+        </h2>
+        <div class="card">
+          <div class="card">
+            <div class="card-body" style="background-color:#4B515D;">
+              <div class="table-responsive" style="background-color:#fbe9e7">
+              <table class="table table-bordered">
+                <tbody>
+                  <tr style="background-color:#2E2E2E;">
+                    <td>
+                      <button class="btn btn-block text-dark" data-clipboard-target="#collapseFoundry" style="background-color:#E4E4E4;">
+                        <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
+                      </button>
+                    </td>
+                    <td ng-repeat="foundry in foundries | filter:{name:t}" style="background-color:#2E2E2E;">
+                      <a href="#/foundry/{{foundry._id}}" class="text-light" target="_blank">
+                        {{foundry.name}}
+                      </a>
+                    </td>
+                  </tr>
+                  <tr ng-repeat="definition in definitions | filter:{function:s}  | filter:{name:v}">
+                    <td class="text-light" style="background-color:#2E2E2E;">
+                      <a href="#/definition/{{definition._id}}" class="text-light" target="_blank">
+                        {{definition.name}}
+                      </a>
+                    </td>
+                    <td ng-repeat="foundry in foundries | filter:{name:t}">
+                      <div class="table-responsive">
+                      <table class="table table-sm table-borderless mb-0">
+                        <tr>
+                          <td ng-repeat="block in blocks |filter:{class:definition.name}|filter:{foundry:foundry.name} | limitTo : 1" style="background-color:#fbe9e7">
+                            <h4>
+                              <span class="badge badge-pill badge-warning">
+                                {{(blocks|filter:{class:definition.name}|filter:{foundry:foundry.name}).length}}
+                              </span>
+                            </h4>
+                          </td>
+                        </tr>
+                      </table>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </div>
+          </div>
+      </div>
+      </div>
+      <br>
+      <div class="collapse" id=collapseClass>
+      <h2 class="d-flex justify-content-center">
+        Exhaustive map
+      </h2>
         <div class="card">
           <div ng-repeat="component in components | filter:{type:'function'}| filter:{name:s}" class="card-body" style="background-color:#4B515D;">
             <div class="card-group">
               <div class="card" style="background-color:#2E2E2E;">
                 <div class="card-body text-light">
                   {{component.name}}
+                  <button class="btn btn-sm text-dark" data-clipboard-target="#collapseClass" style="background-color:#E4E4E4;">
+                    <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
+                  </button>
                 </div>
                 <div class="table-responsive">
-                  <table class="table table-bordered text-white" >
+                  <table class="table table-bordered">
                     <tbody>
-                      <tr style="background-color:#4B515D" ng-repeat="foundry in foundries">
+                      <tr style="background-color:#fbe9e7" ng-repeat="foundry in foundries |filter : {name:t}">
                         <td>
-                          {{foundry.name}}
+                          <a href="#/foundry/{{foundry._id}}" class="text-dark" target="_blank">
+                            {{foundry.name}}
+                          </a>
                         </td>
                         <td>
                           <div class="table-responsive">
                             <table>
                               <tbody>
-                                <tr style="background-color:#2E2E2E" ng-repeat="definition in definitions" ng-if="definition.function==component.name">
+                                <tr style="background-color:#2E2E2E" class="text-light" ng-repeat="definition in definitions | filter:{function:s} | filter:{name:v}" ng-if="definition.function==component.name">
                                   <td>
-                                    {{definition.name}}
+                                    <a href="#/definition/{{definition._id}}" class="text-light" target="_blank">
+                                      {{definition.name}}
+                                    </a>
                                   </td>
-                                  <td style="background-color:#ffebee" ng-repeat="block in blocks" ng-if="definition.name==block.class&&block.foundry==foundry.name">
-                                    <a href="#/block/{{block._id}}" target="_blank">
+                                  <td style="background-color:#4B515D" ng-repeat="block in blocks" ng-if="definition.name==block.class&&block.foundry==foundry.name">
+                                    <a href="#/block/{{block._id}}"  class="text-light" target="_blank">
                                       {{block.name}} | {{block.source}}
                                     </a>
                                   </td>
@@ -65,8 +167,7 @@
             </div>
           </div>
         </div>
-      </div>
-
+        </div>
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 <script>
