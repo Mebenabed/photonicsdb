@@ -87,10 +87,10 @@
                   </option>
                 </select>
                 <div class="btn-group d-flex justify-content-center" role="group" aria-label="view">
-                  <button class="btn" type="button" data-toggle="collapse" data-target="#collapseScore" aria-expanded="true" aria-controls="collapseFunctions" style="background-color:#4B515D;">
+                  <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseScore" aria-expanded="true" aria-controls="collapseFunctions" style="background-color:#4B515D;">
                     Scores
                   </button>
-                  <button class="btn" type="button" data-toggle="collapse" data-target="#collapseRange" aria-expanded="false" aria-controls="collapseParameters" style="background-color:#4B515D;">
+                  <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseRange" aria-expanded="false" aria-controls="collapseParameters" style="background-color:#4B515D;">
                     Ranges
                   </button>
                 </div>
@@ -203,15 +203,7 @@
                           ({{$index+1}})
                         </th>
                         <td>
-                          <div ng-if="(definition.min[$index]).length==0">
                             {{block.valuec[$index]}}
-                          </div>
-                          <div class="text-success" ng-if="((block.valuec[$index]|number)>=definition.min[$index])&&((block.valuec[$index]|number)<=definition.max[$index])&&(definition.min[$index]<=definition.max[$index])">
-                            {{block.valuec[$index]}}
-                          </div>
-                          <div class="text-danger" ng-if="((block.valuec[$index]|number)<definition.min[$index])||((block.valuec[$index]|number)>definition.max[$index])||(definition.min[$index]>definition.max[$index])">
-                          {{block.valuec[$index]}}
-                          </div>
                         </td>
                         <td>
                           <div ng-if="((block.valuec[$index]|number)>=definition.min[$index])&&((block.valuec[$index]|number)<=definition.max[$index])&&(definition.min[$index]<=definition.max[$index])">
