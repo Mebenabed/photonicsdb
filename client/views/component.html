@@ -3,7 +3,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <a href="#/components">
-            Components
+            Attributes
           </a>
         </li>
         <li class="breadcrumb-item active" aria-current="definition">
@@ -24,7 +24,7 @@
                 Foundry: {{component.foundry}}
               </h5>
               <div class="card-footer bg-transparent">
-                <table class="table table-sm" ng-if="component.type=='reference'">
+                <table class="table table-sm" ng-if="component.type=='reference'&&component.blocks.length>0">
                   <thead>
                     <tr>
                       <th scope="col">
