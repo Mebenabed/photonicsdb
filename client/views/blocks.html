@@ -93,10 +93,12 @@
             <li class="list-inline-item">
               <div class="btn-group" role="group">
                 <button class="btn blue-grey mb-0">
-                  <span class="badge badge-warning">
-                    {{(blocks | filter:k | filter:m | filter:d | filter:m | filter:block.status | filter:s | filter : g | filter:m1  | filter:m2  | filter:mp).length}}
-                  </span>
-                  Blocks
+                  <h6>
+                    <span class="badge badge-warning">
+                      {{(blocks | filter:k | filter:m | filter:d | filter:m | filter:block.status | filter:s | filter : g | filter:m1  | filter:m2  | filter:mp).length}}
+                    </span>
+                    Blocks
+                  </h6>
                 </button>
                 <button class="btn btn-lg mb-0" style="background-color:#4B515D;" type="button" data-toggle="collapse" data-target="#collapseClass" aria-expanded="true" aria-controls="collapseclass">
                   Show/Hide Classification
