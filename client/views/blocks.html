@@ -1,14 +1,14 @@
 <div ng-init="[getBlocks(),getFoundries(),getComponents(),getDefinitions()]">
-  <main role="main" class="col-md-12 ml-sm-auto">
+  <main role="main" class="col-md-12">
     <div class="d-flex justify-content-center border-bottom">
-      <h1>
-      <button class="btn float-right mb-2 text-dark" data-clipboard-target="#BlocksCopy" style="background-color:#E4E4E4;">
+      <button class="btn mb-4 text-dark" data-clipboard-target="#BlocksCopy" style="background-color:#E4E4E4;">
+        <h6 class="mt-2">
+        <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
         Blocks
-        <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
+      </h6>
       </button>
-      </h1>
     </div>
-    <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
+    <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#2E2E2E; min-width: 25rem;">
       <div class="card-body">
     <form>
       <div class="form-row">
@@ -41,8 +41,8 @@
                   <option value="" selected>
                     Select Foundry
                   </option>
-                  <option value="{{foundry.name}}" ng-repeat="foundry in foundries | orderBy : 'name'">
-                    {{::foundry.name}}
+                  <option value="{{foundry.name}}" ng-repeat="foundry in foundries | orderBy : 'name'" ng-hide="Ff==0">
+                    ({{Ff=(blocks |filter:g|filter:s|filter:d| filter : {foundry: foundry.name}).length}})| {{foundry.name}}
                   </option>
                 </select>
               </div>
@@ -55,8 +55,8 @@
                   <option value="" selected>
                     Select Reference
                   </option>
-                  <option value="{{component.name}}" ng-repeat="component in components | filter : {type: 'reference'} | filter : k | orderBy : 'name'">
-                    {{::component.name}}
+                  <option value="{{component.name}}" ng-repeat="component in components | filter : {type: 'reference'} | filter : k | orderBy : 'name'" ng-hide="Rr==0">
+                    ({{Rr=(blocks|filter:k|filter:s|filter:d| filter : {source: component.name}).length}})| {{::component.name}}
                   </option>
                 </select>
               </div>
@@ -71,8 +71,8 @@
             <option value=""selected>
               Select Function
             </option>
-            <option value="{{component.name}}" ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}">
-              {{::component.name}}
+            <option value="{{component.name}}" ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}" ng-hide="Uu==0">
+              ({{Uu=(blocks|filter:k|filter:g|filter:d| filter : {function: component.name}).length}})| {{::component.name}}
             </option>
           </select>
         </div>
@@ -81,8 +81,8 @@
             <option value="" selected>
               Select Class
             </option>
-            <option value="{{definition.name}}" ng-repeat="definition in definitions | orderBy : 'name' | filter: {function:s}">
-              {{::definition.name}}
+            <option value="{{definition.name}}" ng-repeat="definition in definitions | orderBy : 'name' | filter: {function:s}" ng-hide="Cc==0">
+              ({{Cc=(blocks|filter:k|filter:g|filter:s| filter : {class: definition.name}).length}})| {{::definition.name}}
             </option>
           </select>
         </div>
@@ -92,16 +92,16 @@
           <ul class="list-inline p-0 m-0">
             <li class="list-inline-item">
               <div class="btn-group" role="group">
-                <button class="btn blue-grey mb-0">
-                  <h6>
+                <button class="btn btn-lg mb-0" style="background-color:#4B515D;" type="button" data-toggle="collapse" data-target="#collapseClass" aria-expanded="true" aria-controls="collapseclass">
+                  Show/Hide Classification
+                </button>
+                <button class="btn" style="background-color:#4B515D;">
+                  <h6 class="mt-2">
                     <span class="badge badge-warning">
                       {{(blocks | filter:k | filter:m | filter:d | filter:m | filter:block.status | filter:s | filter : g | filter:m1  | filter:m2  | filter:mp).length}}
                     </span>
                     Blocks
                   </h6>
-                </button>
-                <button class="btn btn-lg mb-0" style="background-color:#4B515D;" type="button" data-toggle="collapse" data-target="#collapseClass" aria-expanded="true" aria-controls="collapseclass">
-                  Show/Hide Classification
                 </button>
               </div>
             </li>
@@ -132,6 +132,7 @@
             <h5 class="card-title font-weight-bold">
               {{::block.name}}
             </h5>
+            <div class="collapse" id="collapseClass">
               <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='PDK'">
                 <span class="badge badge-light">
                   Source: {{::block.reference}}- {{::block.source}}
@@ -147,8 +148,7 @@
                   Source: {{::block.reference}}- {{::block.source}}
                 </span>
               </h6>
-            <br>
-            <div class="collapse show" id="collapseClass">
+            <br>            
               <h6 class="card-subtitle mb-2 text-muted float-right" ng-if="block.status=='up-to-date'">
                 <span data-feather="check-circle" class="text-success" style="width: 15px; height: 15px;">
                 </span>
