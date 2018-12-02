@@ -34,7 +34,7 @@
     <br>
     <div class="row">
       <div class="col-md-12 mx-auto d-flex justify-content-center">
-          <div class="card border-elegant mb-3 sticky-top mx-auto" style="min-width: 28rem; height: 100%;">
+          <div class="card border-elegant mb-3 sticky-top mx-auto" style="min-width: 38rem; height: 100%;">
             <div class="card-body">
               <button class="btn float-right btn-sm" data-clipboard-target="#CardCopy"  style="background-color:#fff;">
                 <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
@@ -48,10 +48,10 @@
               <h4 class="card-subtitle mb-2 text-muted" ng-if="block.foundry.length>0">
                 Foundry: {{block.foundry}}
               </h4>
+              <h4 class="card-subtitle mb-2 text-muted">
+                Function: {{block.function}}
+              </h4>
                 <div ng-repeat="definition in definitions" ng-if="block.class==definition.name">
-                  <h4 class="card-subtitle mb-2 text-muted">
-                    Function: {{definition.function}}
-                  </h4>
                   <h5 class="card-subtitle mb-2 text-muted float-right mr-4" ng-if="block.status=='up-to-date'">
                     <span data-feather="check-circle" class="text-success" style="width: 30px; height: 30px;">
                     </span>
@@ -69,21 +69,32 @@
                     Class: {{block.class}}
                   </h4>
                   <h4 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='PDK'">
-                        <span class="badge badge-light">
-                          Source: {{block.reference}}- {{block.source}}
-                        </span>
-                      </h4>
-                      <h4 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='Literature'">
-                        <span class="badge badge-pill badge-danger">
-                          Source: {{block.reference}}- {{block.source}}
-                        </span>
-                      </h4>
-                      <h4 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='Local'">
-                        <span class="badge badge-pill badge-warning">
-                          Source: {{block.reference}}- {{block.source}}
-                        </span>
-                      </h4>
-
+                    <span class="badge badge-light">
+                      Reference: {{::block.reference}}
+                    </span>
+                    |
+                    <span class="badge badge-light" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component.name==block.source&&component.foundry==block.foundry">
+                      Source: {{::component.name}}
+                    </span>
+                  </h4>
+                  <h4 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='Literature'">
+                    <span class="badge badge-pill badge-danger">
+                      Reference: {{::block.reference}}
+                    </span>
+                    |
+                    <span class="badge badge-pill badge-danger" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component.name==block.source&&component.foundry==block.foundry">
+                      Source: {{::component.name}}
+                    </span>
+                  </h4>
+                  <h4 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='VLC'">
+                    <span class="badge badge-pill badge-warning">
+                      Reference: {{::block.reference}}
+                    </span>
+                    |
+                    <span class="badge badge-pill badge-warning" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component.name==block.source&&component.foundry==block.foundry">
+                      Source: {{::component.name}}
+                    </span>
+                  </h4>
                   <div class="card-footer bg-transparent border-elegant">
                     <table class="table table-hover table-sm table-striped h5">
                       <thead>
