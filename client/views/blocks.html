@@ -98,7 +98,7 @@
                 <button class="btn" style="background-color:#4B515D;">
                   <h6 class="mt-2">
                     <span class="badge badge-warning">
-                      {{(blocks | filter:k | filter:m | filter:d | filter:m | filter:block.status | filter:s | filter : g | filter:m1  | filter:m2  | filter:mp).length}}
+                      {{(blocks | filter:k | filter:m | filter:d |  filter:{name:m0} | filter:{notes:m1} | filter:block.status | filter:s | filter : g | filter:m1  | filter:m2  | filter:mp).length}}
                     </span>
                     Blocks
                   </h6>
@@ -132,23 +132,35 @@
             <h5 class="card-title font-weight-bold">
               {{::block.name}}
             </h5>
-            <div class="collapse" id="collapseClass">
+            <div class="collapse show" id="collapseClass">
               <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='PDK'">
                 <span class="badge badge-light">
-                  Source: {{::block.reference}}- {{::block.source}}
+                  Reference: {{::block.reference}}
+                </span>
+                |
+                <span class="badge badge-light" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component.name==block.source&&component.foundry==block.foundry">
+                  Source: {{::component.name}}
                 </span>
               </h6>
               <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='Literature'">
                 <span class="badge badge-pill badge-danger">
-                  Source: {{::block.reference}}- {{::block.source}}
+                  Reference: {{::block.reference}}
+                </span>
+                |
+                <span class="badge badge-pill badge-danger" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component.name==block.source&&component.foundry==block.foundry">
+                  Source: {{::component.name}}
                 </span>
               </h6>
               <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='VLC'">
                 <span class="badge badge-pill badge-warning">
-                  Source: {{::block.reference}}- {{::block.source}}
+                  Reference: {{::block.reference}}
+                </span>
+                |
+                <span class="badge badge-pill badge-warning" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component.name==block.source&&component.foundry==block.foundry">
+                  Source: {{::component.name}}
                 </span>
               </h6>
-            <br>            
+            <br>
               <h6 class="card-subtitle mb-2 text-muted float-right" ng-if="block.status=='up-to-date'">
                 <span data-feather="check-circle" class="text-success" style="width: 15px; height: 15px;">
                 </span>
