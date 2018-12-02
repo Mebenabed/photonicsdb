@@ -1,4 +1,4 @@
-//create an Express application
+//create an expressjs application
 const express = require('express');
 const app = express();
 //import middleware mudules
@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 //point out client-side to middleware
 app.use(express.static(__dirname+'/client'));
-//import json middleware parser
+// parse application/json
 app.use(bodyParser.json());
 //creating a module for documents in each collection
 Foundry =require('./models/main');
