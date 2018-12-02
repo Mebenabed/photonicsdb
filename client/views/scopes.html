@@ -16,7 +16,7 @@
                         Select Foundry
                       </option>
                       <option value="{{foundry.name}}" ng-repeat="foundry in foundries | orderBy : 'name'">
-                        {{::foundry.name}}
+                        ({{(blocks |filter:v|filter:s| filter : {foundry: foundry.name}).length}})| {{::foundry.name}}
                       </option>
                     </select>
                   </div>
@@ -30,7 +30,7 @@
                         Select Function
                       </option>
                       <option value="{{component.name}}" ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}">
-                        {{::component.name}}
+                        ({{Uu=(blocks|filter:t|filter:v| filter : {function: component.name}).length}})| {{::component.name}}
                       </option>
                     </select>
                   </div>
@@ -43,7 +43,7 @@
                           Select Class
                         </option>
                         <option value="{{definition.name}}" ng-repeat="definition in definitions | orderBy : 'name' | filter : {function:s}">
-                          {{::definition.name}}
+                          ({{(blocks|filter:t|filter:s| filter : {class: definition.name}).length}})| {{::definition.name}}
                         </option>
                       </select>
                     </div>
@@ -76,23 +76,23 @@
                 <tbody>
                   <tr style="background-color:#2E2E2E;">
                     <td>
-                      <button class="btn btn-block text-dark" data-clipboard-target="#collapseFoundry" style="background-color:#E4E4E4;">
+                      <button class="btn btn-block text-dark" data-clipboard-target="#collapseFoundry" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the table below on the clipboard">
                         <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
                       </button>
                     </td>
-                    <td ng-repeat="foundry in foundries | filter:{name:t}" style="background-color:#2E2E2E;">
+                    <td ng-repeat="foundry in foundries | filter:{name:t} | orderBy : 'name'" style="background-color:#2E2E2E;">
                       <a href="#/foundry/{{foundry._id}}" class="text-light" target="_blank">
                         {{foundry.name}}
                       </a>
                     </td>
                   </tr>
-                  <tr ng-repeat="definition in definitions | filter:{function:s}  | filter:{name:v}">
+                  <tr ng-repeat="definition in definitions | orderBy : 'function': -1 | filter:{function:s}  | filter:{name:v}">
                     <td class="text-light" style="background-color:#2E2E2E;">
                       <a href="#/definition/{{definition._id}}" class="text-light" target="_blank">
                         {{definition.name}}
                       </a>
                     </td>
-                    <td ng-repeat="foundry in foundries | filter:{name:t}">
+                    <td ng-repeat="foundry in foundries | filter:{name:t} | orderBy : 'name'">
                       <div class="table-responsive">
                       <table class="table table-sm table-borderless mb-0">
                         <tr>
@@ -113,7 +113,7 @@
               </div>
             </div>
           </div>
-      </div>
+        </div>
       </div>
       <br>
       <div class="collapse" id=collapseClass>
@@ -124,9 +124,9 @@
           <div ng-repeat="component in components | filter:{type:'function'}| filter:{name:s}" class="card-body" style="background-color:#4B515D;">
             <div class="card-group">
               <div class="card" style="background-color:#2E2E2E;">
-                <div class="card-body text-light">
-                  {{component.name}}
-                  <button class="btn btn-sm text-dark" data-clipboard-target="#collapseClass" style="background-color:#E4E4E4;">
+                <div class="card-body text-light font-weight-bold">
+                  Function: {{component.name}}
+                  <button class="btn btn-sm text-dark float-right" data-clipboard-target="#collapseClass" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the table below on the clipboard">
                     <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
                   </button>
                 </div>
@@ -135,7 +135,7 @@
                     <tbody>
                       <tr style="background-color:#fbe9e7" ng-repeat="foundry in foundries |filter : {name:t}">
                         <td>
-                          <a href="#/foundry/{{foundry._id}}" class="text-dark" target="_blank">
+                          <a href="#/foundry/{{foundry._id}}" class="text-dark font-weight-bold" target="_blank">
                             {{foundry.name}}
                           </a>
                         </td>
