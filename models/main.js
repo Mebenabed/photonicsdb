@@ -65,7 +65,7 @@ const blockSchema = mongoose.Schema({
 	},
 	valueo: {
 		type: Array,
-		default: []
+		default: null
   }
 });
 
