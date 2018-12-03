@@ -1,4 +1,4 @@
-<div ng-init="[getComponents(),getDefinitions(),getBlocks()]">
+<div ng-init="[getComponents(),getDefinitions(),getBlocks(),getFoundries()]">
   <main role="main" class="col-md-12 ml-sm-auto">
   <div class="d-flex justify-content-center border-bottom">
     <h1>
@@ -19,7 +19,7 @@
     </button>
   </div>
   <br>
-  <div class="collapse" id="collapseParameters">
+  <div class="collapse show" id="collapseParameters">
   <div class="card">
     <div class="card-header">
       Parameters look-out
@@ -36,41 +36,143 @@
         <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q0" aria-label="filter blocks" placeholder="within the menu below">
         <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q1" aria-label="filter blocks" placeholder="within the menu below">
       </div>
-        <select class="form-control" size="26" ng-model="c">
+        <select class="form-control" size="24" ng-model="c">
           <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'} | filter :q | filter :q0 | filter :q1" value="{{component.name}}">
             {{component.name}}
           </option>
         </select>
+        <br>
+        <div class="form-row">
+          <div class="col">
+              <div class="form-row">
+                <div class="col">
+                  <select class="custom-select custom-select-sm mb-2" ng-model="t">
+                    <option value=""selected>
+                      Select Foundry
+                    </option>
+                    <option value="{{foundry.name}}" ng-repeat="foundry in foundries | orderBy : 'name'" ng-hide="Ff==0">
+                      ({{Ff=(blocks |filter:v|filter:s| filter : {foundry: foundry.name}).length}})| {{::foundry.name}}
+                    </option>
+                  </select>
+                </div>
+            </div>
+          </div>
+          <div class="col">
+              <div class="form-row">
+                <div class="col">
+                  <select class="custom-select custom-select-sm mb-2" ng-model="s">
+                    <option value=""selected>
+                      Select Function
+                    </option>
+                    <option value="{{component.name}}" ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}" ng-hide="Uu==0">
+                      ({{Uu=(blocks|filter:t|filter:v| filter : {function: component.name}).length}})| {{::component.name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div><div class="col">
+                <div class="form-row">
+                  <div class="col">
+                    <select class="custom-select custom-select-sm mb-2" ng-model="v">
+                      <option value=""selected>
+                        Select Class
+                      </option>
+                      <option value="{{definition.name}}" ng-repeat="definition in definitions | orderBy : 'name' | filter : {function:s}" ng-hide="Rr==0">
+                        ({{Rr=(blocks|filter:t|filter:s| filter : {class: definition.name}).length}})| {{::definition.name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <p class="font-weight-bold text-center">
+              {{c}} values as a class bound parameter
+              <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseBtable" aria-expanded="false" aria-controls="collapseBtable" style="background-color:#4B515D;">
+                Show/Hide
+              </button>
+            </p>
+      <div class="collapse show" id="collapseBtable">
+    <div class="table-responsive">
+    <table class="table table-bordered">
+      <!-- These are the blocks valueC having c as a parameter-->
+      <tr>
+        <td ng-repeat="definition in definitions|filter:{specifications:c}|filter:{function:s}|filter:{name:v}">
+          {{definition.name}}
+          <br>
+          <table class="table table-borderless table-sm">
+            <tr>
+              <td ng-repeat="block in blocks |filter :{foundry:t} | orderBy : 'foundry'" ng-if="block.class==definition.name&&(block.valuec).length>0">
+                <a href="#/block/{{block._id}}" class="btn btn-outline-dark btn-sm mx-auto" target="_blank">
+                {{block.foundry}}
+                <table>
+                  <tr ng-repeat="specifications in definition.specifications" ng-if="definition.specifications[$index]==c">
+                    <td>
+                      {{block.valuec[$index]}}
+                    </td>
+                  </tr>
+                </table>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
     </div>
-    <div class="card-footer">
+    <hr>
+    </div>
+            <p class="font-weight-bold text-center">
+              {{c}} values as a custom parameter
+              <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseBctable" aria-expanded="false" aria-controls="collapseBctable" style="background-color:#4B515D;">
+                Show/Hide
+              </button>
+            </p>
+            <div class="collapse" id="collapseBctable">
+        <div class="table-responsive">
+        <table class="table table-bordered">
+          <tr>
+            <td ng-repeat="block in blocks |filter :{foundry:t}|filter:{parameters:c}| filter:{function:s}|filter:{class:v}|orderBy : 'foundry'">
+                <a href="#/block/{{block._id}}" class="btn btn-outline-dark btn-sm mx-auto" target="_blank">
+              {{block.foundry}}
+              <table class="table table-borderless">
+                <tr ng-repeat="parameters in block.parameters" ng-if="block.parameters[$index]==c">
+                  <td>
+                    {{block.valueo[$index]}}
+                  </td>
+                </tr>
+              </table>
+              </a>
+            </td>
+          </tr>
+        </table>
+        </div>
+      </div>
+      <p class="font-weight-bold text-center">
+        Classes having {{c}} as a parameter
+        <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseCtable" aria-expanded="false" aria-controls="collapseCtable" style="background-color:#4B515D;">
+          Show/Hide
+        </button>
+      </p>
+      <div class="collapse" id="collapseCtable">
       <div class="table-responsive">
         <table class="table table-bordered">
-          <tbody>
-            <tr>
-              <td class="font-weight-bold" ng-if="(definitions| filter : {specifications:c}).length>0">
-                  Class bound
-              </td>
-              <td ng-repeat="definition in definitions  | filter : {specifications:c}">
-                <a href="#/definition/{{definition._id}}" class="btn btn-outline-dark btn-sm mx-auto" target="_blank">
-                  {{definition.name}}
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td class="font-weight-bold" ng-if="(blocks| filter : {parameters:c}).length>0">
-                  Custom
-              </td>
-              <td ng-repeat="block in blocks | filter : {parameters:c}">
-                <a href="#/block/{{block._id}}" class="btn btn-outline-dark btn-sm mx-auto" target="_blank">
-                  {{block.class}}|{{block.foundry}}
-                </a>
-              </td>
-            </tr>
-          </tbody>
+          <tr>
+            <td ng-repeat="definition in definitions | filter:{function:s}|filter:{specifications:c}|filter:{name:v}">
+              <a href="#/definition/{{definition._id}}" class="btn btn-outline-dark btn-sm mx-auto" target="_blank">
+              {{definition.name}}
+              </a>
+              <br>
+            </td>
+          </tr>
         </table>
-      </div>
+        </div>
+        <hr>
+        </div>
     </div>
   </div>
+  <br>
   </div>
   <br>
   <div class="collapse" id="collapseSpecs">
@@ -101,7 +203,7 @@
                 </select>
                 <div class="btn-group d-flex justify-content-center" role="group" aria-label="view">
                   <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseScore" aria-expanded="true" aria-controls="collapseFunctions" style="background-color:#4B515D;">
-                    Check
+                    Join
                   </button>
                   <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseRange" aria-expanded="false" aria-controls="collapseParameters" style="background-color:#4B515D;">
                     Compare
@@ -115,7 +217,7 @@
           <h2 class="d-flex justify-content-center">
             <button class="btn float-right mb-2 text-dark" data-clipboard-target="#ScoreCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the table below on the clipboard">
               <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
-              Check
+              Join
             </button>
           </h2>
           <div class="table-responsive" id="ScoreCopy">
@@ -196,6 +298,7 @@
                       {{block.foundry}}
                     </a>
                     <hr>
+                    <br>
                     <table class="table-hover table-sm table-borderless">
                       <tr ng-repeat="valuec in block.valuec track by $index">
                         <th scope="row">
