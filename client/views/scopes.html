@@ -30,7 +30,7 @@
                         Select Function
                       </option>
                       <option value="{{component.name}}" ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}">
-                        ({{Uu=(blocks|filter:t|filter:v| filter : {function: component.name}).length}})| {{::component.name}}
+                        ({{(blocks|filter:t|filter:v| filter : {function: component.name}).length}})| {{::component.name}}
                       </option>
                     </select>
                   </div>
@@ -64,7 +64,7 @@
           </div>
         </div>
         <br>
-        <div class="collapse" id="collapseFoundry">
+        <div class="collapse show" id="collapseFoundry">
           <h2 class="d-flex justify-content-center">
           Concise map
         </h2>
