@@ -1,7 +1,7 @@
 <div ng-init="[getBlocks(),getFoundries(),getComponents(),getDefinitions()]">
   <main role="main" class="col-md-12">
     <div class="d-flex justify-content-center border-bottom">
-      <button class="btn mb-4 text-dark" data-clipboard-target="#BlocksCopy" style="background-color:#E4E4E4;">
+      <button class="btn mb-4 text-dark" data-clipboard-target="#BlocksCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned blocks on the clipboard">
         <h6 class="mt-2">
         <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
         Blocks
@@ -23,11 +23,11 @@
                 </span>
               </div>
             </div>
-            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m" aria-label="filter blocks" placeholder="">
-            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="mp" aria-label="filter blocks" placeholder="">
-            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m2" aria-label="filter blocks" placeholder="">
-            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m0" aria-label="filter blocks" placeholder="within blocks' names">
-            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m1" aria-label="filter blocks" placeholder="within blocks' notes">
+            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a block. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
+            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="mp" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a block. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
+            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m2" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a block. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
+            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m0" aria-label="filter blocks" placeholder="within blocks' names" data-toggle="tooltip" data-placement="right" title="Search within the names of blocks. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
+            <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m1" aria-label="filter blocks" placeholder="within blocks' notes" data-toggle="tooltip" data-placement="right" title="Search within the blocks notes. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
         <div class="col">
             <div class="form-row">
               <div class="col">
-                <select class="custom-select custom-select-sm mb-2" ng-model="k">
+                <select class="custom-select custom-select-sm mb-2" ng-model="k" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the returned blocks if selected including hidden 'obsolete' and 'to-be-updated (!)' blocks. This menu filters blocks by foundry and the sources menu on the right">
                   <option value="" selected>
                     Select Foundry
                   </option>
@@ -51,9 +51,9 @@
         <div class="col">
             <div class="form-row">
               <div class="col">
-                <select class="custom-select custom-select-sm mb-2" ng-model="g">
+                <select class="custom-select custom-select-sm mb-2" ng-model="g" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the returned blocks if selected including hidden 'obsolete' and 'to-be-updated (!)' blocks. This menu filters blocks by source and is filtered by the foundries menu on the right">
                   <option value="" selected>
-                    Select Reference
+                    Select Source
                   </option>
                   <option value="{{component.name}}" ng-repeat="component in components | filter : {type: 'reference'} | filter : k | orderBy : 'name'" ng-hide="Rr==0">
                     ({{Rr=(blocks|filter:k|filter:s|filter:d| filter : {source: component.name}).length}})| {{::component.name}}
@@ -67,7 +67,7 @@
     <form>
       <div class="form-row">
         <div class="col">
-          <select class="custom-select custom-select-sm mb-2" ng-model="s">
+          <select class="custom-select custom-select-sm mb-2" ng-model="s" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the returned blocks if selected including hidden 'obsolete' and 'to-be-updated (!)' blocks. This menu filters blocks by function and the classes menu on the right">
             <option value=""selected>
               Select Function
             </option>
@@ -77,7 +77,7 @@
           </select>
         </div>
         <div class="col">
-          <select class="custom-select custom-select-sm mb-2" ng-model="d">
+          <select class="custom-select custom-select-sm mb-2" ng-model="d" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the returned blocks if selected including hidden 'obsolete' and 'to-be-updated (!)' blocks. This menu filters blocks by class and is filtered by the functions menu on the left">
             <option value="" selected>
               Select Class
             </option>
@@ -92,10 +92,10 @@
           <ul class="list-inline p-0 m-0">
             <li class="list-inline-item">
               <div class="btn-group" role="group">
-                <button class="btn btn-lg mb-0" style="background-color:#4B515D;" type="button" data-toggle="collapse" data-target="#collapseClass" aria-expanded="true" aria-controls="collapseclass">
-                  Show/Hide Classification
+                <button class="btn btn-lg mb-0" style="background-color:#4B515D;" type="button" data-toggle="collapse" data-target="#collapseClass" aria-expanded="true" aria-controls="collapseclass" data-toggle="tooltip" data-placement="right" title="Show/Hide the classification (foundry/function/class) of blocks">
+                  Abstract Classification
                 </button>
-                <button class="btn" style="background-color:#4B515D;">
+                <button class="btn" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="The count of the returned blocks">
                   <h6 class="mt-2">
                     <span class="badge badge-warning">
                       {{(blocks | filter:k | filter:m | filter:d |  filter:{name:m0} | filter:{notes:m1} | filter:block.status | filter:s | filter : g | filter:m1  | filter:m2  | filter:mp).length}}
@@ -109,16 +109,10 @@
               <div ng-init="block.status='up-to-date'">
                 <label class="bs-switch">
                   <input type="checkbox" ng-model="block.status" ng-true-value="'up-to-date'" ng-false-value="">
-                  <span class="slider round">
+                  <span class="slider round" data-toggle="tooltip" data-placement="right" title="On: Show only 'up-to-date (tick)' blocks./Off: 'up-to-date','to be updated (!)' and 'Obsolete' blocks.">
                   </span>
                 </label>
               </div>
-            </li>
-            <li class="list-inline-item float-right mt-1 p-2 mb-0">
-              <a tabindex="0" class="btn float-right btn-sm text-light" role="button" data-toggle="popover" data-placement="right" data-trigger="focus" title="switch" data-content="On: Show only 'up-to-date' blocks. &nbsp &nbsp Off: Include the 'to be updated blocks (!)' and 'Obsolete' blocks." style="background-color:#4B515D;">
-                <span data-feather="help-circle" style="width: 20px; height: 20px;">
-                </span>
-              </a>
             </li>
           </ul>
         </div>
