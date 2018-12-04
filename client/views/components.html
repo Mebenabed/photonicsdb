@@ -18,32 +18,32 @@
               </span>
             </div>
           </div>
-          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q" aria-label="filter blocks" placeholder="">
-          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q0" aria-label="filter blocks" placeholder="">
-          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q1" aria-label="filter blocks" placeholder="">
+          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of an attribute. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
+          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q0" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of an attribute. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
+          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q1" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of an attribute. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
         </div>
       </form>
       <hr class="bg-warning">
       <div class="btn-group d-flex justify-content-center" role="group" aria-label="view">
-        <button class="btn" type="button" data-toggle="collapse" data-target="#collapseFunctions" aria-expanded="true" aria-controls="collapseFunctions" style="background-color:#4B515D;">
+        <button class="btn" type="button" data-toggle="collapse" data-target="#collapseFunctions" aria-expanded="true" aria-controls="collapseFunctions" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="Show/hide functions">
           <h6 class="mt-2">
-          show/hide Functions
+          Functions
             <span class="badge badge-warning">
               {{(components|filter:q|filter:q0|filter:q1| filter: {type:'function'}).length}}
             </span>
           </h6>
         </button>
-        <button class="btn" type="button" data-toggle="collapse" data-target="#collapseParameters" aria-expanded="false" aria-controls="collapseParameters" style="background-color:#4B515D;">
+        <button class="btn" type="button" data-toggle="collapse" data-target="#collapseParameters" aria-expanded="false" aria-controls="collapseParameters" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="Show/hide parameters">
           <h6 class="mt-2">
-          show/hide Parameters
+          Parameters
             <span class="badge badge-warning">
               {{(components|filter:q|filter:q0|filter:q1| filter: {type:'parameter'}).length}}
             </span>
           </h6>
         </button>
-        <button class="btn" type="button" data-toggle="collapse" data-target="#collapseReferences" aria-expanded="false" aria-controls="collapseReferences" style="background-color:#4B515D;">
+        <button class="btn" type="button" data-toggle="collapse" data-target="#collapseReferences" aria-expanded="false" aria-controls="collapseReferences" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="Show/hide sources">
           <h6 class="mt-2">
-          show/hide references
+          Sources
             <span class="badge badge-warning">
               {{(components|filter:q|filter:q0|filter:q1| filter: {type:'reference'}).length}}
             </span>
@@ -98,7 +98,7 @@
       </div>
       <br>
       <div class="collapse" id="collapseReferences">
-        <h2 class="d-flex justify-content-center">References</h2>
+        <h2 class="d-flex justify-content-center">Sources</h2>
         <br>
         <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
           <div class="card-body">
