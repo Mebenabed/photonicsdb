@@ -1,11 +1,11 @@
   <div ng-init="[getFoundries(),getComponents()]"> <!-- Call reading all foundries service-->
-    <main role="main" class="col-md-12 ml-sm-auto">
+    <main role="main" class="col-md-12">
       <div class="d-flex justify-content-center align-items-center border-bottom">
-        <h1>
+          <button class="btn text-dark mb-4 mt-2" data-clipboard-target="#FoundriesCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned foundries">
+            <h6>
+          <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
           Foundries
-        </h1>
-        <button class="btn float-right mb-2 btn-sm" data-clipboard-target="#FoundriesCopy" style="background-color:#E4E4E4;">
-          <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
+          </h6>
         </button>
       </div>
       <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
@@ -22,9 +22,9 @@
             </div>
           </div>
           <!-- Search within the read foundries documents-->
-          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q1" aria-label="filter blocks" placeholder="">
-          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q2" aria-label="filter blocks" placeholder="">
-          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q3" aria-label="filter blocks" placeholder="">
+          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q1" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a foundry. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
+          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q2" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a foundry. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
+          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q3" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a foundry. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
         </div>
       </form>
     </div>
