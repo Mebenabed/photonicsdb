@@ -10,7 +10,7 @@
         </button>
         </h1>
       </div>
-      <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
+      <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#3E4551; min-width: 20rem;">
         <div class="card-body">
       <form>
         <label class="sr-only" for="inlineFormInputGroupAll">
@@ -35,8 +35,8 @@
                 <option value="" selected>
                   Select function
                 </option>
-                <option value="{{component.name}}" ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}" >
-                  ({{Uu=(definitions| filter : {function: component.name}).length}})| {{::component.name}}
+                <option value="{{component._id}}" ng-repeat="component in components|orderBy:'name'|filter:{type:'function'}" ng-hide="d_lgth==0">
+                  ({{d_lgth=(definitions|filter:{function:component._id}).length}})| {{component.name}}
                 </option>
               </select>
           </div>
@@ -46,14 +46,14 @@
       </div>
       <br>
       <div class="row d-flex justify-content-center" id="DefinitionsCopy">
-        <div ng-repeat="definition in definitions | orderBy : 'name' | filter:p | filter: {function : d} | filter:p1 | filter:p0">
+        <div ng-repeat="definition in definitions|orderBy:'name'|filter:p|filter:{function:d}|filter:p1|filter:p0">
           <div class="card border-elegant" style="width: 23.5rem; height: 100%;">
             <div class="card-body">
               <h3 class="card-title text-center">
-                {{::definition.name}}
+                {{definition.name}}
               </h3>
-              <h5 class="card-subtitle mb-2 text-muted" ng-if="definition.function">
-                Function: {{::definition.function}}
+              <h5 class="card-subtitle mb-2 text-muted" ng-repeat="component in components|filter:{type:'function'}" ng-if="definition.function==component._id">
+                Function: {{component.name}}
               </h5>
               <div class="card-footer bg-transparent border-elegant">
               <br>
@@ -64,8 +64,6 @@
             </div>
           </div>
         </div>
-
-
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 <script>
