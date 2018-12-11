@@ -13,39 +13,17 @@
     </nav>
     <div class="row">
       <div class="col-md-12 d-flex justify-content-center">
-        <div ng-init="getComponent()">
+        <div ng-init="[getComponent(),getFoundries()]">
           <div class="card border-elegant" style="min-width: 100%; height: 100%;">
             <div class="card-body">
               <h4 class="card-title text-center">
                 {{component.name}}
               </h4>
               <br>
-              <h5 class="card-subtitle mb-2 text-muted" ng-if="component.type=='reference'&&component.foundry.length>0">
-                Foundry: {{component.foundry}}
+              <h5 class="card-subtitle mb-2 text-muted" ng-repeat="foundry in foundries" ng-if="component.type=='reference'&&component.foundry.length>0&&foundry._id==component.foundry">
+                Foundry: {{foundry.name}}
               </h5>
               <div class="card-footer bg-transparent">
-                <table class="table table-sm" ng-if="component.type=='reference'&&component.blocks.length>0">
-                  <thead>
-                    <tr>
-                      <th scope="col">
-                      </th>
-                      <th scope="col">
-                        <b>
-                          Assigned blocks
-                        </b>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="blocks in component.blocks">
-                      <th scope="row">
-                        {{$index+1}}
-                      </th>
-                      <td>
-                        {{component.blocks[$index]}}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
               <div class="float-left">
                 <a href="#/component/edit/{{component._id}}" class="btn btn-warning btn-sm">
                   <span data-feather="edit" class="text-white" style="width: 15px; height: 15px;">
