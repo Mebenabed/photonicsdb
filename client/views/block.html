@@ -36,22 +36,22 @@
       <div class="col-md-12 mx-auto d-flex justify-content-center">
           <div class="card border-elegant mb-3 sticky-top mx-auto" style="min-width: 38rem; height: 100%;">
             <div class="card-body">
-              <button class="btn float-right btn-sm" data-clipboard-target="#CardCopy"  style="background-color:#fff;">
+              <button class="btn float-right btn-sm" data-clipboard-target="#CardCopy"  style="background-color:#fff;" data-toggle="tooltip" data-placement="right" title="Copy block attributes on the clipboard">
                 <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
               </button>
               <div ng-if="block.notes.length>0">
-                <a tabindex="0" class="btn float-right btn-sm text-light" role="button" data-toggle="popover" data-placement="right" data-trigger="focus" title="notes" data-content="{{block.notes}}" style="background-color:#2E2E2E;">
+                <a tabindex="0" class="btn float-right btn-sm text-light" role="button" data-toggle="popover" data-placement="left" data-trigger="focus" title="notes" data-content="{{block.notes}}" style="background-color:#2E2E2E;">
                   <span data-feather="clipboard" style="width: 15px; height: 15px;">
                   </span>
                 </a>
               </div>
-              <h4 class="card-subtitle mb-2 text-muted" ng-if="block.foundry.length>0">
-                Foundry: {{block.foundry}}
+              <h4 class="card-subtitle mb-2 text-muted" ng-repeat="foundry in foundries" ng-if="block.foundry.length>0&&block.foundry==foundry._id">
+                Foundry: {{foundry.name}}
               </h4>
-              <h4 class="card-subtitle mb-2 text-muted">
-                Function: {{block.function}}
+              <h4 class="card-subtitle mb-2 text-muted" ng-repeat="component in components | filter : {type: 'function'}" ng-if="block.function==component._id">
+                Function: {{component.name}}
               </h4>
-                <div ng-repeat="definition in definitions" ng-if="block.class==definition.name">
+                <div ng-repeat="definition in definitions" ng-if="block.class==definition._id">
                   <h5 class="card-subtitle mb-2 text-muted float-right mr-4" ng-if="block.status=='up-to-date'">
                     <span data-feather="check-circle" class="text-success" style="width: 30px; height: 30px;">
                     </span>
@@ -66,23 +66,21 @@
                     </span>
                   </h5>
                   <h4 class="card-subtitle mb-2 text-muted">
-                    Class: {{block.class}}
+                    Class: {{definition.name}}
                   </h4>
                   <h4 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='PDK'">
                     <span class="badge badge-light">
                       Reference: {{::block.reference}}
                     </span>
-                    |
-                    <span class="badge badge-light" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component.name==block.source&&component.foundry==block.foundry">
+                    <span class="badge badge-light" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component._id==block.source&&block.foundry==component.foundry">
                       Source: {{::component.name}}
                     </span>
                   </h4>
                   <h4 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='Literature'">
-                    <span class="badge badge-pill badge-danger">
+                    <span class="badge badge-pill badge-dark">
                       Reference: {{::block.reference}}
                     </span>
-                    |
-                    <span class="badge badge-pill badge-danger" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component.name==block.source&&component.foundry==block.foundry">
+                    <span class="badge badge-pill badge-dark" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component._id==block.source&&block.foundry==component.foundry">
                       Source: {{::component.name}}
                     </span>
                   </h4>
@@ -90,8 +88,7 @@
                     <span class="badge badge-pill badge-warning">
                       Reference: {{::block.reference}}
                     </span>
-                    |
-                    <span class="badge badge-pill badge-warning" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component.name==block.source&&component.foundry==block.foundry">
+                    <span class="badge badge-pill badge-warning" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component._id==block.source&&block.foundry==component.foundry">
                       Source: {{::component.name}}
                     </span>
                   </h4>
@@ -109,13 +106,13 @@
                           <th scope="col"><b>Value</b></th>
                         </tr>
                       </thead>
-                      <tbody ng-repeat="specifications in definition.specifications" ng-if="block.class==definition.name">
-                        <tr>
+                      <tbody>
+                        <tr ng-repeat="specifications in definition.specifications" ng-if="block.class==definition._id">
                           <th scope="row">
                             {{$index+1}}
                           </th>
-                          <td>
-                            {{definition.specifications[$index]}}
+                          <td ng-repeat="component in components|filter:{_id:definition.specifications[$index]}">
+                            {{component.name}}
                           </td>
                           <td>
                             {{block.valuec[$index]}}
@@ -145,8 +142,8 @@
                           <th scope="row">
                             {{$index+1}}
                           </th>
-                          <td>
-                            {{block.parameters[$index]}}
+                          <td ng-repeat="component in components|filter:{_id:block.parameters[$index]}">
+                            {{component.name}}
                           </td>
                           <td>
                             {{block.valueo[$index]}}
@@ -157,7 +154,7 @@
                   </div>
                 </div>
                 <div class="float-left">
-                  <a href="#/block/edit/{{block._id}}" class="btn btn-warning btn-sm">
+                  <a href="#/block/edit/{{block._id}}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="right" title="Edit">
                     <span data-feather="edit" class="text-white" style="width: 15px; height: 15px;">
                     </span>
                   </a>
@@ -182,7 +179,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="eModalLabel">
-                    Deleting {{block.name}} ...
+                    Deleting {{block.name}}
                   </h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
