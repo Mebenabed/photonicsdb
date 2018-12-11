@@ -26,7 +26,7 @@
                 <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="height: 15px;">
               </button>
               <div ng-if="foundry.notes.length>0">
-                <a tabindex="0" class="btn float-right text-light btn-sm" role="button" data-toggle="popover" data-placement="right" data-trigger="focus" title="notes" data-content="{{foundry.notes}}" style="background-color:#2E2E2E;">
+                <a tabindex="0" class="btn float-right text-light btn-sm" role="button" data-toggle="popover" data-placement="left" data-trigger="focus" title="notes" data-content="{{foundry.notes}}" style="background-color:#2E2E2E;">
                   <span data-feather="clipboard" style="width: 15px; height: 15px;">
                   </span>
                 </a>
@@ -55,7 +55,7 @@
                 </a>
                 <br>
                 <br>
-                <div ng-repeat="component in components | filter : {foundry: foundry.name}  | filter : {type: 'reference'}">
+                <div ng-repeat="component in components | filter : {foundry: foundry._id}  | filter : {type: 'reference'}">
                   <h6 class="card-subtitle mb-2 text-muted">
                     <span class="badge badge-pill badge-light">
                       {{component.name}}
@@ -66,7 +66,7 @@
                   <button class="btn btn-lg btn-block btn-outline-elegant waves-effect" disabled type="button" data-toggle="collapse" data-target="#collapseBlock" aria-expanded="true" aria-controls="collapseBlock">
                     Blocks
                     <span class="badge badge-warning">
-                      {{(blocks | filter : {class: definition.name} | filter: {class:d} | filter: {foundry: foundry.name}).length}}
+                      {{(blocks | filter : {class: definition.name} | filter: {class:d} | filter: {foundry: foundry._id}).length}}
                     </span>
                   </button>
                   <br>
@@ -75,14 +75,14 @@
                         Select Class
                       </option>
                       <option value="{{definition.name}}" ng-repeat="definition in definitions | orderBy : 'name' | filter:s" ng-hide="Cc==0">
-                        ({{Cc=(blocks | filter : {class: definition.name} | filter: {foundry: foundry.name}).length}})| {{definition.name}}
+                        ({{Cc=(blocks | filter : {class: definition.name} | filter: {foundry: foundry._id}).length}})| {{definition.name}}
                       </option>
                     </select>
                   <!-- Call reading all the blocks service from the controller-->
                   <div class="collapse show" id="collapseBlock">
                     <div class="row d-flex justify-content-center">
                        <!-- Display the read blocks' documents by block scope | condition: match if the block foundry (from blocks collection) attribute with the block name attribute (from foundries collection)-->
-                      <div ng-repeat="block in blocks | filter : d | orderBy : 'class'" ng-if="block.foundry==foundry.name">
+                      <div ng-repeat="block in blocks | filter : d | orderBy : 'class'" ng-if="block.foundry==foundry._id">
                         <!-- Link to redirect to the block by id -->
                         <h5>
                           <a href="#/block/{{block._id}}" class="badge badge-dark" target="_blank">
