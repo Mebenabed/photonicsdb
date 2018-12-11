@@ -15,8 +15,12 @@ const componentSchema = mongoose.Schema({
 		enum: ['parameter', 'function','reference'],
 		default: 'parameter'
 	},
-	foundry: String,
-	blocks: [String]
+	foundry: {
+		type: String,
+		default: '?'
+	}
+},
+{ versionKey: false
 });
 
 //definitions collection schema
@@ -26,8 +30,13 @@ const definitionSchema = mongoose.Schema({
 		unique: true,
 		required: true
 	},
-	function: String,
+	function: {
+		type: String,
+		default: '?'
+	},
 	specifications: [String]
+},
+{ versionKey: false
 });
 
 //blocks collection schema
@@ -39,7 +48,7 @@ const blockSchema = mongoose.Schema({
 	},
 	notes: {
 		type: String,
-		default: ''
+		default: '?'
 	},
 	status:{
 		type: String,
@@ -51,22 +60,26 @@ const blockSchema = mongoose.Schema({
 		enum: ['PDK', 'Literature', 'VLC'],
 		default: 'PDK'
 	},
-	foundry: String,
-	source: String,
-	function: String,
+	foundry: {
+		type: String,
+		default: '?'
+	},
+	source: {
+		type: String,
+		default: '?'
+	},
+	function: {
+		type: String,
+		default: '?'
+	},
 	class: String,
 	parameters: {
 		type: Array,
-		default: []
+		default: '?'
 	},
-	valuec: {
-		type: Array,
-		default: null
-	},
-	valueo: {
-		type: Array,
-		default: null
-  }
+	valuec: Array,
+	valueo: Array},
+	{ versionKey: false
 });
 
 //foundries collection schema
@@ -76,11 +89,16 @@ const foundrySchema = mongoose.Schema({
 		unique: true,
 		required: true
 	},
-	notes: String,
+	notes: {
+		type: String,
+		default: '?'
+	},
 	contact:String,
 	phone: String,
 	mail: String,
 	url: String
+},
+{ versionKey: false
 });
 
 // creating module for schema by passing document as argument
