@@ -5,7 +5,7 @@
           Attributes
         </h1>
       </div>
-      <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
+      <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#3E4551; min-width: 20rem;">
         <div class="card-body">
       <form>
         <label class="sr-only" for="inlineFormInputGroupAll">
@@ -23,32 +23,32 @@
           <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q1" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of an attribute. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
         </div>
       </form>
-      <hr class="bg-warning">
+      <hr class="bg-dark">
       <div class="btn-group d-flex justify-content-center" role="group" aria-label="view">
-        <button class="btn" type="button" data-toggle="collapse" data-target="#collapseFunctions" aria-expanded="true" aria-controls="collapseFunctions" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="Show/hide functions">
+        <a class="btn pt-3 bg-dark text-light" data-toggle="collapse" data-target="#collapseFunctions" aria-expanded="true" aria-controls="collapseFunctions" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="Show/hide functions">
           <h6 class="mt-2">
           Functions
             <span class="badge badge-warning">
-              {{(components|filter:q|filter:q0|filter:q1| filter: {type:'function'}).length}}
+              {{(components|filter:q|filter:q0|filter:q1|filter:{type:'function'}).length}}
             </span>
           </h6>
-        </button>
-        <button class="btn" type="button" data-toggle="collapse" data-target="#collapseParameters" aria-expanded="false" aria-controls="collapseParameters" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="Show/hide parameters">
+        </a>
+        <a class="btn pt-3 bg-dark text-light" data-toggle="collapse" data-target="#collapseParameters" aria-expanded="false" aria-controls="collapseParameters" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="Show/hide parameters">
           <h6 class="mt-2">
           Parameters
             <span class="badge badge-warning">
-              {{(components|filter:q|filter:q0|filter:q1| filter: {type:'parameter'}).length}}
+              {{(components|filter:q|filter:q0|filter:q1|filter:{type:'parameter'}).length}}
             </span>
           </h6>
-        </button>
-        <button class="btn" type="button" data-toggle="collapse" data-target="#collapseReferences" aria-expanded="false" aria-controls="collapseReferences" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="Show/hide sources">
+        </a>
+        <a class="btn pt-3 bg-dark text-light" data-toggle="collapse" data-target="#collapseReferences" aria-expanded="false" aria-controls="collapseReferences" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="Show/hide sources">
           <h6 class="mt-2">
           Sources
             <span class="badge badge-warning">
-              {{(components|filter:q|filter:q0|filter:q1| filter: {type:'reference'}).length}}
+              {{(components|filter:q|filter:q0|filter:q1|filter:{type:'reference'}).length}}
             </span>
           </h6>
-        </button>
+        </a>
       </div>
       </div>
       </div>
@@ -57,11 +57,11 @@
         <h2 class="d-flex justify-content-center">Functions</h2>
         <br>
         <div class="row d-flex justify-content-center" id="FoundriesCopy">
-          <div ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'} | filter : q0 | filter : q | filter:q1">
+          <div ng-repeat="component in components|orderBy:'name'|filter:{type:'function'}|filter:{name:q0}|filter:{name:q}|filter:{name:q1}">
             <div class="card border-elegant" style="width: 20rem; height: 100%;">
               <div class="card-body">
                 <h3 class="card-title text-center">
-                  {{::component.name}}
+                  {{component.name}}
                 </h3>
                 <div class="float-right">
                   <a href="#/component/{{component._id}}" class="btn btn-sm btn-warning btn-lg btn-block" role="button" aria-pressed="true">
@@ -79,11 +79,11 @@
         <h2 class="d-flex justify-content-center">Parameters</h2>
         <br>
         <div class="row d-flex justify-content-center" id="FoundriesCopy">
-          <div ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'} | filter : q0 | filter : q | filter:q1">
+          <div ng-repeat="component in components|orderBy:'name'|filter:{type:'parameter'}|filter:{name:q0}|filter:{name:q}|filter:{name:q1}">
             <div class="card border-elegant" style="width: 20rem; height: 100%;">
               <div class="card-body">
                 <h3 class="card-title text-center">
-                  {{::component.name}}
+                  {{component.name}}
                 </h3>
                 <div class="float-right">
                   <a href="#/component/{{component._id}}" class="btn btn-sm btn-warning btn-lg btn-block" role="button" aria-pressed="true">
@@ -100,7 +100,7 @@
       <div class="collapse" id="collapseReferences">
         <h2 class="d-flex justify-content-center">Sources</h2>
         <br>
-        <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
+        <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#3E4551; min-width: 20rem;">
           <div class="card-body">
         <form>
           <div class="form-row">
@@ -109,8 +109,8 @@
                   <option value="" selected>
                     Select foundry
                   </option>
-                  <option value="{{foundry.name}}" ng-repeat="foundry in foundries | orderBy : 'name'" >
-                    {{::foundry.name}}
+                  <option value="{{foundry._id}}" ng-repeat="foundry in foundries|orderBy:'name'" ng-hide="f_lgth==0">
+                    {{f_lgth=(components|filter:{type:'reference'}|filter:{foundry:foundry._id}).length}}| {{foundry.name}}
                   </option>
                 </select>
             </div>
@@ -120,15 +120,15 @@
     </div>
     <br>
         <div class="row d-flex justify-content-center" id="FoundriesCopy">
-          <div ng-repeat="component in components | orderBy : 'name' | filter : {type: 'reference'} | filter : q0 | filter : q | filter:q1 | filter :{foundry:d}">
+          <div ng-repeat="component in components|orderBy:'name'|filter:{type:'reference'}|filter:{name:q0}|filter:{name:q}|filter:{name:q1}|filter:{foundry:d}">
             <div class="card border-elegant" style="width: 20rem; height: 100%;">
               <div class="card-body">
                 <h3 class="card-title text-center">
-                  {{::component.name}}
+                  {{component.name}}
                 </h3>
                 <br>
-                <h5 class="card-subtitle mb-2 text-muted" ng-if="component.foundry.length>0">
-                    Foundry: {{::component.foundry}}
+                <h5 class="card-subtitle mb-2 text-muted" ng-repeat="foundry in foundries" ng-if="component.foundry.length>0&&foundry._id==component.foundry">
+                  Foundry: {{foundry.name}}
                 </h5>
                 <div class="card-footer bg-transparent border-elegant">
                 <div class="float-right">
