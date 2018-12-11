@@ -75,7 +75,7 @@
                       <option value="" disabled selected>
                         Choose a function
                       </option>
-                      <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}" value="{{component.name}}">
+                      <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}" value="{{component._id}}">
                         {{component.name}}
                       </option>
                     </select>
@@ -89,7 +89,7 @@
                     </label>
                     <br>
                     <select class="form-control" size="15" ng-model="definition.specifications" multiple>
-                      <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'} | filter : m" value="{{component.name}}">
+                      <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'}" value="{{component._id}}">
                         {{component.name}}
                       </option>
                     </select>
@@ -111,8 +111,8 @@
                       <th scope="row">
                         {{$index+1}}
                       </th>
-                      <td>
-                        {{definition.specifications[$index]}}
+                      <td ng-repeat="component in components|filter:{_id:definition.specifications[$index]}">
+                        {{component.name}}
                       </td>
                     </tr>
                   </tbody>
