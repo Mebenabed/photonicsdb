@@ -1,7 +1,7 @@
   <main role="main" class="col-md-9 mx-auto">
     <div class="d-flex justify-content-center align-items-center border-bottom">
       <h1 class="h2">
-        Edit {{definition.name}}
+        Edit {{::definition.name}}
       </h1>
     </div>
     <br>
@@ -22,7 +22,7 @@
                      Function
                    </label>
                   <select class="form-control" ng-model="definition.function">
-                    <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}" value="{{component.name}}">
+                    <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}" value="{{component._id}}">
                       {{component.name}}
                     </option>
                   </select>
@@ -37,7 +37,7 @@
                  </label>
                 <div ng-submit="addDefinitions()">
                   <select class="form-control" size="15" ng-model="definition.specifications" multiple>
-                    <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'}" value="{{component.name}}">
+                    <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'}" value="{{component._id}}">
                       {{component.name}}
                     </option>
                   </select>
@@ -58,8 +58,8 @@
                     <th scope="row">
                       {{$index+1}}
                     </th>
-                    <td>
-                      {{definition.specifications[$index]}}
+                    <td ng-repeat="component in components|filter:{_id:definition.specifications[$index]}">
+                      {{component.name}}
                     </td>
                   </tr>
                 </tbody>
