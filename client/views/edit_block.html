@@ -1,7 +1,7 @@
   <main role="main" class="col-md-9 mx-auto">
     <div class="d-flex justify-content-center align-items-center border-bottom">
       <h1 class="h2">
-        Edit {{block.name}}
+        Edit {{::block.name}}
       </h1>
     </div>
     <div class="border border-warning p-5 text-center d-flex bd-highlight bg-dark text-light">
@@ -21,7 +21,7 @@
                      Foundry
                   </label>
                   <select class="form-control" ng-model="block.foundry">
-                    <option ng-repeat="foundry in foundries | orderBy : 'name'" value="{{foundry.name}}">
+                    <option ng-repeat="foundry in foundries|orderBy:'name'" value="{{foundry._id}}">
                       {{foundry.name}}
                     </option>
                   </select>
@@ -33,7 +33,7 @@
                     Function
                   </label>
                   <select class="form-control" ng-model="block.function">
-                    <option value="{{component.name}}" ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}">
+                    <option value="{{component._id}}" ng-repeat="component in components|orderBy:'name'|filter:{type:'function'}">
                       {{component.name}}
                     </option>
                   </select>
@@ -41,7 +41,7 @@
                     Class
                   </label>
                   <select class="form-control" ng-model="block.class">
-                    <option ng-repeat="definition in definitions | orderBy : 'name' | filter:block.function" value="{{definition.name}}">
+                    <option ng-repeat="definition in definitions|orderBy:'name'|filter:{function:block.function}" value="{{definition._id}}">
                       {{definition.name}}
                     </option>
                   </select>
@@ -94,7 +94,7 @@
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" class="custom-control-input" id="PaperR" ng-model="block.reference" value="Literature">
                     <label class="custom-control-label" for="PaperR">
-                      paper
+                      Literature
                     </label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
@@ -107,28 +107,16 @@
                   <br>
                   <div ng-init="getComponents()">
                     <select class="custom-select" ng-model="block.source">
-                      <option value="" selected>
-                        Select reference
-                      </option>
-                      <option ng-repeat="component in components | filter : {type: 'reference'} | filter : block.foundry | orderBy : 'name'" value="{{component.name}}">
+                      <option ng-repeat="component in components|filter:{type:'reference'}|filter:{foundry:block.foundry}|orderBy:'name'" value="{{component._id}}">
                         {{component.name}}
                       </option>
                     </select>
                   </div>
                   <br>
-                  <hr class="bg-warning">
-                  <p class="font-weight-bold">
-                    Source
-                    <span data-feather="alert-triangle" class="text-danger">
-                    </span>
-                    </p>
-                    <small class="form-text text-muted">
-                      Please assign a new reference to the source in the "Add an attribute" form or an existing reference in edit "attributes\references"
-                    </small>
                       </div>
                     </div>
                     <br>
-                    <textarea class="form-control" ng-model="block.notes" placeholder="notes" rows="8" cols="80">
+                    <textarea class="form-control" ng-model="block.notes" placeholder="notes" rows="4" cols="80">
                     </textarea>
               <br>
               <div class="form-group">
@@ -141,7 +129,7 @@
                   </label>
                   <div ng-submit="addBlock()">
                     <select class="form-control" size="15" ng-model="block.parameters" multiple>
-                      <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'}" value="{{component.name}}">
+                      <option ng-repeat="component in components|orderBy:'name'|filter:{type:'parameter'}" value="{{component._id}}">
                         {{component.name}}
                       </option>
                     </select>
@@ -162,10 +150,10 @@
                     <th scope="row">
                       {{$index+1}}
                     </th>
-                    <td>
-                      {{block.parameters[$index]}}
+                    <td ng-repeat="component in components|filter:{_id:block.parameters[$index]}">
+                      {{component.name}}
                     </td>
-                  </tr>
+                  </tr
                 </tbody>
               </table>
             </form>
