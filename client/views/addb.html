@@ -83,7 +83,7 @@
                         <option value="" disabled selected>
                           Select foundry
                         </option>
-                        <option ng-repeat="foundry in foundries | orderBy : 'name'" value="{{foundry.name}}">
+                        <option ng-repeat="foundry in foundries | orderBy : 'name'" value="{{foundry._id}}">
                           {{foundry.name}}
                         </option>
                       </select>
@@ -96,10 +96,10 @@
                     </small>
                     <div ng-init="getDefinitions()" class="form-row">
                       <select class="custom-select mb-2" ng-model="block.function">
-                        <option value="{{component.name}}"selected>
+                        <option value="" disabled selected>
                           Select function
                         </option>
-                        <option value="{{component.name}}" ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}">
+                        <option value="{{component._id}}" ng-repeat="component in components|orderBy:'name'|filter:{type: 'function'}">
                           {{component.name}}
                         </option>
                       </select>
@@ -107,7 +107,7 @@
                         <option value="" disabled selected>
                           Select class
                         </option>
-                        <option ng-repeat="definition in definitions | orderBy : 'name' | filter:block.function" value="{{definition.name}}">
+                        <option ng-repeat="definition in definitions|orderBy:'name'|filter:block.function"value="{{definition._id}}">
                           {{definition.name}}
                         </option>
                       </select>
@@ -122,7 +122,7 @@
                         <label class="custom-control-label" for="ActiveR">
                           Up-to-date
                           <small class="form-text text-muted">
-                            Fully functional up-to-date blocks
+                            Operational up-to-date blocks
                           </small>
                         </label>
                       </div>
@@ -169,24 +169,14 @@
                       <br>
                       <div ng-init="getComponents()">
                         <select class="custom-select" ng-model="block.source">
-                          <option value="" selected>
+                          <option value="" disabled selected>
                             Select source
                           </option>
-                          <option ng-repeat="component in components | filter : {type: 'reference'} | filter : block.foundry | orderBy : 'name'" value="{{component.name}}">
+                          <option ng-repeat="component in components|filter:{type:'reference'}|filter:block.foundry|orderBy:'name'" value="{{component._id}}">
                             {{component.name}}
                           </option>
                         </select>
                       </div>
-                      <br>
-                      <hr class="bg-warning">
-                      <p class="font-weight-bold">
-                        Source
-                        <span data-feather="alert-triangle" class="text-danger">
-                        </span>
-                        </p>
-                        <small class="form-text text-muted">
-                          Please assign a new reference to the source in the "Add an attribute" form or an existing reference in edit "attributes\references"
-                        </small>
                     </div>
                     <br>
                     <textarea class="form-control" ng-model="block.notes" placeholder="notes" rows="3" cols="80">
@@ -200,7 +190,7 @@
                     </label>
                     <br>
                     <select class="form-control" size="15" ng-model="block.parameters" multiple ng-init="getComponents()">
-                      <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'}" value="{{component.name}}">
+                      <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'}" value="{{component._id}}">
                         {{component.name}}
                       </option>
                     </select>
@@ -216,15 +206,15 @@
                     Selected custom parameters
                   </label>
                   <table class="table table-sm">
-                    <tbody ng-repeat="parameters in block.parameters">
-                      <tr>
+                    <tbody>
+                      <tr ng-repeat="parameters in block.parameters">
                         <th scope="row">
                           {{$index+1}}
                         </th>
-                        <td>
-                          {{block.parameters[$index]}}
+                        <td ng-repeat="component in components|filter:{_id:block.parameters[$index]}">
+                          {{component.name}}
                         </td>
-                      </tr>
+                      </tr
                     </tbody>
                   </table>
                   </div>
@@ -234,8 +224,6 @@
             </div>
           </div>
         </div>
-
-
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 <script>
