@@ -1,71 +1,73 @@
   <main role="main" class="col-md-9 mx-auto">
-    <div class="d-flex justify-content-center align-items-center border-bottom">
+    <div class="d-flex justify-content-center align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h1 class="h2">
-        Edit {{::definition.name}}
+        Edit {{::foundry.name}}
       </h1>
     </div>
-    <br>
-    <div class="border border-warning p-4 text-center d-flex bd-highlight bg-dark text-light">
+    <div class="border bg-dark text-light border-warning p-4 text-center d-flex bd-highlight">
       <div class="p-2 flex-sm-fill bd-highlight">
         <div class="row">
           <div class="col-md-12">
-            <form ng-submit="updateDefinition()" ng-init="getDefinition()">
+            <!-- Call update a foundry service upon submition, Call reading a foundry service from the controller -->
+            <form ng-submit="updateFoundry()" ng-init="getFoundry()">
               <div class="form-group">
                 <label class="font-weight-bold">
                   Name
                 </label>
-                <input type="text" class="form-control" ng-model="definition.name" placeholder="name">
-              </div>
-              <div class="form-group">
-                <div ng-init="getComponents()">
-                  <label class="font-weight-bold">
-                     Function
-                   </label>
-                  <select class="form-control" ng-model="definition.function">
-                    <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}" value="{{component._id}}">
-                      {{component.name}}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="font-weight-bold">
-                   Update parameters
-                   <small class="form-text text-muted">
-                     Hold <kbd class="bg-warning text-dark">Ctrl</kbd> for multiple selection
-                   </small>
-                 </label>
-                <div ng-submit="addDefinitions()">
-                  <select class="form-control" size="15" ng-model="definition.specifications" multiple>
-                    <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'}" value="{{component._id}}">
-                      {{component.name}}
-                    </option>
-                  </select>
+                <input type="text" class="form-control" ng-model="foundry.name" placeholder="name">
+                <br>
+                <textarea class="form-control" ng-model="foundry.notes" placeholder="notes" rows="4" cols="80">
+                </textarea>
+                <br>
+                <div class="border border-warning p-2 text-center font-weight-bold">
+                   Contact
+                   <br>
+                   <br>
+                  <div class="col">
+                    <label>
+                      <span data-feather="user" class="text-primary">
+                      </span>
+                    </label>
+                    <input type="text" class="form-control" ng-model="foundry.contact" placeholder="contact person">
+                  </div>
+                  <br>
+                  <div class="col">
+                    <label>
+                      <span data-feather="phone" class="text-primary">
+                      </span>
+                    </label>
+                    <input type="text" class="form-control" ng-model="foundry.phone" placeholder="phone">
+                  </div>
+                  <br>
+                  <div class="col">
+                    <label>
+                      <span data-feather="at-sign" class="text-primary">
+                      </span>
+                    </label>
+                    <input type="text" class="form-control" ng-model="foundry.mail" placeholder="mail">
+                  </div>
+                  <br>
+                  <div class="col">
+                    <label>
+                      <span data-feather="globe" class="text-primary">
+                      </span>
+                    </label>
+                    <input type="text" class="form-control" ng-model="foundry.url" placeholder="url">
+                  </div>
                   <br>
                 </div>
               </div>
               <button type="submit" class="btn btn-warning btn-block my-4">
                 Submit
               </button>
-              <br>
-              <br>
-              <label class="d-flex justify-content-center align-items-center font-weight-bold">
-                 Selected parameters
-               </label>
-              <table class="table table-sm">
-                <tbody>
-                  <tr ng-repeat="specifications in definition.specifications">
-                    <th scope="row">
-                      {{$index+1}}
-                    </th>
-                    <td ng-repeat="component in components|filter:{_id:definition.specifications[$index]}">
-                      {{component.name}}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
             </form>
           </div>
         </div>
       </div>
     </div>
+
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+  feather.replace()
+</script>
