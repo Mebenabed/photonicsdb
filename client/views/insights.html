@@ -7,16 +7,16 @@
   </div>
   <br>
   <div class="btn-group d-flex justify-content-center" role="group" aria-label="view">
-    <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseParameters" aria-expanded="false" aria-controls="collapseParameters" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="(Show/Hide) By selecting a parameter you can generate the values of this parameter within different blocks">
+    <a class="btn pt-3 bg-dark text-light" data-toggle="collapse" data-target="#collapseParameters" aria-expanded="false" aria-controls="collapseParameters" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="(Show/Hide) By selecting a parameter you can generate the values of this parameter within different blocks">
       <h6 class="mt-2">
       Parameters look-out
       </h6>
-    </button>
-    <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseSpecs" aria-expanded="false" aria-controls="collapseSpecs" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="(Show/Hide) A view combining (horizontally) tables providing parameters values within different blocks sorted (vertically) by class">
+    </a>
+    <a class="btn pt-3 bg-dark text-light" data-toggle="collapse" data-target="#collapseSpecs" aria-expanded="false" aria-controls="collapseSpecs" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="(Show/Hide) A view combining (horizontally) tables providing parameters values within different blocks sorted (vertically) by class">
       <h6 class="mt-2">
       Join comparaison
       </h6>
-    </button>
+    </a>
   </div>
   <br>
   <div class="collapse show" id="collapseParameters">
@@ -24,7 +24,7 @@
     <div class="card-header">
       Parameters look-out
     </div>
-    <div class="card-body" style="width: 100%; background-color:#2E2E2E; min-width: 18rem;">
+    <div class="card-body" style="width: 100%; background-color:#3E4551; min-width: 18rem;">
       <div class="input-group mb-2 mr-sm-2">
         <div class="input-group-prepend">
           <div class="input-group-text">
@@ -36,8 +36,8 @@
         <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q0" aria-label="filter blocks" placeholder="within the menu below" data-toggle="tooltip" data-placement="right" title="Search within the select menu below. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
         <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q1" aria-label="filter blocks" placeholder="within the menu below" data-toggle="tooltip" data-placement="right" title="Search within the select menu below. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
       </div>
-        <select class="form-control" size="5" ng-model="c">
-          <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'} | filter :q | filter :q0 | filter :q1" value="{{component.name}}">
+      <select class="form-control" size="5" ng-model="c">
+          <option ng-repeat="component in components|orderBy:'name'|filter:{type:'parameter'}|filter:{name:q}|filter:{name:q0}|filter:{name:q1}" value="{{component._id}}">
             {{component.name}}
           </option>
         </select>
@@ -46,12 +46,12 @@
           <div class="col">
               <div class="form-row">
                 <div class="col">
-                  <select class="custom-select custom-select-sm mb-2" ng-model="t" data-toggle="tooltip" data-placement="right" title="Foundry">
-                    <option value=""selected>
+                  <select class="custom-select custom-select-sm mb-2" ng-model="k" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the blocks that match the selected foundry.">
+                    <option value="" selected>
                       Select Foundry
                     </option>
-                    <option value="{{foundry.name}}" ng-repeat="foundry in foundries | orderBy : 'name'" ng-hide="Ff==0">
-                      ({{Ff=(blocks |filter:v|filter:s| filter : {foundry: foundry.name}).length}})| {{::foundry.name}}
+                    <option value="{{foundry._id}}" ng-repeat="foundry in foundries|orderBy:'name'" ng-hide="f_lgth==0">
+                      ({{f_lgth=(blocks|filter:{status:block.status}|filter:{foundry:foundry._id}|filter:{source:component._id}|filter:{reference:block.reference}|filter:{function:s}|filter:{class:d}).length}})| {{foundry.name}}
                     </option>
                   </select>
                 </div>
@@ -60,55 +60,63 @@
           <div class="col">
               <div class="form-row">
                 <div class="col">
-                  <select class="custom-select custom-select-sm mb-2" ng-model="s" data-toggle="tooltip" data-placement="right" title="Function">
-                    <option value=""selected>
-                      Select Function
+                  <select class="custom-select custom-select-sm mb-2" ng-model="g" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the blocks that match the selected source.">
+                    <option value="" selected>
+                      Select Source
                     </option>
-                    <option value="{{component.name}}" ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}" ng-hide="Uu==0">
-                      ({{Uu=(blocks|filter:t|filter:v| filter : {function: component.name}).length}})| {{::component.name}}
+                    <option value="{{component._id}}" ng-repeat="component in components|filter:{type:'reference'}|filter:{foundry:k}" ng-hide="s_lgth==0">
+                      ({{s_lgth=(blocks|filter:{status:block.status}|filter:{foundry:k}|filter:{source:component._id}|filter:{reference:block.reference}|filter:{function:s}|filter:{class:d}).length}})| {{component.name}}
                     </option>
                   </select>
                 </div>
               </div>
-            </div><div class="col">
-                <div class="form-row">
-                  <div class="col">
-                    <select class="custom-select custom-select-sm mb-2" ng-model="v" data-toggle="tooltip" data-placement="right" title="Class">
-                      <option value=""selected>
-                        Select Class
-                      </option>
-                      <option value="{{definition.name}}" ng-repeat="definition in definitions | orderBy : 'name' | filter : {function:s}" ng-hide="Rr==0">
-                        ({{Rr=(blocks|filter:t|filter:s| filter : {class: definition.name}).length}})| {{::definition.name}}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-              </div>
             </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <select class="custom-select custom-select-sm mb-2" ng-model="s" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the blocks that match the selected function.">
+              <option value=""selected>
+                Select Function
+              </option>
+              <option value="{{component._id}}" ng-repeat="component in components|orderBy:'name'|filter:{type:'function'}" ng-hide="u_lgth==0">
+                ({{u_lgth=(blocks|filter:{status:block.status}|filter:{foundry:k}|filter:{source:g}|filter:{reference:block.reference}|filter:{function:component._id}|filter:{class:d}).length}})| {{component.name}}
+              </option>
+            </select>
+          </div>
+          <div class="col">
+            <select class="custom-select custom-select-sm mb-2" ng-model="d" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the blocks that match the selected class.">
+              <option value="" selected>
+                Select Class
+              </option>
+              <option value="{{definition._id}}" ng-repeat="definition in definitions|orderBy:'name'|filter:{function:s}|filter:{specifications:c}" ng-hide="c_lgth==0">
+                ({{c_lgth=(blocks|filter:{status:block.status}|filter:{foundry:k}|filter:{source:g}|filter:{reference:block.reference}|filter:{function:s}|filter:{class:definition._id}).length}})| {{definition.name}}
+              </option>
+            </select>
+          </div>
+        </div>
           </div>
           <div class="card-footer">
             <p class="font-weight-bold text-center">
-              <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseBtable" aria-expanded="false" aria-controls="collapseBtable" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="(Show/Hide) Show the values of the selected parameter within the different blocks that have the selected parameter as a class bound parameter. These blocks are sorted by class and only blocks that have at least one value within the array of class bound parameters are shown here.">
+              <a class="btn pt-3 bg-dark text-light" data-toggle="collapse" data-target="#collapseBtable" aria-expanded="false" aria-controls="collapseBtable" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="(Show/Hide) Show the values of the selected parameter within the different blocks that have the selected parameter as a class bound parameter. These blocks are sorted by class and only blocks that have at least one value within the array of class bound parameters are shown here.">
                 Class bound parameters' values
-              </button>
+              </a>
             </p>
       <div class="collapse" id="collapseBtable">
         <button class="btn btn-sm float-right mb-2 text-dark" data-clipboard-target="#collapseBtable" style="background-color:#E4E4E4;"  data-toggle="tooltip" data-placement="right" title="Copy the table below on the clipboard">
           <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
         </button>
-        <p class="font-weight-bold text-center">
-          {{c}} as a class bound parameter
+        <p class="font-weight-bold text-center" ng-repeat="component in components|filter:{type:'parameter'}|filter:{_id:c}">
+          {{component.name}} as a class bound parameter
         </p>
     <div class="table-responsive">
     <table class="table table-bordered">
-      <!-- These are the blocks valueC having c as a parameter-->
       <tr>
-        <td class="font-weight-bold" ng-repeat="definition in definitions|filter:{specifications:c}|filter:{function:s}|filter:{name:v}">
+        <td class="font-weight-bold" ng-repeat="definition in definitions|filter:{_id:d}|filter:{function:s}|filter:{specifications:c}">
           {{definition.name}}
           <br>
           <table class="table table-borderless table-sm">
             <tr>
-              <td ng-repeat="block in blocks |filter :{foundry:t} | orderBy : 'foundry'" ng-if="block.class==definition.name&&(block.valuec).length>0">
+              <td ng-repeat="block in blocks|filter:{foundry:k}|filter:{source:g}|filter:{function:s}|filter:{class:d}" ng-if="block.class==definition._id&&(block.valuec).length>0">
                 <a href="#/block/{{block._id}}" class="btn btn-outline-dark btn-sm mx-auto" target="_blank">
                 {{block.name}}
                 <table>
@@ -129,21 +137,21 @@
     <hr>
     </div>
             <p class="font-weight-bold text-center">
-              <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseBctable" aria-expanded="false" aria-controls="collapseBctable" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="(Show/Hide) Show the values of the selected parameter within the different blocks that have the selected parameter as a custom parameter. These blocks are sorted by class and only blocks that have at least one value within the array of custom parameters are shown here.">
+              <a class="btn pt-3 bg-dark text-light" data-toggle="collapse" data-target="#collapseBctable" aria-expanded="false" aria-controls="collapseBctable" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="(Show/Hide) Show the values of the selected parameter within the different blocks that have the selected parameter as a custom parameter. These blocks are sorted by class and only blocks that have at least one value within the array of custom parameters are shown here.">
                 Custom parameters' values
-              </button>
+              </a>
             </p>
             <div class="collapse" id="collapseBctable">
               <button class="btn btn-sm float-right mb-2 text-dark" data-clipboard-target="#collapseBctable" style="background-color:#E4E4E4;"  data-toggle="tooltip" data-placement="right" title="Copy the table below on the clipboard">
                 <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
               </button>
-              <p class="font-weight-bold text-center">
-                {{c}} as a custom parameter
+              <p class="font-weight-bold text-center" ng-repeat="component in components|filter:{type:'parameter'}|filter:{_id:c}">
+                {{component.name}} as a custom parameter
               </p>
         <div class="table-responsive">
         <table class="table table-bordered">
           <tr>
-            <td ng-repeat="block in blocks |filter :{foundry:t}|filter:{parameters:c}| filter:{function:s}|filter:{class:v}|orderBy : 'foundry'">
+            <td ng-repeat="block in blocks|filter:{parameters:c}">
                 <a href="#/block/{{block._id}}" class="btn btn-outline-dark btn-sm mx-auto" target="_blank">
               {{block.name}}
               <table class="table table-borderless">
@@ -159,29 +167,6 @@
         </table>
         </div>
       </div>
-      <!--
-      <p class="font-weight-bold text-center">
-        Classes having {{c}} as a parameter
-        <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseCtable" aria-expanded="false" aria-controls="collapseCtable" style="background-color:#4B515D;">
-          Show/Hide
-        </button>
-      </p>
-      <div class="collapse" id="collapseCtable">
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <tr>
-            <td ng-repeat="definition in definitions | filter:{function:s}|filter:{specifications:c}|filter:{name:v}">
-              <a href="#/definition/{{definition._id}}" class="btn btn-outline-dark btn-sm mx-auto" target="_blank">
-              {{definition.name}}
-              </a>
-              <br>
-            </td>
-          </tr>
-        </table>
-        </div>
-        <hr>
-        </div>
-        -->
     </div>
   </div>
   <br>
@@ -194,37 +179,74 @@
     </div>
     <div class="card-body p-0" >
       <ul class="list-group list-group-flush">
-        <li class="list-group-item" style="background-color:#2E2E2E; min-width: 18rem;">
+        <li class="list-group-item" style="background-color:#3E4551; min-width: 18rem;">
             <div class="row">
               <div class="col-md-12">
-                <select class="custom-select custom-select-sm mb-2" ng-model="s" data-toggle="tooltip" data-placement="right" title="Function">
-                  <option value="" selected>
-                    Select Function
-                  </option>
-                  <option value="{{component.name}}" ng-repeat="component in components | orderBy : 'name'| filter : {type: 'function'}">
-                    {{component.name}}
-                  </option>
-                </select>
-                <select class="custom-select custom-select-sm mb-2" ng-model="k" data-toggle="tooltip" data-placement="right" title="Class">
-                  <option value="" selected>
-                    Select Class
-                  </option>
-                  <option value="{{definition.name}}" ng-repeat="definition in definitions | orderBy : 'name' | filter: {function:s}">
-                    {{definition.name}}
-                  </option>
-                </select>
+                <div class="form-row">
+                  <div class="col">
+                    <select class="custom-select custom-select-sm mb-2" ng-model="s" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the returned blocks if selected.">
+                      <option value=""selected>
+                        Select Function
+                      </option>
+                      <option value="{{component._id}}" ng-repeat="component in components|orderBy:'name'|filter:{type:'function'}" ng-hide="u_lgth==0">
+                        ({{u_lgth=(blocks|filter:{status:block.status}|filter:{foundry:k}|filter:{source:g}|filter:{reference:block.reference}|filter:{function:component._id}|filter:{class:d}).length}})| {{component.name}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col">
+                    <select class="custom-select custom-select-sm mb-2" ng-model="d" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the returned blocks if selected.">
+                      <option value="" selected>
+                        Select Class
+                      </option>
+                      <option value="{{definition._id}}" ng-repeat="definition in definitions|orderBy:'name'|filter:{function:s}" ng-hide="c_lgth==0">
+                        ({{c_lgth=(blocks|filter:{status:block.status}|filter:{foundry:k}|filter:{source:g}|filter:{reference:block.reference}|filter:{function:s}|filter:{class:definition._id}).length}})| {{definition.name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                      <div class="form-row">
+                        <div class="col">
+                          <select class="custom-select custom-select-sm mb-2" ng-model="k" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the returned blocks if selected.">
+                            <option value="" selected>
+                              Select Foundry
+                            </option>
+                            <option value="{{foundry._id}}" ng-repeat="foundry in foundries|orderBy:'name'" ng-hide="f_lgth==0">
+                              ({{f_lgth=(blocks|filter:{status:block.status}|filter:{foundry:foundry._id}|filter:{source:component._id}|filter:{reference:block.reference}|filter:{function:s}|filter:{class:d}).length}})| {{foundry.name}}
+                            </option>
+                          </select>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                      <div class="form-row">
+                        <div class="col">
+                          <select class="custom-select custom-select-sm mb-2" ng-model="g" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the returned blocks if selected.">
+                            <option value="" selected>
+                              Select Source
+                            </option>
+                            <option value="{{component._id}}" ng-repeat="component in components|filter:{type:'reference'}|filter:{foundry:k}" ng-hide="s_lgth==0">
+                              ({{s_lgth=(blocks|filter:{status:block.status}|filter:{foundry:k}|filter:{source:component._id}|filter:{reference:block.reference}|filter:{function:s}|filter:{class:d}).length}})| {{component.name}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <br>
                 <div class="btn-group d-flex justify-content-center" role="group" aria-label="view">
-                  <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseScore" aria-expanded="true" aria-controls="collapseFunctions" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="(Show/Hide) A view combining (horizontally) tables providing parameters values within different blocks sorted (vertically) by class">
+                  <a class="btn pt-3 btn-sm bg-dark text-light" data-toggle="collapse" data-target="#collapseScore" aria-expanded="true" aria-controls="collapseFunctions" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="(Show/Hide) A view combining (horizontally) tables providing parameters values within different blocks sorted (vertically) by class">
                     Join
-                  </button>
-                  <button class="btn btn-sm" type="button" data-toggle="collapse" data-target="#collapseRange" aria-expanded="false" aria-controls="collapseParameters" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="(Show/Hide) In addition to join, specifying a min-max range abstracts the values of parameters within their respective blocks: values out of the specified range are replaced by a red cross, those within the specified range are neighbored by a green tick. ([min,max]=[0,0] is the default value of the range. Empty and verbal values are equivalent to 0.)">
+                  </a>
+                  <a class="btn btn-sm pt-3 bg-dark text-light" data-toggle="collapse" data-target="#collapseRange" aria-expanded="false" aria-controls="collapseParameters" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="(Show/Hide) In addition to join, specifying a min-max range abstracts the values of parameters within their respective blocks: values out of the specified range are replaced by a red cross, those within the specified range are neighbored by a green tick. ([min,max]=[0,0] is the default value of the range. Empty and verbal values are equivalent to 0.)">
                     Join-compare
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
         </li>
-        <div class="collapse show" id="collapseScore">
+        <div class="collapse" id="collapseScore">
         <li class="list-group-item" style="min-width: 18rem;">
           <h2 class="d-flex justify-content-center">
             <button class="btn float-right mb-2 text-dark" data-clipboard-target="#ScoreCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the table below on the clipboard">
@@ -235,7 +257,7 @@
           <div class="table-responsive" id="ScoreCopy">
             <table class="table table-bordered">
               <tbody>
-                <tr ng-repeat="definition in definitions |filter:{function:s}|filter:{name:k}">
+                <tr ng-repeat="definition in definitions|filter:{function:s}|filter:{_id:d}">
                   <td class="font-weight-bold">
                     {{definition.name}}
                     <hr>
@@ -244,13 +266,13 @@
                         <th scope="row">
                           ({{$index+1}})
                         </th>
-                        <td>
-                          {{definition.specifications[$index]}}
+                        <td ng-repeat="component in components|filter:{type:'parameter'}|filter:{_id:definition.specifications[$index]}">
+                          {{component.name}}
                         </td>
                       </tr>
                     </table>
                   </td>
-                  <td ng-repeat="block in blocks | orderBy : 'foundry'" ng-if="definition.name==block.class&&block.valuec.length>0">
+                  <td ng-repeat="block in blocks|orderBy:'foundry'|filter:{foundry:k}|filter:{source:g}|filter:{function:s}|filter:{class:d}" ng-if="definition._id==block.class&&block.valuec.length>0">
                     <a href="#/block/{{block._id}}" class="btn btn-outline-dark btn-sm mx-auto" target="_blank">
                       {{block.name}}
                     </a>
@@ -275,7 +297,7 @@
         <div class="collapse" id="collapseRange">
         <li class="list-group-item" style="min-width: 18rem;">
           <h2 class="d-flex justify-content-center">
-            <button class="btn float-right mb-2 text-dark" data-clipboard-target="#RangeCopy" style="background-color:#E4E4E4;"  data-toggle="tooltip" data-placement="right" title="Copy the table below on the clipboard (the red cross and the green tick are not copied)">
+            <button class="btn float-right mb-2 text-dark" data-clipboard-target="#RangeCopy" style="background-color:#E4E4E4;"  data-toggle="tooltip" data-placement="right" title="Copy the table below on the clipboard (ticks is not copied)">
               <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="width: 15px; height: 15px;">
               Join-compare
             </button>
@@ -283,7 +305,7 @@
           <div class="table-responsive" id="RangeCopy">
             <table class="table table-bordered">
               <tbody>
-                <tr ng-repeat="definition in definitions |filter:{function:s}|filter:{name:k}">
+                <tr ng-repeat="definition in definitions|filter:{function:s}|filter:{_id:d}">
                   <td class="font-weight-bold">
                     {{definition.name}}
                     <hr>
@@ -294,18 +316,24 @@
                           ({{$index+1}})
                         </th>
                         <td ng-init="definition.min[$index]=0">
-                          <input type="number" class="form-control form-control-sm" ng-model="definition.min[$index]" style="width:5rem;" placeholder="min">
+                          <input type="number" class="form-control form-control-sm" ng-model="definition.min[$index]" style="width:2rem;" placeholder="min">
+                          <p>
+                            {{definition.min[$index]}}
+                          </p>
                         </td>
                         <td ng-init="definition.max[$index]=0">
-                          <input type="number" class="form-control form-control-sm" ng-model="definition.max[$index]" style="width:5rem;" placeholder="max">
+                          <input type="number" class="form-control form-control-sm" ng-model="definition.max[$index]" style="width:2rem;" placeholder="max">
+                          <p>
+                            {{definition.max[$index]}}
+                          </p>
                         </td>
-                        <td>
-                         {{definition.specifications[$index]}}
+                        <td ng-repeat="component in components|filter:{type:'parameter'}|filter:{_id:definition.specifications[$index]}">
+                          {{component.name}}
                         </td>
                       </tr>
                     </table>
                   </td>
-                  <td ng-repeat="block in blocks | orderBy : 'foundry'" ng-if="definition.name==block.class&&block.valuec.length>0">
+                  <td ng-repeat="block in blocks|orderBy:'foundry'|filter:{foundry:k}|filter:{source:g}|filter:{function:s}|filter:{class:d}" ng-if="definition._id==block.class&&block.valuec.length>0">
                     <a href="#/block/{{block._id}}" class="btn btn-outline-dark btn-sm mx-auto" target="_blank">
                       {{block.name}}
                     </a>
@@ -326,7 +354,7 @@
                             <span ng-model="success" data-feather="check" class="text-success" style="width: 15px; height: 15px;">
                           </div>
                           <div ng-if="((block.valuec[$index]|number)<definition.min[$index])||((block.valuec[$index]|number)>definition.max[$index])||(definition.min[$index]>definition.max[$index])">
-                            <span data-feather="x" class="text-danger" style="width: 15px; height: 15px;">
+                            <p class="text-danger">X</p>
                           </div>
                         </td>
                       </tr>
@@ -339,10 +367,6 @@
         </li>
         </div>
       </ul>
-    </div>
-
-    <div class="card-footer text-muted">
-      <b>(Under development)</b>
     </div>
     </div>
 
