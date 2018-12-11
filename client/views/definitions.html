@@ -1,169 +1,71 @@
-  <main role="main" class="col-md-9 mx-auto">
-    <div class="d-flex justify-content-center align-items-center border-bottom">
-      <h1 class="h2">
-        Edit {{::block.name}}
-      </h1>
-    </div>
-    <div class="border border-warning p-5 text-center d-flex bd-highlight bg-dark text-light">
-      <div class="p-2 flex-sm-fill bd-highlight">
-        <div class="row">
-          <div class="col-md-12">
-            <form ng-submit="updateBlock()" ng-init="getBlock()">
-              <div class="form-group">
-                <label class="font-weight-bold">
-                  Name
-                </label>
-                <input type="text" class="form-control" ng-model="block.name" placeholder="name">
-              </div>
-              <div class="form-group">
-                <div ng-init="getFoundries()">
-                  <label class="font-weight-bold">
-                     Foundry
-                  </label>
-                  <select class="form-control" ng-model="block.foundry">
-                    <option ng-repeat="foundry in foundries|orderBy:'name'" value="{{foundry._id}}">
-                      {{foundry.name}}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <div ng-init="getDefinitions()">
-                  <label class="font-weight-bold">
-                    Function
-                  </label>
-                  <select class="form-control" ng-model="block.function">
-                    <option value="{{component._id}}" ng-repeat="component in components|orderBy:'name'|filter:{type:'function'}">
-                      {{component.name}}
-                    </option>
-                  </select>
-                  <label class="font-weight-bold">
-                    Class
-                  </label>
-                  <select class="form-control" ng-model="block.class">
-                    <option ng-repeat="definition in definitions|orderBy:'name'|filter:{function:block.function}" value="{{definition._id}}">
-                      {{definition.name}}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <br>
-              <div class="form-group">
-                <div class="border border-warning p-2 text-center">
-                   <div class="border border-warning p-2 text-center">
-                     <p class="font-weight-bold">
-                       Status:
-                     </p>
-                     <div class="custom-control custom-radio custom-control-inline">
-                       <input type="radio" class="custom-control-input" id="ActiveR" ng-model="block.status" value="up-to-date">
-                       <label class="custom-control-label" for="ActiveR">
-                         Up-to-date
-                         <small class="form-text text-muted">
-                           Fully functional up-to-date blocks
-                         </small>
-                       </label>
-                     </div>
-                     <div class="custom-control custom-radio custom-control-inline">
-                       <input type="radio" class="custom-control-input" id="tobeR" ng-model="block.status" value="!">
-                       <label class="custom-control-label" for="tobeR">
-                         To be updated
-                       </label>
-                     </div>
-                     <div class="custom-control custom-radio custom-control-inline">
-                       <input type="radio" class="custom-control-input" id="ObsoleteR" ng-model="block.status" name="disabledGroupExample"  value="obsolete">
-                       <label class="custom-control-label" for="ObsoleteR">
-                         Obsolete
-                         <small class="form-text text-muted">
-                           Deprecated/discarded blocks
-                         </small>
-                       </label>
-                     </div>
-                   </div>
-              <br>
-              <div class="form-group">
-                <div class="border border-warning p-2 text-center">
-                   <p class="font-weight-bold">
-                     Reference:
-                   </p>
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="ProcessR" ng-model="block.reference" value="PDK">
-                    <label class="custom-control-label" for="ProcessR">
-                      PDK
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="PaperR" ng-model="block.reference" value="Literature">
-                    <label class="custom-control-label" for="PaperR">
-                      Literature
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="VLCR" ng-model="block.reference" value="VLC">
-                    <label class="custom-control-label" for="VLCR">
-                      VLC
-                    </label>
-                  </div>
-                  <br>
-                  <br>
-                  <div ng-init="getComponents()">
-                    <select class="custom-select" ng-model="block.source">
-                      <option ng-repeat="component in components|filter:{type:'reference'}|filter:{foundry:block.foundry}|orderBy:'name'" value="{{component._id}}">
-                        {{component.name}}
-                      </option>
-                    </select>
-                  </div>
-                  <br>
-                      </div>
-                    </div>
-                    <br>
-                    <textarea class="form-control" ng-model="block.notes" placeholder="notes" rows="4" cols="80">
-                    </textarea>
-              <br>
-              <div class="form-group">
-                <div ng-init="getComponents()">
-                  <label class="font-weight-bold">
-                     Update custom parameters
-                     <small class="form-text text-muted">
-                       Hold <kbd class="bg-warning text-dark">Ctrl</kbd> for multiple selection
-                     </small>
-                  </label>
-                  <div ng-submit="addBlock()">
-                    <select class="form-control" size="15" ng-model="block.parameters" multiple>
-                      <option ng-repeat="component in components|orderBy:'name'|filter:{type:'parameter'}" value="{{component._id}}">
-                        {{component.name}}
-                      </option>
-                    </select>
-                    <br>
-                  </div>
-                </div>
-              </div>
-              <button type="submit" class="btn btn-warning btn-block my-4">
-                Submit
-              </button>
-              <br>
-              <label class="d-flex justify-content-center align-items-center font-weight-bold">
-                 Selected custom parameters
-               </label>
-              <table class="table table-sm">
-                <tbody>
-                  <tr ng-repeat="parameters in block.parameters">
-                    <th scope="row">
-                      {{$index+1}}
-                    </th>
-                    <td ng-repeat="component in components|filter:{_id:block.parameters[$index]}">
-                      {{component.name}}
-                    </td>
-                  </tr
-                </tbody>
-              </table>
-            </form>
+  <div ng-init="[getDefinitions(),getComponents()]">
+    <main role="main" class="col-md-12 ml-sm-auto">
+      <div class="d-flex justify-content-center border-bottom">
+        <h1>
+        <button class="btn float-right mb-2 text-dark" data-clipboard-target="#DefinitionsCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned blocks on the clipboard">
+          <h6 class="mt-2">
+          <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
+          Classes' definitions
+        </h6>
+        </button>
+        </h1>
+      </div>
+      <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#3E4551; min-width: 20rem;">
+        <div class="card-body">
+      <form>
+        <label class="sr-only" for="inlineFormInputGroupAll">
+          All
+        </label>
+        <div class="input-group mb-2 mr-sm-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <span data-feather="search" style="width: 15px; height: 15px;">
+              </span>
+            </div>
+          </div>
+          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="p" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a class. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
+          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="p0" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a class. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
+          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="p1" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a class. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
+        </div>
+      </form>
+      <form>
+        <div class="form-row">
+          <div class="col">
+              <select class="custom-select custom-select-sm mb-2" ng-model="d" data-toggle="tooltip" data-placement="right" title="Function">
+                <option value="" selected>
+                  Select function
+                </option>
+                <option value="{{component._id}}" ng-repeat="component in components|orderBy:'name'|filter:{type:'function'}" ng-hide="d_lgth==0">
+                  ({{d_lgth=(definitions|filter:{function:component._id}).length}})| {{component.name}}
+                </option>
+              </select>
           </div>
         </div>
+      </form>
       </div>
-    </div>
-
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-    feather.replace()
-  </script>
+      </div>
+      <br>
+      <div class="row d-flex justify-content-center" id="DefinitionsCopy">
+        <div ng-repeat="definition in definitions|orderBy:'name'|filter:p|filter:{function:d}|filter:p1|filter:p0">
+          <div class="card border-elegant" style="width: 23.5rem; height: 100%;">
+            <div class="card-body">
+              <h3 class="card-title text-center">
+                {{definition.name}}
+              </h3>
+              <h5 class="card-subtitle mb-2 text-muted" ng-repeat="component in components|filter:{type:'function'}" ng-if="definition.function==component._id">
+                Function: {{component.name}}
+              </h5>
+              <div class="card-footer bg-transparent border-elegant">
+              <br>
+              <a href="#/definition/{{definition._id}}" class="btn btn-sm btn-lg btn-block btn-outline-elegant waves-effect" role="button" aria-pressed="true">
+                More info
+              </a>
+            </div>
+            </div>
+          </div>
+        </div>
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+  feather.replace()
+</script>
