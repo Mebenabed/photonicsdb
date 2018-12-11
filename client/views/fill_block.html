@@ -1,4 +1,4 @@
-<div ng-init="getDefinitions()">
+<div ng-init="[getFoundries(),getBlock(),getDefinitions(),getComponents()]">
   <main role="main" class="col-md-12 ml-sm-auto">
     <div class="d-flex justify-content-center border-bottom">
       <h1>
@@ -11,15 +11,39 @@
             <div class="card border-info mb-3 sticky-top mx-auto" style="min-width: 40rem; height: 100%;">
               <div class="card-body">
                 <div class="form-group">
-                <h4 class="card-subtitle mb-2 text-muted">
-                  Foundry : {{block.foundry}}
-                </h4>
-                <h4 class="card-subtitle mb-2 text-muted">
-                  Class : {{block.class}}
-                </h4>
-                  <div ng-repeat="definition in definitions" ng-if="block.class==definition.name">
+                  <h4 class="card-subtitle mb-2 text-muted" ng-repeat="foundry in foundries" ng-if="block.foundry.length>0&&block.foundry==foundry._id">
+                    Foundry: {{foundry.name}}
+                  </h4>
+                  <h4 class="card-subtitle mb-2 text-muted" ng-repeat="component in components | filter : {type: 'function'}" ng-if="block.function==component._id">
+                    Function: {{component.name}}
+                  </h4>
+                  <div ng-repeat="definition in definitions" ng-if="block.class==definition._id">
                     <h4 class="card-subtitle mb-2 text-muted">
-                      Function : {{definition.function}}
+                      Class: {{definition.name}}
+                    </h4>
+                    <h4 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='PDK'">
+                      <span class="badge badge-light">
+                        Reference: {{::block.reference}}
+                      </span>
+                      <span class="badge badge-light" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component._id==block.source&&block.foundry==component.foundry">
+                        Source: {{::component.name}}
+                      </span>
+                    </h4>
+                    <h4 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='Literature'">
+                      <span class="badge badge-pill badge-danger">
+                        Reference: {{::block.reference}}
+                      </span>
+                      <span class="badge badge-pill badge-danger" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component._id==block.source&&block.foundry==component.foundry">
+                        Source: {{::component.name}}
+                      </span>
+                    </h4>
+                    <h4 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='VLC'">
+                      <span class="badge badge-pill badge-warning">
+                        Reference: {{::block.reference}}
+                      </span>
+                      <span class="badge badge-pill badge-warning" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component._id==block.source&&block.foundry==component.foundry">
+                        Source: {{::component.name}}
+                      </span>
                     </h4>
                     <div class="border border-info p-2 text-center">
                       <p class="font-weight-bold">
@@ -41,27 +65,27 @@
                         </label>
                       </div>
                     </div>
-                    <div class="card-footer">
-                      <table class="table table-hover table-sm table-striped h5" >
+                    <div class="card-footer bg-transparent border-elegant">
+                      <table class="table table-hover table-sm table-striped h5">
                         <thead>
                           <tr>
                             <th scope="col">
                             </th>
                             <th scope="col">
-                              Class bound parameter
+                              <b>
+                                Class bound parameters
+                              </b>
                             </th>
-                            <th scope="col">
-                              Value
-                            </th>
+                            <th scope="col"><b>Value</b></th>
                           </tr>
                         </thead>
-                        <tbody ng-repeat="specifications in definition.specifications" ng-if="block.class==definition.name">
-                          <tr>
+                        <tbody>
+                          <tr ng-repeat="specifications in definition.specifications" ng-if="block.class==definition._id">
                             <th scope="row">
                               {{$index+1}}
                             </th>
-                            <td>
-                              {{definition.specifications[$index]}}
+                            <td ng-repeat="component in components|filter:{_id:definition.specifications[$index]}">
+                              {{component.name}}
                             </td>
                             <td>
                               {{block.valuec[$index]}}
@@ -78,10 +102,14 @@
                             <th scope="col">
                             </th>
                             <th scope="col">
-                              Custom parameters
+                              <b>
+                                Custom parameters
+                              </b>
                             </th>
                             <th scope="col">
-                              Value
+                              <b>
+                                Value
+                              </b>
                             </th>
                           </tr>
                         </thead>
@@ -90,8 +118,8 @@
                             <th scope="row">
                               {{$index+1}}
                             </th>
-                            <td>
-                              {{block.parameters[$index]}}
+                            <td ng-repeat="component in components|filter:{_id:block.parameters[$index]}">
+                              {{component.name}}
                             </td>
                             <td>
                               {{block.valueo[$index]}}
@@ -102,9 +130,10 @@
                           </tr>
                         </tbody>
                       </table>
-                       <input type="submit" ng-click="updateBlock()" class="btn btn-block my-4 btn-info" value="Update" />
                     </div>
-                </div>
+                  </div>
+                       <input type="submit" ng-click="updateBlock()" class="btn btn-block my-4 btn-info" value="Update" />
+                     </div>
               </div>
             </div>
           </div>
