@@ -54,9 +54,16 @@
       </div>
       <br>
       <div class="collapse" id="collapseFunctions">
-        <h2 class="d-flex justify-content-center">Functions</h2>
+        <h2 class="d-flex justify-content-center">
+          <button class="btn mb-4 text-dark" data-clipboard-target="#FunctionsCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned functions on the clipboard">
+            <h6 class="mt-2">
+            <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
+            Functions
+          </h6>
+          </button>
+        </h2>
         <br>
-        <div class="row d-flex justify-content-center" id="FoundriesCopy">
+        <div class="row d-flex justify-content-center" id="FunctionsCopy">
           <div ng-repeat="component in components|orderBy:'name'|filter:{type:'function'}|filter:{name:q0}|filter:{name:q}|filter:{name:q1}">
             <div class="card border-elegant" style="width: 20rem; height: 100%;">
               <div class="card-body">
@@ -76,9 +83,16 @@
       </div>
       <br>
       <div class="collapse" id="collapseParameters">
-        <h2 class="d-flex justify-content-center">Parameters</h2>
+        <h2 class="d-flex justify-content-center">
+          <button class="btn mb-4 text-dark" data-clipboard-target="#ParametersCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned parameters on the clipboard">
+            <h6 class="mt-2">
+            <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
+            Parameters
+          </h6>
+          </button>
+        </h2>
         <br>
-        <div class="row d-flex justify-content-center" id="FoundriesCopy">
+        <div class="row d-flex justify-content-center" id="ParametersCopy">
           <div ng-repeat="component in components|orderBy:'name'|filter:{type:'parameter'}|filter:{name:q0}|filter:{name:q}|filter:{name:q1}">
             <div class="card border-elegant" style="width: 20rem; height: 100%;">
               <div class="card-body">
@@ -98,7 +112,14 @@
       </div>
       <br>
       <div class="collapse" id="collapseReferences">
-        <h2 class="d-flex justify-content-center">Sources</h2>
+        <h2 class="d-flex justify-content-center">
+          <button class="btn mb-4 text-dark" data-clipboard-target="#sourcesCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned sources on the clipboard">
+            <h6 class="mt-2">
+            <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
+            Sources
+          </h6>
+          </button>
+        </h2>
         <br>
         <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#3E4551; min-width: 20rem;">
           <div class="card-body">
@@ -119,7 +140,7 @@
       </div>
     </div>
     <br>
-        <div class="row d-flex justify-content-center" id="FoundriesCopy">
+        <div class="row d-flex justify-content-center" id="sourcesCopy">
           <div ng-repeat="component in components|orderBy:'name'|filter:{type:'reference'}|filter:{name:q0}|filter:{name:q}|filter:{name:q1}|filter:{foundry:d}">
             <div class="card border-elegant" style="width: 20rem; height: 100%;">
               <div class="card-body">
