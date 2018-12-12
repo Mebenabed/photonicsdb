@@ -72,11 +72,11 @@ const blockSchema = mongoose.Schema({
 		type: String,
 		default: '?'
 	},
-	class: String,
-	parameters: {
-		type: Array,
+	class: {
+		type: String,
 		default: '?'
 	},
+	parameters: Array,
 	valuec: Array,
 	valueo: Array},
 	{ versionKey: false
