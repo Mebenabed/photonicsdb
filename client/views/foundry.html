@@ -55,7 +55,7 @@
                 </a>
                 <br>
                 <br>
-                <div ng-repeat="component in components | filter : {foundry: foundry._id}  | filter : {type: 'reference'}">
+                <div ng-repeat="component in components|filter:{foundry:foundry._id}|filter:{type: 'reference'}">
                   <h6 class="card-subtitle mb-2 text-muted">
                     <span class="badge badge-pill badge-light">
                       {{component.name}}
@@ -63,26 +63,26 @@
                   </h6>
                 </div>
                 <div class="card-footer bg-transparent border-elegant">
-                  <button class="btn btn-lg btn-block btn-outline-elegant waves-effect" disabled type="button" data-toggle="collapse" data-target="#collapseBlock" aria-expanded="true" aria-controls="collapseBlock">
+                  <button class="btn btn-lg btn-block btn-outline-elegant" disabled type="button" data-toggle="collapse" data-target="#collapseBlock" aria-expanded="true" aria-controls="collapseBlock">
                     Blocks
                     <span class="badge badge-warning">
-                      {{(blocks | filter : {class: definition.name} | filter: {class:d} | filter: {foundry: foundry._id}).length}}
+                      {{(blocks|filter:{class:definition._id}|filter:{class:d}|filter:{foundry:foundry._id}).length}}
                     </span>
                   </button>
                   <br>
                     <select class="custom-select custom-select-sm mb-2" ng-model="d">
-                      <option value="{{definition.name}}" selected>
+                      <option value="" selected>
                         Select Class
                       </option>
-                      <option value="{{definition.name}}" ng-repeat="definition in definitions | orderBy : 'name' | filter:s" ng-hide="Cc==0">
-                        ({{Cc=(blocks | filter : {class: definition.name} | filter: {foundry: foundry._id}).length}})| {{definition.name}}
+                      <option value="{{definition._id}}" ng-repeat="definition in definitions | orderBy : 'name' | filter:s" ng-hide="Cc==0">
+                        ({{Cc=(blocks|filter:{class: definition._id}|filter:{foundry:foundry._id}).length}})|{{definition.name}}
                       </option>
                     </select>
                   <!-- Call reading all the blocks service from the controller-->
                   <div class="collapse show" id="collapseBlock">
                     <div class="row d-flex justify-content-center">
                        <!-- Display the read blocks' documents by block scope | condition: match if the block foundry (from blocks collection) attribute with the block name attribute (from foundries collection)-->
-                      <div ng-repeat="block in blocks | filter : d | orderBy : 'class'" ng-if="block.foundry==foundry._id">
+                      <div ng-repeat="block in blocks|filter:{class:d}|orderBy:'class'" ng-if="block.foundry==foundry._id">
                         <!-- Link to redirect to the block by id -->
                         <h5>
                           <a href="#/block/{{block._id}}" class="badge badge-dark" target="_blank">
