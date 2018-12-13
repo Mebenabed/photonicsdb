@@ -2,47 +2,47 @@
     <main role="main" class="col-md-12 ml-sm-auto">
       <div class="d-flex justify-content-center border-bottom">
         <h1>
-        <button class="btn float-right mb-2 text-dark" data-clipboard-target="#DefinitionsCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned blocks on the clipboard">
-          <h6 class="mt-2">
-          <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
-          Classes' definitions
-        </h6>
-        </button>
+          <button class="btn float-right mb-2 text-dark" data-clipboard-target="#DefinitionsCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned classes on the clipboard">
+            <h6>
+              <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
+              Definition of classes
+            </h6>
+          </button>
         </h1>
       </div>
-      <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#3E4551; min-width: 20rem;">
+      <div class="card border-elegant" style="width: 100%; background-color:#3E4551; min-width:20rem;">
         <div class="card-body">
-      <form>
-        <label class="sr-only" for="inlineFormInputGroupAll">
-          All
-        </label>
-        <div class="input-group mb-2 mr-sm-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <span data-feather="search" style="width: 15px; height: 15px;">
-              </span>
+          <form>
+            <label class="sr-only" for="inlineFormInputGroupAll">
+              All
+            </label>
+            <div class="input-group mb-2 mr-sm-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span data-feather="search" style="width: 15px; height: 15px;">
+                  </span>
+                </div>
+              </div>
+              <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="p" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a class. Only subsequent expressions, combine the neighboring fields for sparse expressions">
+              <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="p0" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a class. Only subsequent expressions, combine the neighboring fields for sparse expressions">
+              <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="p1" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a class. Only subsequent expressions, combine the neighboring fields for sparse expressions">
             </div>
-          </div>
-          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="p" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a class. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
-          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="p0" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a class. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
-          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="p1" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a class. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
+          </form>
+          <form>
+            <div class="form-row">
+              <div class="col">
+                <select class="custom-select custom-select-sm mb-2" ng-model="d" data-toggle="tooltip" data-placement="right" title="The quantity of the returned classes if selected| This filters the returned classes function">
+                  <option value="" selected>
+                    Select function
+                  </option>
+                  <option value="{{component._id}}" ng-repeat="component in components|orderBy:'name'|filter:{type:'function'}" ng-hide="d_lgth==0">
+                    ({{d_lgth=(definitions|filter:{function:component._id}).length}})| {{component.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </form>
         </div>
-      </form>
-      <form>
-        <div class="form-row">
-          <div class="col">
-              <select class="custom-select custom-select-sm mb-2" ng-model="d" data-toggle="tooltip" data-placement="right" title="Function">
-                <option value="" selected>
-                  Select function
-                </option>
-                <option value="{{component._id}}" ng-repeat="component in components|orderBy:'name'|filter:{type:'function'}" ng-hide="d_lgth==0">
-                  ({{d_lgth=(definitions|filter:{function:component._id}).length}})| {{component.name}}
-                </option>
-              </select>
-          </div>
-        </div>
-      </form>
-      </div>
       </div>
       <br>
       <div class="row d-flex justify-content-center" id="DefinitionsCopy">
@@ -56,11 +56,10 @@
                 Function: {{component.name}}
               </h5>
               <div class="card-footer bg-transparent border-elegant">
-              <br>
-              <a href="#/definition/{{definition._id}}" class="btn btn-sm btn-lg btn-block btn-outline-elegant waves-effect" role="button" aria-pressed="true">
-                More info
-              </a>
-            </div>
+                <a href="#/definition/{{definition._id}}" class="btn btn-sm btn-lg btn-block btn-outline-elegant waves-effect" role="button" aria-pressed="true"  data-toggle="tooltip" data-placement="right" title="View parameters of {{definition.name}}">
+                  More info
+                </a>
+              </div>
             </div>
           </div>
         </div>
