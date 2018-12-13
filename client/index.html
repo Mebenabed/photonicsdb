@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="myApp">
+<html lang="en" ng-app="dephineApp">
   <head>
     <meta charset="utf-8">
     <link rel="icon" href="views/source/css/icones/favicon.ico">
@@ -14,7 +14,7 @@
     <div class="container-fluid">
       <!-- Navbar and navbar links -->
       <nav class="navbar fixed-top navbar-expand-lg bg-dark text-warning">
-        <a class="navbar-brand bg-dark" href="#/home" style="width: 300px;">
+        <a class="navbar-brand bg-dark" href="#/home" style="padding-right:155px;">
           <img src="views/source/css/icones/brand.svg" alt="">
         </a>
         <!-- Toggler for smaller screen sizes -->
@@ -22,7 +22,7 @@
           <span data-feather="more-vertical" style="width: 23px; height: 23px;">
           </span>
         </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarPh">
+        <div class="collapse navbar-collapse" id="navbarPh">
           <ul class="navbar-nav mx-auto"  style="width: 28rem;">
             <li class="nav-item">
               <a class="nav-link text-light" href="#/home" data-toggle="tooltip" data-placement="bottom" title="Home" tabindex="-1" role="button" aria-disabled="true">
@@ -37,7 +37,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light disabled" href="#insights" data-toggle="tooltip" data-placement="bottom" title="Insights">
+              <a class="nav-link text-light" href="#insights" data-toggle="tooltip" data-placement="bottom" title="Insights">
                 <span data-feather="bar-chart-2" style="width: 23px; height: 23px;">
                 </span>
               </a>
@@ -55,29 +55,29 @@
               </a>
             </li>
           </ul>
-          <ul class="navbar-nav mr-0 pr-0">
-          <div class="nav-item dropdown">
+          <ul class="navbar-nav">
+          <div class="nav-item dropleft">
             <a class="nav-link dropdown-toggles text-warning" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span data-feather="plus-circle" style="width: 23px; height: 23px;">
               </span>
             </a>
             <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" >
               <a class="dropdown-item text-warning" href="#/addf" data-toggle="tooltip" data-placement="bottom" title="Attributes">
-                <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning waves-effect">
+                <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning">
                   Add
                   <span data-feather="archive">
                   </span>
                 </button>
               </a>
               <a class="dropdown-item text-warning" href="#/addc" data-toggle="tooltip" data-placement="bottom" title="Classes">
-                <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning waves-effect">
+                <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning">
                   Define
                   <span data-feather="book-open">
                   </span>
                 </button>
               </a>
               <a class="dropdown-item text-warning" href="#/addb" data-toggle="tooltip" data-placement="bottom" title="Blocks">
-                <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning waves-effect">
+                <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning">
                   Create
                   <span data-feather="cpu">
                   </span>
