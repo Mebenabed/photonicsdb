@@ -5,61 +5,61 @@
           Attributes
         </h1>
       </div>
-      <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#3E4551; min-width: 20rem;">
+      <div class="card border-elegant" style="width: 100%; background-color:#3E4551; min-width:20rem;">
         <div class="card-body">
-      <form>
-        <label class="sr-only" for="inlineFormInputGroupAll">
-          All
-        </label>
-        <div class="input-group mb-2 mr-sm-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <span data-feather="search" style="width: 15px; height: 15px;">
-              </span>
+          <form>
+            <label class="sr-only" for="inlineFormInputGroupAll">
+              All
+            </label>
+            <div class="input-group mb-2 mr-sm-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span data-feather="search" style="width: 15px; height: 15px;">
+                  </span>
+                </div>
+              </div>
+              <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search the name of an attribute. Only subsequent expressions, combine the neighboring fields for sparse expressions">
+              <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q0" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search the name of an attribute. Only subsequent expressions, combine the neighboring fields for sparse expressions">
+              <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q1" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search the name of an attribute. Only subsequent expressions, combine the neighboring fields for sparse expressions">
             </div>
+          </form>
+          <hr class="bg-dark">
+          <div class="btn-group d-flex justify-content-center" role="group" aria-label="view">
+            <a class="btn pt-3 bg-dark text-light" data-toggle="collapse" data-target="#collapseFunctions" aria-expanded="true" aria-controls="collapseFunctions" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="Show/hide functions">
+              <h6 class="mt-2">
+                Functions
+                <span class="badge badge-warning">
+                  {{(components|filter:q|filter:q0|filter:q1|filter:{type:'function'}).length}}
+                </span>
+              </h6>
+            </a>
+            <a class="btn pt-3 bg-dark text-light" data-toggle="collapse" data-target="#collapseParameters" aria-expanded="false" aria-controls="collapseParameters" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="Show/hide parameters">
+              <h6 class="mt-2">
+                Parameters
+                <span class="badge badge-warning">
+                  {{(components|filter:q|filter:q0|filter:q1|filter:{type:'parameter'}).length}}
+                </span>
+              </h6>
+            </a>
+            <a class="btn pt-3 bg-dark text-light" data-toggle="collapse" data-target="#collapseReferences" aria-expanded="false" aria-controls="collapseReferences" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="Show/hide sources">
+              <h6 class="mt-2">
+                Sources
+                <span class="badge badge-warning">
+                  {{(components|filter:q|filter:q0|filter:q1|filter:{type:'reference'}).length}}
+                </span>
+              </h6>
+            </a>
           </div>
-          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of an attribute. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
-          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q0" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of an attribute. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
-          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q1" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of an attribute. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
         </div>
-      </form>
-      <hr class="bg-dark">
-      <div class="btn-group d-flex justify-content-center" role="group" aria-label="view">
-        <a class="btn pt-3 bg-dark text-light" data-toggle="collapse" data-target="#collapseFunctions" aria-expanded="true" aria-controls="collapseFunctions" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="Show/hide functions">
-          <h6 class="mt-2">
-          Functions
-            <span class="badge badge-warning">
-              {{(components|filter:q|filter:q0|filter:q1|filter:{type:'function'}).length}}
-            </span>
-          </h6>
-        </a>
-        <a class="btn pt-3 bg-dark text-light" data-toggle="collapse" data-target="#collapseParameters" aria-expanded="false" aria-controls="collapseParameters" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="Show/hide parameters">
-          <h6 class="mt-2">
-          Parameters
-            <span class="badge badge-warning">
-              {{(components|filter:q|filter:q0|filter:q1|filter:{type:'parameter'}).length}}
-            </span>
-          </h6>
-        </a>
-        <a class="btn pt-3 bg-dark text-light" data-toggle="collapse" data-target="#collapseReferences" aria-expanded="false" aria-controls="collapseReferences" style="background-color:#4B515D;" data-toggle="tooltip" data-placement="right" title="Show/hide sources">
-          <h6 class="mt-2">
-          Sources
-            <span class="badge badge-warning">
-              {{(components|filter:q|filter:q0|filter:q1|filter:{type:'reference'}).length}}
-            </span>
-          </h6>
-        </a>
-      </div>
-      </div>
       </div>
       <br>
       <div class="collapse" id="collapseFunctions">
         <h2 class="d-flex justify-content-center">
           <button class="btn mb-4 text-dark" data-clipboard-target="#FunctionsCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned functions on the clipboard">
             <h6 class="mt-2">
-            <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
-            Functions
-          </h6>
+              <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
+              Functions
+            </h6>
           </button>
         </h2>
         <br>
@@ -86,9 +86,9 @@
         <h2 class="d-flex justify-content-center">
           <button class="btn mb-4 text-dark" data-clipboard-target="#ParametersCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned parameters on the clipboard">
             <h6 class="mt-2">
-            <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
-            Parameters
-          </h6>
+              <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
+              Parameters
+            </h6>
           </button>
         </h2>
         <br>
@@ -101,8 +101,8 @@
                 </h3>
                 <div class="float-right">
                   <a href="#/component/{{component._id}}" class="btn btn-sm btn-warning btn-lg btn-block" role="button" aria-pressed="true">
-                     Edit/Delete
-                   </a>
+                    Edit/Delete
+                  </a>
                 </div>
               </div>
             </div>
@@ -115,31 +115,31 @@
         <h2 class="d-flex justify-content-center">
           <button class="btn mb-4 text-dark" data-clipboard-target="#sourcesCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned sources on the clipboard">
             <h6 class="mt-2">
-            <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
-            Sources
-          </h6>
+              <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
+              Sources
+            </h6>
           </button>
         </h2>
         <br>
-        <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#3E4551; min-width: 20rem;">
+        <div class="card border-elegant" style="width: 100%; background-color:#3E4551; min-width: 20rem;">
           <div class="card-body">
-        <form>
-          <div class="form-row">
-            <div class="col">
-                <select class="custom-select custom-select-sm mb-2" ng-model="d">
-                  <option value="" selected>
-                    Select foundry
-                  </option>
-                  <option value="{{foundry._id}}" ng-repeat="foundry in foundries|orderBy:'name'" ng-hide="f_lgth==0">
-                    {{f_lgth=(components|filter:{type:'reference'}|filter:{foundry:foundry._id}).length}}| {{foundry.name}}
-                  </option>
-                </select>
-            </div>
+            <form>
+              <div class="form-row">
+                <div class="col">
+                  <select class="custom-select custom-select-sm mb-2" ng-model="d">
+                    <option value="" selected>
+                      Select foundry
+                    </option>
+                    <option value="{{foundry._id}}" ng-repeat="foundry in foundries|orderBy:'name'" ng-hide="f_lgth==0">
+                      {{f_lgth=(components|filter:{type:'reference'}|filter:{foundry:foundry._id}).length}}| {{foundry.name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
-    </div>
-    <br>
+        </div>
+        <br>
         <div class="row d-flex justify-content-center" id="sourcesCopy">
           <div ng-repeat="component in components|orderBy:'name'|filter:{type:'reference'}|filter:{name:q0}|filter:{name:q}|filter:{name:q1}|filter:{foundry:d}">
             <div class="card border-elegant" style="width: 20rem; height: 100%;">
@@ -152,16 +152,16 @@
                   Foundry: {{foundry.name}}
                 </h5>
                 <div class="card-footer bg-transparent border-elegant">
-                <div class="float-right">
-                  <a href="#/component/{{component._id}}" class="btn btn-sm btn-warning btn-lg btn-block" role="button" aria-pressed="true">
-                    Edit/Delete
-                  </a>
+                  <div class="float-right">
+                    <a href="#/component/{{component._id}}" class="btn btn-sm btn-warning btn-lg btn-block" role="button" aria-pressed="true">
+                      Edit/Delete
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
