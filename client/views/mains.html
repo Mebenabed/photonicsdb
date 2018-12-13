@@ -1,66 +1,66 @@
-  <div ng-init="[getFoundries(),getComponents()]"> <!-- Call reading all foundries service-->
+  <div ng-init="[getFoundries(),getComponents()]"> <!-- Call reading foundries/components service-->
     <main role="main" class="col-md-12">
-      <div class="d-flex justify-content-center align-items-center border-bottom">
-          <button class="btn text-dark mb-4 mt-2" data-clipboard-target="#FoundriesCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned foundries on the clipboard">
-            <h6>
-          <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
-          Foundries
+      <div class="d-flex justify-content-center border-bottom">
+        <button class="btn text-dark mb-4 mt-2" data-clipboard-target="#FoundriesCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned foundries on the clipboard">
+          <h6>
+            <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
+            Foundries
           </h6>
         </button>
       </div>
-      <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
+      <div class="card border-elegant" style="width: 100%; background-color:#2E2E2E; min-width: 20rem;">
         <div class="card-body">
-      <form>
-        <label class="sr-only" for="inlineFormInputGroupAll">
-          All
-        </label>
-        <div class="input-group mb-2 mr-sm-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <span data-feather="search" style="width: 15px; height: 15px;">
-              </span>
+          <form>
+            <label class="sr-only" for="inlineFormInputGroupAll">
+              All
+            </label>
+            <div class="input-group mb-2 mr-sm-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <span data-feather="search" style="width: 15px; height: 15px;">
+                  </span>
+                </div>
+              </div>
+              <!-- Search within the read foundries documents-->
+              <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q1" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a foundry. Only subsequent expressions, combine the neighboring fields for sparse expressions">
+              <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q2" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a foundry. Only subsequent expressions, combine the neighboring fields for sparse expressions">
+              <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q3" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a foundry. Only subsequent expressions, combine the neighboring fields for sparse expressions">
             </div>
-          </div>
-          <!-- Search within the read foundries documents-->
-          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q1" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a foundry. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
-          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q2" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a foundry. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
-          <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q3" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a foundry. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
+          </form>
         </div>
-      </form>
-    </div>
-  </div>
-  <br>
+      </div>
+      <br>
       <div class="row d-flex justify-content-center" id="FoundriesCopy">
         <div ng-repeat="foundry in foundries | orderBy : 'name' | filter:q1  | filter:q2  | filter:q3"> <!-- Display the read documents by foundry scope | filter with reference to searched keywords-->
           <div class="card border-elegant" style="width: 23.5rem; height: 100%;">
             <div class="card-body">
               <h3 class="card-title text-center">
-                {{::foundry.name}}
+                {{foundry.name}}
               </h3>
               <h6 class="card-subtitle mb-2 text-muted">
                 <span data-feather="user" class="text-primary" style="width: 15px; height: 15px;">
                 </span>
-                {{::foundry.contact}}
+                {{foundry.contact}}
               </h6>
               <h6 class="card-subtitle mb-2 text-muted">
                 <span data-feather="phone" class="text-primary" style="width: 15px; height: 15px;">
                 </span>
-                {{::foundry.phone}}
+                {{foundry.phone}}
               </h6>
               <a href="mailto:{{foundry.mail}}" class="card-subtitle mb-2 text-muted" role="button" aria-pressed="true">
                 <span data-feather="at-sign" class="text-primary" style="width: 15px; height: 15px;">
                 </span>
-                {{::foundry.mail}}
+                {{foundry.mail}}
               </a>
               <br>
               <a href="{{foundry.url}}" class="card-subtitle mb-2 text-muted" role="button" aria-pressed="true" target="_blank">
                 <span data-feather="globe" class="text-primary" style="width: 15px; height: 15px;">
                 </span>
-                {{::foundry.url}}
+                {{foundry.url}}
               </a>
               <br>
               <br>
-              <div ng-repeat="component in components | filter : {foundry: foundry._id}  | filter : {type: 'reference'}">
+              <div ng-repeat="component in components|filter:{foundry: foundry._id}|filter:{type: 'reference'}">
                 <h6 class="card-subtitle mb-2 text-muted">
                   <span class="badge badge-pill badge-light">
                     {{component.name}}
@@ -69,7 +69,7 @@
               </div>
               <div class="card-footer bg-transparent border-elegant">
                 <!-- Link to redirect to the foundry by id -->
-                <a href="#/foundry/{{foundry._id}}" class="btn btn-sm btn-lg btn-block btn-outline-elegant waves-effect" role="button" aria-pressed="true">
+                <a href="#/foundry/{{foundry._id}}" class="btn btn-sm btn-lg btn-block btn-outline-elegant waves-effect" role="button" aria-pressed="true" data-toggle="tooltip" data-placement="right" title="View blocks by {{foundry.name}}">
                   More info
                 </a>
               </div>
