@@ -14,7 +14,7 @@
     </nav>
     <br>
     <div id="CardCopy">
-    <div class="d-flex justify-content-center text-justify">
+    <div class="d-flex justify-content-center">
       <h2>
         {{definition.name}}
       </h2>
@@ -25,7 +25,7 @@
           <div class="card border-elegant" style="width: 120%; height: 100%;">
             <div class="card-body">
               <button class="btn float-right mb-2 btn-sm" data-clipboard-target="#CardCopy" style="background-color:#fff;" data-toggle="tooltip" data-placement="right" title="Copy class attributes on the clipboard">
-                <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="height: 15px;">
+                <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="height:15px;">
               </button>
                 <h5 class="card-subtitle mb-2 text-muted" ng-repeat="component in components|filter:{type:'function'}" ng-if="definition.function==component._id">
                   Function: {{component.name}}
@@ -46,7 +46,7 @@
                   </table>
                   <div class="float-left">
                     <a href="#/definition/edit/{{definition._id}}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="right" title="Edit">
-                      <span data-feather="edit" class="text-white" style="width: 15px; height: 15px;">
+                      <span data-feather="edit" class="text-white" style="width:15px; height:15px;">
                       </span>
                     </a>
                   </div>
