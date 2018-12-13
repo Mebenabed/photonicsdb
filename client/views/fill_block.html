@@ -14,7 +14,7 @@
                   <h4 class="card-subtitle mb-2 text-muted" ng-repeat="foundry in foundries" ng-if="block.foundry.length>0&&block.foundry==foundry._id">
                     Foundry: {{foundry.name}}
                   </h4>
-                  <h4 class="card-subtitle mb-2 text-muted" ng-repeat="component in components | filter : {type: 'function'}" ng-if="block.function==component._id">
+                  <h4 class="card-subtitle mb-2 text-muted" ng-repeat="component in components|filter:{type:'function'}" ng-if="block.function==component._id">
                     Function: {{component.name}}
                   </h4>
                   <div ng-repeat="definition in definitions" ng-if="block.class==definition._id">
@@ -25,7 +25,7 @@
                       <span class="badge badge-light">
                         Reference: {{::block.reference}}
                       </span>
-                      <span class="badge badge-light" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component._id==block.source&&block.foundry==component.foundry">
+                      <span class="badge badge-light" ng-repeat="component in components|filter:{type:'reference'}" ng-if="component._id==block.source&&block.foundry==component.foundry">
                         Source: {{::component.name}}
                       </span>
                     </h4>
@@ -33,7 +33,7 @@
                       <span class="badge badge-pill badge-danger">
                         Reference: {{::block.reference}}
                       </span>
-                      <span class="badge badge-pill badge-danger" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component._id==block.source&&block.foundry==component.foundry">
+                      <span class="badge badge-pill badge-danger" ng-repeat="component in components|filter:{type:'reference'}" ng-if="component._id==block.source&&block.foundry==component.foundry">
                         Source: {{::component.name}}
                       </span>
                     </h4>
@@ -41,7 +41,7 @@
                       <span class="badge badge-pill badge-warning">
                         Reference: {{::block.reference}}
                       </span>
-                      <span class="badge badge-pill badge-warning" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component._id==block.source&&block.foundry==component.foundry">
+                      <span class="badge badge-pill badge-warning" ng-repeat="component in components|filter:{type:'reference'}" ng-if="component._id==block.source&&block.foundry==component.foundry">
                         Source: {{::component.name}}
                       </span>
                     </h4>
@@ -132,8 +132,8 @@
                       </table>
                     </div>
                   </div>
-                       <input type="submit" ng-click="updateBlock()" class="btn btn-block my-4 btn-info" value="Update" />
-                     </div>
+                    <input type="submit" ng-click="updateBlock()" class="btn btn-block my-4 btn-info" value="Update" />
+                </div>
               </div>
             </div>
           </div>
