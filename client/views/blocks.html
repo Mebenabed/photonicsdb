@@ -1,109 +1,97 @@
 <div ng-init="[getBlocks(),getFoundries(),getComponents(),getDefinitions()]">
   <main role="main" class="col-md-12">
-    <h6 class="mt-0">
-    </h6>
     <div class="d-flex justify-content-center border-bottom">
-      <button class="btn mb-4 text-dark" data-clipboard-target="#BlocksCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned blocks on the clipboard">
-        <h6 class="mt-2">
-        <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
-        Blocks
-      </h6>
+      <button class="btn mb-4 text-dark" data-clipboard-target="#BlocksCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned blocks on the clipboard (block status (green/red icons) are not copied along)">
+        <h6>
+          <img data-feather="copy" alt="Copy to clipboard" class="text-dark">
+          Blocks
+        </h6>
       </button>
     </div>
-    <div class="card border-elegant p-0 m-0" style="width: 100%; background-color:#3E4551; min-width: 25rem;">
+    <div class="card" style="width: 100%; background-color:#3E4551; min-width: 25rem;">
       <div class="card-body">
-        <a class="btn text-light float-left bg-dark" href="#/scopes" data-toggle="tooltip" data-placement="bottom" title="switch to map view">
+        <a class="btn text-light float-left bg-dark" href="#/scopes" data-toggle="tooltip" data-placement="bottom" title="Switch to map view">
           <span data-feather="map" style="width: 25px; height: 25px;">
           </span>
         </a>
         <div class="btn-group d-flex justify-content-center" role="group" aria-label="view">
-              <a class="btn pt-3 bg-dark text-light" data-toggle="collapse" data-target="#collapseClass" aria-expanded="true" aria-controls="collapseclass" data-toggle="tooltip" data-placement="right" title="Show/Hide the classification (foundry/function/class) of blocks">
-                Abstract Classification
-              </a>
-              <button class="btn bg-dark float-right" data-toggle="tooltip" data-placement="right" title="The count of the returned blocks">
-                <h6 class="mt-2">
-                  <span class="badge badge-warning">
-                    {{(blocks|filter:{status:block.status}|filter:{foundry:k}|filter:{source:g}|filter:{reference:block.reference}|filter:{function:s}|filter:{class:d}|filter:m|filter:m0|filter:m1).length}}
-                  </span>
-                  Blocks
-                </h6>
-              </button>
+          <a class="btn bg-dark text-light" data-toggle="collapse" data-target="#collapseClass" aria-expanded="true" aria-controls="collapseclass" data-toggle="tooltip" data-placement="right" title="Show/hide the classification (foundry/function/class/reference/source) of blocks">
+            Abstract Classification
+          </a>
+          <button class="btn bg-dark float-right" data-toggle="tooltip" data-placement="right" title="The count of the returned blocks">
+            <h6 class="mt-2">
+              <span class="badge badge-warning">
+                {{(blocks|filter:{status:block.status}|filter:{foundry:k}|filter:{source:g}|filter:{reference:block.reference}|filter:{function:s}|filter:{class:d}|filter:m|filter:m0|filter:m1).length}}
+              </span>
+              Blocks
+            </h6>
+          </button>
         </div>
       </div>
       <div class="card-footer">
         <form>
-        <div class="form-row text-center">
-          <div class="col">
-            <div class="mb-0 pb-0">
-          <div class="custom-control custom-radio custom-control-inline">
-            <input class="custom-control-input" type="checkbox" ng-model="block.reference" name="inlineRadioOptions" id="inlineRadio1" ng-true-value="'PDK'" ng-false-value="">
-            <label class="custom-control-label text-light" for="inlineRadio1" data-toggle="tooltip" data-placement="right" title="Check to show PDK blocks only, uncheck to show all">
-              <span class="badge badge-pill badge-light">
-              PDK
-            </span>
-          </label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input class="custom-control-input" type="checkbox" ng-model="block.reference" name="inlineRadioOptions" id="inlineRadio2" ng-true-value="'Literature'" ng-false-value="">
-            <label class="custom-control-label text-light" for="inlineRadio2" data-toggle="tooltip" data-placement="right" title="Check to show Literature blocks only, uncheck to show all">
-              <span class="badge badge-pill badge-dark">
-              Literature
-            </span>
-          </label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input class="custom-control-input" type="checkbox" ng-model="block.reference" name="inlineRadioOptions" id="inlineRadio3" ng-true-value="'VLC'" ng-false-value="">
-            <label class="custom-control-label text-light" for="inlineRadio3" data-toggle="tooltip" data-placement="right" title="Check to show VLC blocks only, uncheck to show all">
-              <span class="badge badge-pill badge-warning">
-              VLC
-            </span>
-          </label>
-          </div>
-          </div>
-            <div ng-init="block.status='up-to-date'">
-              <label class="bs-switch pb-4 mb-4 mr-4 float-right">
-                <input type="checkbox" ng-model="block.status" ng-true-value="'up-to-date'" ng-false-value="">
-                <span class="slider round" data-toggle="tooltip" data-placement="right" title="On: Show only 'up-to-date (tick)' blocks./Off: 'up-to-date','to be updated (!)' and 'Obsolete' blocks.">
-                </span>
-              </label>
+          <div class="form-row text-center">
+            <div class="col">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input class="custom-control-input" type="checkbox" ng-model="block.reference" name="inlineRadioOptions" id="inlineRadio1" ng-true-value="'PDK'" ng-false-value="">
+                <label class="custom-control-label text-light" for="inlineRadio1" data-toggle="tooltip" data-placement="right" title="Check to show PDK blocks only, uncheck to show all">
+                  <span class="badge badge-pill badge-light">
+                    PDK
+                  </span>
+                </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input class="custom-control-input" type="checkbox" ng-model="block.reference" name="inlineRadioOptions" id="inlineRadio2" ng-true-value="'Literature'" ng-false-value="">
+                <label class="custom-control-label text-light" for="inlineRadio2" data-toggle="tooltip" data-placement="right" title="Check to show Literature blocks only, uncheck to show all">
+                  <span class="badge badge-pill badge-dark">
+                    Literature
+                  </span>
+                </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input class="custom-control-input" type="checkbox" ng-model="block.reference" name="inlineRadioOptions" id="inlineRadio3" ng-true-value="'VLC'" ng-false-value="">
+                <label class="custom-control-label text-light" for="inlineRadio3" data-toggle="tooltip" data-placement="right" title="Check to show VLC blocks only, uncheck to show all">
+                  <span class="badge badge-pill badge-warning">
+                    VLC
+                  </span>
+                </label>
+              </div>
+              <div ng-init="block.status='up-to-date'">
+                <label class="bs-switch pb-4 mb-4 mr-4 float-right">
+                  <input type="checkbox" ng-model="block.status" ng-true-value="'up-to-date'" ng-false-value="">
+                  <span class="slider round" data-toggle="tooltip" data-placement="right" title="On: Show only 'up-to-date (tick)' blocks./Off: 'up-to-date','to be updated (!)' and 'Obsolete' blocks">
+                  </span>
+                </label>
+              </div>
             </div>
-            </div>
-        </div>
+          </div>
         </form>
         <form>
           <div class="form-row">
             <div class="col">
-                <div class="form-row">
-                  <div class="col">
-                    <select class="custom-select custom-select-sm mb-2" ng-model="k" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the returned blocks if selected.">
-                      <option value="" selected>
-                        Select Foundry
-                      </option>
-                      <option value="{{foundry._id}}" ng-repeat="foundry in foundries|orderBy:'name'" ng-hide="f_lgth==0">
-                        ({{f_lgth=(blocks|filter:{status:block.status}|filter:{foundry:foundry._id}|filter:{source:component._id}|filter:{reference:block.reference}|filter:{function:s}|filter:{class:d}).length}})| {{foundry.name}}
-                      </option>
-                    </select>
-                  </div>
-              </div>
+              <select class="custom-select custom-select-sm mb-2" ng-model="k" data-toggle="tooltip" data-placement="right" title="The quantity of the returned blocks if selected| This filters the returned blocks and the source menu on the right by foundry">
+                <option value="" selected>
+                  Select Foundry
+                </option>
+                <option value="{{foundry._id}}" ng-repeat="foundry in foundries|orderBy:'name'" ng-hide="f_lgth==0">
+                  ({{f_lgth=(blocks|filter:{reference:block.reference}|filter:{status:block.status}|filter:{foundry:foundry._id}|filter:{source:g}|filter:{function:s}|filter:{class:d}).length}})| {{foundry.name}}
+                </option>
+              </select>
             </div>
             <div class="col">
-                <div class="form-row">
-                  <div class="col">
-                    <select class="custom-select custom-select-sm mb-2" ng-model="g" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the returned blocks if selected.">
-                      <option value="" selected>
-                        Select Source
-                      </option>
-                      <option value="{{component._id}}" ng-repeat="component in components|filter:{type:'reference'}|filter:{foundry:k}" ng-hide="s_lgth==0">
-                        ({{s_lgth=(blocks|filter:{status:block.status}|filter:{foundry:k}|filter:{source:component._id}|filter:{reference:block.reference}|filter:{function:s}|filter:{class:d}).length}})| {{component.name}}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-              </div>
+              <select class="custom-select custom-select-sm mb-2" ng-model="g" data-toggle="tooltip" data-placement="right" title="The quantity of the returned blocks if selected| This filters the returned blocks by source, is filtered by foundries on the left">
+                <option value="" selected>
+                  Select Source
+                </option>
+                <option value="{{component._id}}" ng-repeat="component in components|filter:{type:'reference'}|filter:{foundry:k}" ng-hide="s_lgth==0">
+                  ({{s_lgth=(blocks|filter:{status:block.status}|filter:{foundry:k}|filter:{source:component._id}|filter:{reference:block.reference}|filter:{function:s}|filter:{class:d}).length}})| {{component.name}}
+                </option>
+              </select>
+            </div>
           </div>
           <div class="form-row">
             <div class="col">
-              <select class="custom-select custom-select-sm mb-2" ng-model="s" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the returned blocks if selected.">
+              <select class="custom-select custom-select-sm mb-2" ng-model="s" data-toggle="tooltip" data-placement="right" title="The quantity of the returned blocks if selected| This filters the returned blocks and the class menu on the right by function">
                 <option value=""selected>
                   Select Function
                 </option>
@@ -113,7 +101,7 @@
               </select>
             </div>
             <div class="col">
-              <select class="custom-select custom-select-sm mb-2" ng-model="d" data-toggle="tooltip" data-placement="right" title="The numbers on the left is the count of the returned blocks if selected.">
+              <select class="custom-select custom-select-sm mb-2" ng-model="d" data-toggle="tooltip" data-placement="right" title="The quantity of the returned blocks if selected| This filters the returned blocks by class, is filtered by functions on the left">
                 <option value="" selected>
                   Select Class
                 </option>
@@ -125,41 +113,55 @@
           </div>
         </form>
         <form>
-        <div class="form-row">
-          <div class="col">
-            <label class="sr-only" for="inlineFormInputGroupAll">
-              All
-            </label>
-            <div class="input-group mb-2 mr-sm-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <span data-feather="search" style="width: 15px; height: 15px;">
-                  </span>
+          <div class="form-row">
+            <div class="col">
+              <label class="sr-only" for="inlineFormInputGroupAll">
+                All
+              </label>
+              <div class="input-group mb-2 mr-sm-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <span data-feather="search" style="width: 15px; height: 15px;">
+                    </span>
+                  </div>
                 </div>
+                <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a block. Only subsequent expressions, combine the neighboring fields for sparse expressions">
+                <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m0" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a block. Only subsequent expressions, combine the neighboring fields for sparse expressions">
+                <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m1" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a block. Only subsequent expressions, combine the neighboring fields for sparse expressions">
               </div>
-              <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a block. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
-              <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m0" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a block. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
-              <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m1" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a block. Only subsequent expressions, combine the neighboring fields for sparse expressions.">
             </div>
           </div>
-        </div>
-      </form>
-  </div>
+        </form>
+      </div>
     </div>
     <br>
     <div class="row justify-content-center" id="BlocksCopy">
       <div ng-repeat="block in blocks|orderBy:'name'|filter:{status:block.status}|filter:{foundry:k}|filter:{source:g}|filter:{reference:block.reference}|filter:{function:s}|filter:{class:d}|filter:m|filter:m0|filter:m1" >
         <div class="card border-elegant" style="width: 23rem; height: 100%;">
           <div class="card-body">
-            <h5 class="card-title font-weight-bold">
+            <h5 class="card-title font-weight-bold text-center">
               {{block.name}}
             </h5>
+            <h6 class="card-subtitle mb-2 text-muted float-right" ng-if="block.status=='up-to-date'">
+              <span data-feather="check-circle" class="text-success" style="width: 15px; height: 15px;">
+              </span>
+            </h6>
+            <h6 class="card-subtitle mb-2 text-muted float-right" ng-if="block.status=='!'">
+              <span data-feather="alert-triangle" class="text-danger" style="width: 15px; height: 15px;">
+              </span>
+            </h6>
+            <h6 class="card-subtitle mb-2 text-muted float-right" ng-if="block.status=='obsolete'">
+              <span class="badge badge-pill amber">
+                {{block.status}}
+              </span>
+            </h6>
+            <br>
             <div class="collapse show" id="collapseClass">
               <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='PDK'">
                 <span class="badge badge-light">
                   Reference: {{block.reference}}
                 </span>
-                <span class="badge badge-light" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component._id==block.source&&block.foundry==component.foundry">
+                <span class="badge badge-light" ng-repeat="component in components|filter:{type:'reference'}" ng-if="component._id==block.source&&block.foundry==component.foundry">
                   Source: {{component.name}}
                 </span>
               </h6>
@@ -167,7 +169,7 @@
                 <span class="badge badge-pill badge-dark">
                   Reference: {{block.reference}}
                 </span>
-                <span class="badge badge-pill badge-dark" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component._id==block.source&&component.foundry==block.foundry">
+                <span class="badge badge-pill badge-dark" ng-repeat="component in components|filter:{type:'reference'}" ng-if="component._id==block.source&&component.foundry==block.foundry">
                   Source: {{component.name}}
                 </span>
               </h6>
@@ -175,51 +177,33 @@
                 <span class="badge badge-pill badge-warning">
                   Reference: {{block.reference}}
                 </span>
-                <span class="badge badge-pill badge-warning" ng-repeat="component in components | filter :{type:'reference'}" ng-if="component._id==block.source&&component.foundry==block.foundry">
+                <span class="badge badge-pill badge-warning" ng-repeat="component in components|filter:{type:'reference'}" ng-if="component._id==block.source&&component.foundry==block.foundry">
                   Source: {{component.name}}
                 </span>
               </h6>
-            <br>
-              <h6 class="card-subtitle mb-2 text-muted float-right" ng-if="block.status=='up-to-date'">
-                <span data-feather="check-circle" class="text-success" style="width: 15px; height: 15px;">
-                </span>
-              </h6>
-              <h6 class="card-subtitle mb-2 text-muted float-right" ng-if="block.status=='!'">
-                <span data-feather="alert-triangle" class="text-danger" style="width: 15px; height: 15px;">
-                </span>
-              </h6>
-              <h6 class="card-subtitle mb-2 text-muted float-right" ng-if="block.status=='obsolete'">
-                <span class="badge badge-pill amber">
-                  {{block.status}}
-                </span>
-              </h6>
+              <hr>
               <h6 class="card-subtitle mb-2 text-muted" ng-repeat="foundry in foundries" ng-if="block.foundry.length>0&&block.foundry==foundry._id">
                 Foundry: {{foundry.name}}
               </h6>
-                <div ng-repeat="definition in definitions" ng-if="block.class==definition._id">
-                    <div ng-repeat="component in components | filter : {type: 'function'}" ng-if="block.function==component._id">
-                      <h6 class="card-subtitle mb-2 text-muted">
-                        Function: {{component.name}}
-                        <br>
-                          Class: {{definition.name}}
-                      </h6>
-                    </div>
+              <div ng-repeat="definition in definitions" ng-if="block.class==definition._id">
+                <div ng-repeat="component in components|filter:{type:'function'}" ng-if="block.function==component._id">
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    Function: {{component.name}}
+                    <br>
+                    Class: {{definition.name}}
+                  </h6>
+                </div>
               </div>
             </div>
             <div class="card-footer bg-transparent border-elegant">
-              <a href="#/block/{{block._id}}" class="btn btn-sm btn-block btn-outline-elegant" role="button" aria-pressed="true">
+              <a href="#/block/{{block._id}}" class="btn btn-sm btn-block btn-outline-elegant" role="button" aria-pressed="true" data-toggle="tooltip" data-placement="right" title="View specifications of {{block.name}}">
                 More info
               </a>
             </div>
           </div>
 
-    <script>
-    $(function () {
-    $('[data-toggle="popover"]').popover()
-    })
-    </script>
-  <!-- Icons -->
-<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-<script>
-  feather.replace()
-</script>
+          <!-- Icons -->
+          <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+          <script>
+          feather.replace()
+          </script>
