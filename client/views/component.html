@@ -14,24 +14,24 @@
     <div class="row">
       <div class="col-md-12 d-flex justify-content-center">
         <div ng-init="[getComponent(),getFoundries()]">
-          <div class="card border-elegant" style="min-width: 100%; height: 100%;">
+          <div class="card border-elegant" style="min-width:100%; height:100%;">
             <div class="card-body">
-              <h4 class="card-title text-center">
+              <h4 class="card-title font-weight-bold text-center">
                 {{component.name}}
               </h4>
               <br>
-              <h5 class="card-subtitle mb-2 text-muted" ng-repeat="foundry in foundries" ng-if="component.type=='reference'&&component.foundry.length>0&&foundry._id==component.foundry">
+              <h5 class="card-subtitle mb-3 text-muted" ng-repeat="foundry in foundries" ng-if="component.type=='reference'&&component.foundry.length>0&&foundry._id==component.foundry">
                 Foundry: {{foundry.name}}
               </h5>
               <div class="card-footer bg-transparent">
               <div class="float-left">
-                <a href="#/component/edit/{{component._id}}" class="btn btn-warning btn-sm">
+                <a href="#/component/edit/{{component._id}}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="right" title="Edit">
                   <span data-feather="edit" class="text-white" style="width: 15px; height: 15px;">
                   </span>
                 </a>
               </div>
               <div class="float-left" ng-if="component.type=='reference'">
-                <a href="#/assign_component/{{component._id}}" class="btn btn-info btn-sm">
+                <a href="#/assign_component/{{component._id}}" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="right" title="Assign a foundry to this source">
                   Assign
                 </a>
               </div>
