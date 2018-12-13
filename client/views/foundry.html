@@ -12,7 +12,7 @@
         </li>
       </ol>
     </nav>
-    <div class="d-flex justify-content-center text-justify">
+    <div class="d-flex justify-content-center">
       <h2>
         {{foundry.name}}
       </h2>
@@ -20,14 +20,14 @@
     <div class="row">
       <div class="col-md-12 d-flex justify-content-center">
         <!-- Call reading a foundry service from the controller-->
-          <div class="card border-elegant" style="width: 100%; height: 100%;">
+          <div class="card border-elegant" style="width:100%; height:100%;">
             <div class="card-body">
               <button class="btn btn-sm float-right mb-2" data-clipboard-target="#CardCopy" style="background-color:#fff;">
-                <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="height: 15px;">
+                <img data-feather="copy" alt="Copy to clipboard" class="text-dark" style="height:15px;">
               </button>
               <div ng-if="foundry.notes.length>0">
                 <a tabindex="0" class="btn float-right text-light btn-sm" role="button" data-toggle="popover" data-placement="left" data-trigger="focus" title="notes" data-content="{{foundry.notes}}" style="background-color:#2E2E2E;">
-                  <span data-feather="clipboard" style="width: 15px; height: 15px;">
+                  <span data-feather="clipboard" style="width:15px; height:15px;">
                   </span>
                 </a>
               </div>
@@ -55,7 +55,7 @@
                 </a>
                 <br>
                 <br>
-                <div ng-repeat="component in components|filter:{foundry:foundry._id}|filter:{type: 'reference'}">
+                <div ng-repeat="component in components|filter:{foundry:foundry._id}|filter:{type:'reference'}">
                   <h6 class="card-subtitle mb-2 text-muted">
                     <span class="badge badge-pill badge-light">
                       {{component.name}}
@@ -63,26 +63,26 @@
                   </h6>
                 </div>
                 <div class="card-footer bg-transparent border-elegant">
-                  <button class="btn btn-lg btn-block btn-outline-elegant" disabled type="button" data-toggle="collapse" data-target="#collapseBlock" aria-expanded="true" aria-controls="collapseBlock">
-                    Blocks
+                  <a class="btn btn-lg btn-block btn-outline-elegant" data-placement="right" title="The count of the blocks by this block according to the selected class">
                     <span class="badge badge-warning">
                       {{(blocks|filter:{class:definition._id}|filter:{class:d}|filter:{foundry:foundry._id}).length}}
                     </span>
-                  </button>
+                    Blocks
+                  </a>
                   <br>
                     <select class="custom-select custom-select-sm mb-2" ng-model="d">
                       <option value="" selected>
                         Select Class
                       </option>
                       <option value="{{definition._id}}" ng-repeat="definition in definitions | orderBy : 'name' | filter:s" ng-hide="Cc==0">
-                        ({{Cc=(blocks|filter:{class: definition._id}|filter:{foundry:foundry._id}).length}})|{{definition.name}}
+                        ({{Cc=(blocks|filter:{class:definition._id}|filter:{foundry:foundry._id}).length}})|{{definition.name}}
                       </option>
                     </select>
                   <!-- Call reading all the blocks service from the controller-->
                   <div class="collapse show" id="collapseBlock">
                     <div class="row d-flex justify-content-center">
                        <!-- Display the read blocks' documents by block scope | condition: match if the block foundry (from blocks collection) attribute with the block name attribute (from foundries collection)-->
-                      <div ng-repeat="block in blocks|filter:{class:d}|orderBy:'class'" ng-if="block.foundry==foundry._id">
+                      <div ng-repeat="block in blocks|filter:{class:d}|orderBy:'function'" ng-if="block.foundry==foundry._id">
                         <!-- Link to redirect to the block by id -->
                         <h5>
                           <a href="#/block/{{block._id}}" class="badge badge-dark" target="_blank">
@@ -111,28 +111,28 @@
                   <div class="modal fade" id="fModal" tabindex="-1" role="dialog" aria-labelledby="fModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="fModalLabel">
-                              Deleting {{foundry.name}} ...
-                            </h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">
-                                &times;
-                              </span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            Are you sure you want to delete {{foundry.name}} ?
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-elegant" data-dismiss="modal">
-                              Cancel
-                            </button>
-                            <!-- Call deleting a foundry service from the controller-->
-                            <button type="button" class="btn btn-warning" ng-click="removeFoundry(foundry._id)">
-                              Yes, delete !
-                            </button>
-                          </div>
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="fModalLabel">
+                            Deleting {{foundry.name}} ...
+                          </h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">
+                              &times;
+                            </span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          Are you sure you want to delete {{foundry.name}} ?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-elegant" data-dismiss="modal">
+                            Cancel
+                          </button>
+                          <!-- Call deleting a foundry service from the controller-->
+                          <button type="button" class="btn btn-warning" ng-click="removeFoundry(foundry._id)">
+                            Yes, delete !
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -143,11 +143,11 @@
         </div>
       </div>
     </div>
-  
+
     <script>
-    $(function () {
-    $('[data-toggle="popover"]').popover()
-    })
+      $(function () {
+        $('[data-toggle="popover"]').popover()
+      })
     </script>
 
 <!-- Icons -->
