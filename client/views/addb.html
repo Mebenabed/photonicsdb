@@ -1,89 +1,88 @@
-<main role="main" class="col-md-12 ml-sm-auto">
-  <div class="d-flex justify-content-center border-bottom text-monospace">
-    <h1>
-      Insert a document
-    </h1>
-  </div>
-  <div class="accordion" id="accordionHS">
+  <main role="main" class="col-md-12 ml-sm-auto">
     <div class="card bg-dark">
       <div class="card-header" id="headingOne">
-        <a class="text-warning" href="#/addf" data-toggle="tooltip" data-placement="bottom" title="Components">
-          <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning waves-effect">
+        <a class="text-warning" href="#/addf" data-toggle="tooltip" data-placement="bottom" title="Attributes">
+          <button type="button" class="btn btn-sm btn-block btn-outline-warning ">
             Add an attribute
             <span data-feather="archive">
             </span>
           </button>
         </a>
-        </div>
       </div>
-      <div class="card bg-dark">
-        <div class="card-header" id="headingTwo">
-          <a class="text-warning" href="#/addc" data-toggle="tooltip" data-placement="bottom" title="Classes">
-            <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning waves-effect">
-              Define a class
-              <span data-feather="book-open">
-              </span>
-            </button>
-          </a>
-        </div>
+    </div>
+    <div class="card bg-dark">
+      <div class="card-header" id="headingTwo">
+        <a class="text-warning" href="#/addc" data-toggle="tooltip" data-placement="bottom" title="Classes">
+          <button type="button" class="btn btn-sm btn-block btn-outline-warning ">
+            Define a class
+            <span data-feather="book-open">
+            </span>
+          </button>
+        </a>
+      </div>
     </div>
     <div class="card bg-dark text-light">
       <div class="card-header" id="headingThree">
         <a class="text-warning" href="#/addb" data-toggle="tooltip" data-placement="bottom" title="Blocks">
-          <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning waves-effect">
+          <button type="button" class="btn btn-sm btn-block btn-outline-warning ">
             Create a block
             <span data-feather="cpu">
             </span>
           </button>
         </a>
-        </div>
-        <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionHS">
-          <div class="card-body">
-            <div class="border border-warning p-4 text-center">
-              <div class="col-md-12">
-                <div class="h5 text-center font-weight-bold">
-                  Block
-                  <span data-feather="cpu" class="text-warning">
-                  </span>
-                </div>
-                <br>
-                <form name="myForm" ng-submit="addBlock()">
-                  <div class="form-group">
-                    <small class="form-text text-muted">
-                      Please verify similar blocks
-                    </small>
-                    <input type="text" class="form-control" ng-model="block.name" placeholder="name" required>
-                    <br>
-                    <div class="form-row">
-                      <input type="checkbox" class="custom-control-input" id="customCheck4" ng-model="checkedB">
-                      <label class="custom-control-label" for="customCheck4" ng-if="block.name">
-                        check matching existing blocks
-                      </label>
-                      <hr>
-                      <span ng-if="checkedB&&block.name.length>0">
-                        <select class="form-control mdb-color white-text border-0" ng-init="getBlocks()">
+      </div>
+      <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" >
+        <div class="card-body">
+          <div class="border border-warning p-4 text-center">
+            <div class="col-md-12">
+              <div class="h5 text-center font-weight-bold">
+                Block
+                <span data-feather="cpu" class="text-warning">
+                </span>
+              </div>
+              <br>
+              <form ng-submit="addBlock()">
+                <div class="form-group">
+                  <small class="form-text text-muted">
+                    Please verify similar blocks
+                  </small>
+                  <input type="text" class="form-control" ng-model="block.name" placeholder="name" required>
+                  <br>
+                  <div class="form-row">
+                    <input type="checkbox" class="custom-control-input" id="customCheckct" ng-model="checkedA">
+                    <label class="custom-control-label" for="customCheckct" ng-if="block.name">
+                      check matching existing blocks
+                    </label>
+                    <hr>
+                    <div class="float-right">
+                      <span ng-if="checkedA&&block.name.length>0">
+                        <select class="form-control float-right text-dark font-weight-bold" ng-init="getBlocks()">
                           <option>
                             This name has not been used before
                           </option>
-                          <option ng-repeat="block in blocks | filter : block.name" selected>
+                          <option value="{{block.name}}" ng-repeat="block in blocks|filter:{name:block.name}" selected>
                             {{block.name}}
                           </option>
                         </select>
-                        <br>
-                        <input type="checkbox" class="custom-control-input" id="customCheck5" ng-model="block.uniqueness" ng-true-value="'true'">
-                        <label class="custom-control-label" for="customCheck5">
-                          confirm the uniqueness of this block
-                    </label>
                       </span>
+                      <br>
+                      <br>
+                      <div ng-if="checkedA">
+                        <input type="checkbox" class="custom-control-input" id="customCheckck" ng-model="block.uniqueness">
+                        <label class="custom-control-label" for="customCheckck">
+                          confirm the uniqueness of this block
+                        </label>
+                      </div>
                     </div>
-                    <br>
-                    <span ng-if="block.uniqueness=='true'">
+                  </div>
+                  <br>
+                  <span ng-if="block.uniqueness&&block.name">
                     <div ng-init="getFoundries()">
-                      <select class="custom-select" ng-model="block.foundry">
+                      <select class="custom-select" ng-model="block.foundry" required>
                         <option value="" disabled selected>
                           Select foundry
                         </option>
-                        <option ng-repeat="foundry in foundries | orderBy : 'name'" value="{{foundry._id}}">
+                        <option ng-repeat="foundry in foundries|orderBy:'name'" value="{{foundry._id}}">
                           {{foundry.name}}
                         </option>
                       </select>
@@ -95,19 +94,19 @@
                       Class: Narrow classification
                     </small>
                     <div ng-init="getDefinitions()" class="form-row">
-                      <select class="custom-select mb-2" ng-model="block.function">
+                      <select class="custom-select mb-2" ng-model="block.function" required>
                         <option value="" disabled selected>
                           Select function
                         </option>
-                        <option value="{{component._id}}" ng-repeat="component in components|orderBy:'name'|filter:{type: 'function'}">
+                        <option value="{{component._id}}" ng-repeat="component in components|orderBy:'name'|filter:{type:'function'}">
                           {{component.name}}
                         </option>
                       </select>
-                      <select class="custom-select" ng-model="block.class">
+                      <select class="custom-select" ng-model="block.class" required>
                         <option value="" disabled selected>
                           Select class
                         </option>
-                        <option ng-repeat="definition in definitions|orderBy:'name'|filter:block.function"value="{{definition._id}}">
+                        <option ng-repeat="definition in definitions|orderBy:'name'|filter:block.function" value="{{definition._id}}">
                           {{definition.name}}
                         </option>
                       </select>
@@ -127,13 +126,13 @@
                         </label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="tobeR" ng-model="block.status" ng-value="!">
+                        <input type="radio" class="custom-control-input" id="tobeR" ng-model="block.status" ng-true-value="to-be-updated">
                         <label class="custom-control-label" for="tobeR">
                           To be updated
                         </label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="ObsoleteR" ng-model="block.status" name="disabledGroupExample"  value="obsolete">
+                        <input type="radio" class="custom-control-input" id="ObsoleteR" ng-model="block.status" value="obsolete">
                         <label class="custom-control-label" for="ObsoleteR">
                           Obsolete
                           <small class="form-text text-muted">
@@ -148,7 +147,7 @@
                         Reference :
                       </p>
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="ProcessR" ng-model="block.reference" value="PDK">
+                        <input type="radio" class="custom-control-input" id="ProcessR" ng-model="block.reference" ng-true-value="PDK">
                         <label class="custom-control-label" for="ProcessR">
                           PDK
                         </label>
@@ -168,7 +167,7 @@
                       <br>
                       <br>
                       <div ng-init="getComponents()">
-                        <select class="custom-select" ng-model="block.source">
+                        <select class="custom-select" ng-model="block.source" required>
                           <option value="" disabled selected>
                             Select source
                           </option>
@@ -190,19 +189,21 @@
                     </label>
                     <br>
                     <select class="form-control" size="15" ng-model="block.parameters" multiple ng-init="getComponents()">
-                      <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'}" value="{{component._id}}">
+                      <option ng-repeat="component in components|orderBy:'name'|filter:{type:'parameter'}" value="{{component._id}}">
                         {{component.name}}
                       </option>
                     </select>
-                  </div>
-                  <span ng-if="block.uniqueness=='true'">
+                  </span>
+                </div>
+                <span ng-if="block.uniqueness&&block.name">
                   <button type="submit" class="btn btn-warning btn-block my-4">
                     Submit
                   </button>
-                  <br>
-                  <br>
-                  <div ng-if="block.parameters.length>0">
-                  <label class="justify-content-center font-weight-bold">
+                </span>
+                <br>
+                <br>
+                <div ng-if="block.parameters.length>0">
+                  <label class="font-weight-bold">
                     Selected custom parameters
                   </label>
                   <table class="table table-sm">
@@ -214,11 +215,10 @@
                         <td ng-repeat="component in components|filter:{_id:block.parameters[$index]}">
                           {{component.name}}
                         </td>
-                      </tr
-                    </tbody>
-                  </table>
+                        </tr
+                      </tbody>
+                    </table>
                   </div>
-                  </span>
                 </form>
               </div>
             </div>
