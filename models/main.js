@@ -1,7 +1,5 @@
 //import mongoose module
 const mongoose = require('mongoose');
-//defining ObjectId as a data type
-var ObjectId = mongoose.Schema.Types.ObjectId;
 
 //components collection schema
 const componentSchema = mongoose.Schema({
@@ -15,10 +13,7 @@ const componentSchema = mongoose.Schema({
 		enum: ['parameter', 'function','reference'],
 		default: 'parameter'
 	},
-	foundry: {
-		type: String,
-		default: '?'
-	}
+	foundry:  String
 },
 { versionKey: false
 });
@@ -30,10 +25,7 @@ const definitionSchema = mongoose.Schema({
 		unique: true,
 		required: true
 	},
-	function: {
-		type: String,
-		default: '?'
-	},
+	function: String,
 	specifications: [String]
 },
 { versionKey: false
@@ -52,30 +44,18 @@ const blockSchema = mongoose.Schema({
 	},
 	status:{
 		type: String,
-		enum: ['up-to-date', '!', 'obsolete'],
-		default: '!'
+		enum: ['up-to-date', 'to-be-updated', 'obsolete'],
+		default: 'to-be-updated'
 	},
 	reference: {
 		type: String,
 		enum: ['PDK', 'Literature', 'VLC'],
 		default: 'PDK'
 	},
-	foundry: {
-		type: String,
-		default: '?'
-	},
-	source: {
-		type: String,
-		default: '?'
-	},
-	function: {
-		type: String,
-		default: '?'
-	},
-	class: {
-		type: String,
-		default: '?'
-	},
+	foundry: String,
+	source: String,
+	function: String,
+	class: String,
 	parameters: Array,
 	valuec: Array,
 	valueo: Array},
@@ -162,7 +142,6 @@ module.exports.addBlock = (block, callback) => {
 module.exports.updateBlock = (id, block, options, callback) => {
 	var query = {_id: id};
 	var update = {
-		_id:block._id,
 		name: block.name,
 		notes: block.notes,
 		foundry: block.foundry,
@@ -236,8 +215,8 @@ module.exports.updateComponent = (id, component, options, callback) => {
 	var query = {_id: id};
 	var update = {
 		name: component.name,
-		foundry: component.foundry,
-		blocks: component.blocks
+		type: component.type,
+		foundry: component.foundry
 	}
 	Component.findOneAndUpdate(query, update, options, callback);
 }
