@@ -32,6 +32,7 @@
         <form>
           <div class="form-row text-center">
             <div class="col">
+              <div ng-init="block.reference='PDK'">
               <div class="custom-control custom-radio custom-control-inline">
                 <input class="custom-control-input" type="checkbox" ng-model="block.reference" name="inlineRadioOptions" id="inlineRadio1" ng-true-value="'PDK'" ng-false-value="">
                 <label class="custom-control-label text-light" for="inlineRadio1" data-toggle="tooltip" data-placement="right" title="Check to show PDK blocks only, uncheck to show all">
@@ -56,6 +57,7 @@
                   </span>
                 </label>
               </div>
+              </div>
               <div ng-init="block.status='up-to-date'">
                 <label class="bs-switch pb-4 mb-4 mr-4 float-right">
                   <input type="checkbox" ng-model="block.status" ng-true-value="'up-to-date'" ng-false-value="">
@@ -63,6 +65,7 @@
                   </span>
                 </label>
               </div>
+
             </div>
           </div>
         </form>
@@ -125,9 +128,9 @@
                     </span>
                   </div>
                 </div>
-                <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a block. Only subsequent expressions, combine the neighboring fields for sparse expressions">
-                <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m0" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a block. Only subsequent expressions, combine the neighboring fields for sparse expressions">
-                <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m1" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a block. Only subsequent expressions, combine the neighboring fields for sparse expressions">
+                <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within the names of blocks. Only subsequent expressions, combine the neighboring fields for sparse expressions">
+                <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m0" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within the names of blocks. Only subsequent expressions, combine the neighboring fields for sparse expressions">
+                <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="m1" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within the names of blocks. Only subsequent expressions, combine the neighboring fields for sparse expressions">
               </div>
             </div>
           </div>
@@ -136,7 +139,7 @@
     </div>
     <br>
     <div class="row justify-content-center" id="BlocksCopy">
-      <div ng-repeat="block in blocks|orderBy:'name'|filter:{status:block.status}|filter:{foundry:k}|filter:{source:g}|filter:{reference:block.reference}|filter:{function:s}|filter:{class:d}|filter:m|filter:m0|filter:m1" >
+      <div ng-repeat="block in blocks|orderBy:'name'|filter:{status:block.status}|filter:{foundry:k}|filter:{source:g}|filter:{reference:block.reference}|filter:{function:s}|filter:{class:d}|filter:{name:m}|filter:{name:m0}|filter:{name:m1}" >
         <div class="card border-elegant" style="width: 23rem; height: 100%;">
           <div class="card-body">
             <h5 class="card-title font-weight-bold text-center">
@@ -146,7 +149,7 @@
               <span data-feather="check-circle" class="text-success" style="width: 15px; height: 15px;">
               </span>
             </h6>
-            <h6 class="card-subtitle mb-2 text-muted float-right" ng-if="block.status=='!'">
+            <h6 class="card-subtitle mb-2 text-muted float-right" ng-if="block.status=='to-be-updated'">
               <span data-feather="alert-triangle" class="text-danger" style="width: 15px; height: 15px;">
               </span>
             </h6>
