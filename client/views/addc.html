@@ -1,14 +1,8 @@
-  <main role="main" class="col-md-12 ml-sm-auto">
-    <div class="d-flex justify-content-center border-bottom text-monospace">
-      <h1>
-        Insert a document
-      </h1>
-    </div>
-    <div class="accordion" id="accordionHS">
+    <main role="main" class="col-md-12 ml-sm-auto">
       <div class="card bg-dark">
         <div class="card-header" id="headingOne">
-          <a class="text-warning" href="#/addf" data-toggle="tooltip" data-placement="bottom" title="Components">
-            <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning waves-effect">
+          <a class="text-warning" href="#/addf" data-toggle="tooltip" data-placement="bottom" title="Attributes">
+            <button type="button" class="btn btn-sm btn-block btn-outline-warning">
               Add an attribute
               <span data-feather="archive">
               </span>
@@ -16,66 +10,73 @@
           </a>
         </div>
       </div>
-    <div class="card bg-dark text-light">
-      <div class="card-header" id="headingTwo">
-        <a class="text-warning" href="#/addc" data-toggle="tooltip" data-placement="bottom" title="Classes">
-          <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning waves-effect">
-            Define a class
-            <span data-feather="book-open">
-            </span>
-          </button>
-        </a>
-      </div>
-      <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionHS">
-        <div class="card-body">
-          <div class="border border-warning p-4 text-center">
-            <div class="col-md-12">
-              <div class="h5 text-center font-weight-bold">
-                Class
-                <span data-feather="book-open" class="text-warning">
-                </span>
-              </div>
-              <br>
-              <form name="myForm" ng-submit="addDefinition()">
+      <div class="card bg-dark text-light">
+        <div class="card-header" id="headingTwo">
+          <a class="text-warning" href="#/addc" data-toggle="tooltip" data-placement="bottom" title="Classes">
+            <button type="button" class="btn btn-sm btn-block btn-outline-warning">
+              Define a class
+              <span data-feather="book-open">
+              </span>
+            </button>
+          </a>
+        </div>
+        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo">
+          <div class="card-body">
+            <div class="border border-warning p-4 text-center">
+              <div class="col-md-12">
+                <div class="h5 text-center font-weight-bold">
+                  Class
+                  <span data-feather="book-open" class="text-warning">
+                  </span>
+                </div>
+                <br>
+              <form ng-submit="addDefinition()">
                 <div class="form-group">
                   <small class="form-text text-muted">
                     Please verify similar classes
                   </small>
                   <input type="text" class="form-control" ng-model="definition.name" placeholder="name" required>
-                  <hr>
-                  <div class="form-row">
-                    <input type="checkbox" class="custom-control-input" id="customCheck3" ng-model="checkedD">
-                    <label class="custom-control-label" for="customCheck3" ng-if="definition.name">
+                  <br>
+                  <div>
+                    <div class="float-left">
+                    <input type="checkbox" class="custom-control-input" id="customCheckch" ng-model="checkedF">
+                    <label class="custom-control-label" for="customCheckch" ng-if="definition.name">
                       check matching existing classes
                     </label>
-                    <hr>
-                    <span ng-if="checkedD&&definition.name.length>0" >
-                      <select class="form-control mdb-color white-text border-0" ng-init="getDefinitions()">
+                    </div>
+                    <div class="float-right">
+                    <span ng-if="checkedF&&definition.name.length>0">
+                      <select class="form-control mb-4 float-right text-dark font-weight-bold" ng-init="getDefinitions()">
                         <option>
                           This name has not been used before
                         </option>
-                        <option ng-repeat="definition in definitions | filter : definition.name" selected>
+                        <option value="{{definition.name}}" ng-repeat="definition in definitions|filter:{name:definition.name}" selected>
                           {{definition.name}}
                         </option>
                       </select>
-                      <br>
-                      <input type="checkbox" class="custom-control-input" id="customCheck6" ng-model="definition.uniqueness" ng-true-value="'true'">
-                      <label class="custom-control-label" for="customCheck6">
-                        confirm the uniqueness of this class
-                  </label>
                     </span>
+                    <div ng-if="checkedF">
+                    <input type="checkbox" class="custom-control-input" id="customCheck3" ng-model="definition.uniqueness">
+                    <label class="custom-control-label" for="customCheck3">
+                      confirm the uniqueness of this class
+                    </label>
+                    </div>
+                    </div>
                   </div>
                   <br>
-                  <span ng-if="definition.uniqueness=='true'">
-                  <small class="form-text text-muted">
+                  <br>
+                  <br>
+                  <br>
+                  <span ng-if="definition.uniqueness&&definition.name">
+                  <small class="form-text text-muted p-4 mt-2">
                     Extensive definition classification
                   </small>
                   <div ng-init="getComponents()">
-                    <select class="custom-select" ng-model="definition.function">
+                    <select class="custom-select" ng-model="definition.function" required>
                       <option value="" disabled selected>
                         Choose a function
                       </option>
-                      <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'function'}" value="{{component._id}}">
+                      <option ng-repeat="component in components|orderBy:'name'|filter:{type:'function'}" value="{{component._id}}">
                         {{component.name}}
                       </option>
                     </select>
@@ -88,37 +89,37 @@
                       </small>
                     </label>
                     <br>
-                    <select class="form-control" size="15" ng-model="definition.specifications" multiple>
-                      <option ng-repeat="component in components | orderBy : 'name' | filter : {type: 'parameter'}" value="{{component._id}}">
+                    <select class="form-control" size="15" ng-model="definition.specifications" multiple required>
+                      <option ng-repeat="component in components|orderBy:'name'|filter:{type:'parameter'}" value="{{component._id}}">
                         {{component.name}}
                       </option>
                     </select>
                   </div>
+                  </span>
                 </div>
-                </span>
-                <span ng-if="definition.uniqueness=='true'">
+                <span ng-if="definition.uniqueness&&definition.name">
                 <button type="submit" class="btn btn-warning btn-block my-4">
                   Submit
                 </button>
+                </span>
                 <br>
                 <div ng-if="definition.specifications.length>0">
-                <label class="justify-content-center font-weight-bold">
-                  Selected parameters
-                </label>
-                <table class="table table-sm">
-                  <tbody>
-                    <tr ng-repeat="specifications in definition.specifications">
-                      <th scope="row">
-                        {{$index+1}}
-                      </th>
-                      <td ng-repeat="component in components|filter:{_id:definition.specifications[$index]}">
-                        {{component.name}}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                  <label class="font-weight-bold">
+                    Selected parameters
+                  </label>
+                  <table class="table table-sm">
+                    <tbody>
+                      <tr ng-repeat="specifications in definition.specifications">
+                        <th scope="row">
+                          {{$index+1}}
+                        </th>
+                        <td ng-repeat="component in components|filter:{_id:definition.specifications[$index]}">
+                          {{component.name}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-                </span>
               </form>
             </div>
           </div>
@@ -128,7 +129,7 @@
     <div class="card bg-dark">
       <div class="card-header" id="headingThree">
         <a class="text-warning" href="#/addb" data-toggle="tooltip" data-placement="bottom" title="Blocks">
-          <button type="button" class="btn btn-sm btn-lg btn-block btn-outline-warning waves-effect">
+          <button type="button" class="btn btn-sm btn-block btn-outline-warning ">
             Create a block
             <span data-feather="cpu">
             </span>
@@ -136,9 +137,9 @@
         </a>
       </div>
     </div>
-  </div>
-      <!-- Icons -->
-      <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-      <script>
-      feather.replace()
-    </script>
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+  <script>
+    feather.replace()
+  </script>
