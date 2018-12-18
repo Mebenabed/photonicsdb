@@ -16,6 +16,26 @@
                 </label>
                 <input type="text" class="form-control" ng-model="component.name" placeholder="name">
               </div>
+              <br>
+              <div class="form-row pl-4">
+                <input type="checkbox" class="custom-control-input" id="customCheckct" ng-model="checkedA">
+                <label class="custom-control-label" for="customCheckct" ng-if="component.name">
+                  check matching existing attributes
+                </label>
+                <hr>
+                <div class="float-right">
+                  <span ng-if="checkedA&&component.name.length>0">
+                    <select class="form-control mb-4 float-right text-dark font-weight-bold" ng-init="getComponents()">
+                      <option>
+                        This name has not been used before
+                      </option>
+                      <option value="{{component.name}}" ng-repeat="component in components|filter:{name:component.name}" selected>
+                        {{component.name}}
+                      </option>
+                    </select>
+                  </span>
+                </div>
+              </div>
               <button type="submit" class="btn btn-warning btn-block my-4">
                 Submit
               </button>
