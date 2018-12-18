@@ -16,6 +16,29 @@
                 </label>
                 <input type="text" class="form-control" ng-model="definition.name" placeholder="name">
               </div>
+              <div>
+                <div class="float-left ml-4">
+                <input type="checkbox" class="custom-control-input" id="customCheckch" ng-model="checkedF">
+                <label class="custom-control-label" for="customCheckch" ng-if="definition.name">
+                  check matching existing classes
+                </label>
+                </div>
+                <div class="float-right">
+                <span ng-if="checkedF&&definition.name.length>0">
+                  <select class="form-control mb-4 float-right text-dark font-weight-bold" ng-init="getDefinitions()">
+                    <option>
+                      This name has not been used before
+                    </option>
+                    <option value="{{definition.name}}" ng-repeat="definition in definitions|filter:{name:definition.name}" selected>
+                      {{definition.name}}
+                    </option>
+                  </select>
+                </span>
+                </div>
+              </div>
+              <br>
+              <br>
+              <br>
               <div class="form-group">
                 <div ng-init="getComponents()">
                   <label class="font-weight-bold">
@@ -49,7 +72,7 @@
               </button>
               <br>
               <br>
-              <label class="d-flex justify-content-center font-weight-bold">
+              <label class="font-weight-bold" ng-if="definition.specifications.length>0">
                  Selected parameters
                </label>
               <table class="table table-sm">
