@@ -16,6 +16,26 @@
                 </label>
                 <input type="text" class="form-control" ng-model="foundry.name" placeholder="name">
                 <br>
+                <div class="form-row ml-4">
+                  <input type="checkbox" class="custom-control-input" id="customCheckch" ng-model="checkedF">
+                  <label class="custom-control-label" for="customCheckch" ng-if="foundry.name">
+                    check matching existing foundries
+                  </label>
+                  <hr>
+                  <div class="float-right">
+                    <span ng-if="checkedF&&foundry.name.length>0">
+                      <select class="form-control mb-4 float-right text-dark font-weight-bold" ng-init="getFoundries()">
+                        <option>
+                          This name has not been used before
+                        </option>
+                        <option value="{{foundry.name}}" ng-repeat="foundry in foundries|filter:{name:foundry.name}" selected>
+                          {{foundry.name}}
+                        </option>
+                      </select>
+                    </span>
+                  </div>
+                </div>
+                <br>
                 <textarea class="form-control" ng-model="foundry.notes" placeholder="notes" rows="4" cols="80">
                 </textarea>
                 <br>
