@@ -14,6 +14,27 @@
                   Name
                 </label>
                 <input type="text" class="form-control" ng-model="block.name" placeholder="name">
+                <br>
+                <div class="form-row">
+                  <input type="checkbox" class="custom-control-input" id="customCheckct" ng-model="checkedA">
+                  <label class="custom-control-label" for="customCheckct" ng-if="block.name">
+                    check matching existing blocks
+                  </label>
+                  <hr>
+                  <div class="float-right">
+                    <span ng-if="checkedA&&block.name.length>0">
+                      <select class="form-control float-right text-dark font-weight-bold" ng-init="getBlocks()">
+                        <option>
+                          This name has not been used before
+                        </option>
+                        <option value="{{block.name}}" ng-repeat="block in blocks|filter:{name:block.name}" selected>
+                          {{block.name}}
+                        </option>
+                      </select>
+                    </span>
+                    <br>
+                  </div>
+                </div>
               </div>
               <div class="form-group">
                 <div ng-init="getFoundries()">
@@ -64,13 +85,13 @@
                        </label>
                      </div>
                      <div class="custom-control custom-radio custom-control-inline">
-                       <input type="radio" class="custom-control-input" id="tobeR" ng-model="block.status" value="!">
+                       <input type="radio" class="custom-control-input" id="tobeR" ng-model="block.status" value="to-be-updated">
                        <label class="custom-control-label" for="tobeR">
                          To be updated
                        </label>
                      </div>
                      <div class="custom-control custom-radio custom-control-inline">
-                       <input type="radio" class="custom-control-input" id="ObsoleteR" ng-model="block.status" name="disabledGroupExample"  value="obsolete">
+                       <input type="radio" class="custom-control-input" id="ObsoleteR" ng-model="block.status" value="obsolete">
                        <label class="custom-control-label" for="ObsoleteR">
                          Obsolete
                          <small class="form-text text-muted">
@@ -141,7 +162,7 @@
                      Submit
                    </button>
                    <br>
-                   <label class="d-flex justify-content-center font-weight-bold">
+                   <label class="font-weight-bold" ng-if="block.parameters.length>0">
                      Selected custom parameters
                    </label>
                    <table class="table table-sm">
