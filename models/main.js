@@ -17,7 +17,6 @@ const componentSchema = mongoose.Schema({
 },
 { versionKey: false
 });
-
 //definitions collection schema
 const definitionSchema = mongoose.Schema({
 	name: {
@@ -38,10 +37,7 @@ const blockSchema = mongoose.Schema({
 		unique: true,
 		required: true
 	},
-	notes: {
-		type: String,
-		default: '?'
-	},
+	notes: String,
 	status:{
 		type: String,
 		enum: ['up-to-date', 'to-be-updated', 'obsolete'],
@@ -69,10 +65,7 @@ const foundrySchema = mongoose.Schema({
 		unique: true,
 		required: true
 	},
-	notes: {
-		type: String,
-		default: '?'
-	},
+	notes: String,
 	contact:String,
 	phone: String,
 	mail: String,
