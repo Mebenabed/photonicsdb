@@ -2,22 +2,20 @@
 <html lang="en" ng-app="dbApp">
   <head>
     <meta charset="utf-8">
-    <link rel="icon" href="views/source/css/icones/favicon.ico">
+    <meta name="viewport" content="shrink-to-fit=no">
+    <meta name="theme-color" content="#212121"/>
+    <link rel="icon" href="views/css/icones/favicon.ico">
     <title>Dephine</title>
-    <!-- Bootstrap core CSS -->
-    <link href="views/source/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="views/source/css/mdb.min.css" rel="stylesheet">
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="views/css/mdb.min.css" rel="stylesheet">
   </head>
   <body style="background-color:#E4E4E4;">
-    <!-- container for collapsing views by means of ngView that complements the ngRoute directive  -->
     <div class="container-fluid">
-      <!-- Navbar and navbar links -->
       <nav class="navbar fixed-top navbar-expand-lg bg-dark text-warning">
         <a class="navbar-brand bg-dark" href="#/home" style="padding-right:165px;">
-          <img src="views/source/css/icones/brand.svg" alt="">
+          <img src="views/css/icones/brand.svg" alt="">
         </a>
-        <!-- Toggler for smaller screen sizes -->
         <button class="navbar-toggler text-light" type="button" data-toggle="collapse" data-target="#navbarPh" aria-controls="navbarPh" aria-expanded="false" aria-label="Toggle navigation">
           <span data-feather="more-vertical" style="width: 23px; height: 23px;">
           </span>
@@ -89,11 +87,11 @@
           <ul class="navbar-nav" style="padding-right:10px;">
           <li class="nav-item">
             <a class="nav-link text-warning bg-dark pb-0 mb-0 pt-0 mt-0" href="#/mains" data-toggle="tooltip" data-placement="bottom" title="Foundries">
-              <img src="views/source/css/icones/factory.svg" alt="" style="width: 40px; height: 40px;">
+              <img src="views/css/icones/factory.svg" alt="" style="width: 40px; height: 40px;">
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link grey-text" href="views/source/about/DOC.pdf" role="button" aria-pressed="true" target="_blank" data-placement="bottom" title="User's guide">
+            <a class="nav-link grey-text" href="views/user/users_guide.pdf" role="button" aria-pressed="true" target="_blank" data-placement="bottom" title="User's guide">
               <span data-feather="help-circle" style="width: 23px; height: 23px;">
               </span>
             </a>
@@ -101,21 +99,18 @@
           </ul>
         </div>
       </nav>
-
       <div class="row">
-        <div class="col-md-12 text-monospace" style="padding: 80px;">
+        <div class="col-md-12 text-monospace" style="padding:80px;">
           <div ng-view></div>
         </div>
       </div>
     </div>
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="  crossorigin="anonymous"></script>
-    <!-- Bootstrap -->
+    <!-- Bootstrap  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.16/js/mdb.min.js" integrity="sha256-4NRlAv6HTDSKEbIPYfwqosdi3nujVSIUAtu30lElo00=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="views/source/scripts/mdb.min.js"></script>
-    <!-- ClipboardJS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
     <!-- AngularJS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.11/angular.min.js" integrity="sha256-NjvZ8gIg9zLFdxl3od64ktjChFLBCxqJnFR1f6UqtXk=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.11/angular-route.min.js" integrity="sha256-+z+y2lnBw4V1nLPrQ9MFjPDHdtv8wxmanc08mAyvAYA=" crossorigin="anonymous"></script>
@@ -123,6 +118,10 @@
     <script src="app.js"></script>
     <!-- Controllers -->
     <script src="controllers/mains.js"></script>
+    <!-- Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js" integrity="sha256-40yOU/ZToZ0ofjnednWwPpcPkzze+QJecCNMC4uumUk=" crossorigin="anonymous"></script>
+    <!-- ClipboardJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
     <script>
     var clipboard = new ClipboardJS('.btn');
     clipboard.on('success', function(e) {
@@ -132,8 +131,6 @@
         console.log(e);
     });
     </script>
-    <!-- Icons -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js" integrity="sha256-40yOU/ZToZ0ofjnednWwPpcPkzze+QJecCNMC4uumUk=" crossorigin="anonymous"></script>
     <script>
       feather.replace()
     </script>
