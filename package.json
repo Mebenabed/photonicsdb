@@ -1,19 +1,30 @@
 {
-  "name": "Dephine",
+  "name": "dephine-master",
   "version": "1.0.0",
-  "description": ".",
+  "description": "Simple, flexible DBMS interface for industrial applications",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "body-parser": "1.18.3",
-    "express": "4.16.3",
-    "mongoose": "^5.2.7"
+    "body-parser": "*",
+    "express": "*",
+    "mongoose": "*"
   },
-  "author": "mhdbnbd",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhdbnbd/dephine.git"
+  },
+  "keywords": [
+    "CRUD",
+    "photonics",
+    "definitions",
+    "DBMS"
+  ],
+  "author": "Mehdi Benabed (mhdbnbd)",
   "license": "MIT",
-  "devDependencies": {
-    "nodemon": "^1.18.1"
-  }
+  "bugs": {
+    "url": "https://github.com/mhdbnbd/dephine/issues"
+  },
+  "homepage": "https://github.com/mhdbnbd/dephine#readme"
 }
