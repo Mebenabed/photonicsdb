@@ -43,7 +43,7 @@ const blockSchema = mongoose.Schema({
 	},
 	reference: {
 		type: String,
-		enum: ['PDK', 'Literature', 'VLC'],
+		enum: ['PDK', 'Literature', 'LOCAL'],
 		default: 'PDK'
 	},
 	foundry: String,
