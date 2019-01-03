@@ -221,6 +221,6 @@ app.delete('/api/components/:_id', (req, res) => {
 		res.json(component);
 	});
 });
-//setting 3000 as the port
-app.listen(3000);
-console.log('Running on port 3000...');
+//setting 33000 as the port
+app.listen(33000);
+console.log('Running on port 33000...');
