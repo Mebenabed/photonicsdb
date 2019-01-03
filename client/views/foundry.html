@@ -19,7 +19,6 @@
     </div>
     <div class="row">
       <div class="col-md-12 d-flex justify-content-center">
-        <!-- Call reading a foundry service from the controller-->
           <div class="card border-elegant" style="width:100%; height:100%;">
             <div class="card-body">
               <button class="btn btn-sm float-right mb-2" data-clipboard-target="#CardCopy" style="background-color:#fff;">
@@ -70,20 +69,31 @@
                     Blocks
                   </a>
                   <br>
-                    <select class="custom-select custom-select-sm mb-2" ng-model="d">
-                      <option value="" selected>
-                        Select Class
-                      </option>
-                      <option value="{{definition._id}}" ng-repeat="definition in definitions | orderBy : 'name' | filter:s" ng-hide="Cc==0">
-                        ({{Cc=(blocks|filter:{class:definition._id}|filter:{foundry:foundry._id}).length}})|{{definition.name}}
-                      </option>
-                    </select>
-                  <!-- Call reading all the blocks service from the controller-->
+                  <div class="form-row">
+                    <div class="col">
+                      <select class="custom-select custom-select-sm mb-2" ng-model="s" data-toggle="tooltip" data-placement="right" title="The quantity of the returned blocks if selected| This filters the returned blocks and the class menu on the right by function">
+                        <option value=""selected>
+                          Select Function
+                        </option>
+                        <option value="{{component._id}}" ng-repeat="component in components|orderBy:'name'|filter:{type:'function'}" ng-hide="u_lgth==0">
+                          ({{u_lgth=(blocks|filter:{foundry:foundry._id}|filter:{function:component._id}|filter:{class:d}).length}})| {{component.name}}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <select class="custom-select custom-select-sm mb-2" ng-model="d" data-toggle="tooltip" data-placement="right" title="The quantity of the returned blocks if selected| This filters the returned blocks by class, is filtered by functions on the left">
+                        <option value="" selected>
+                          Select Class
+                        </option>
+                        <option value="{{definition._id}}" ng-repeat="definition in definitions|orderBy:'name'|filter:{function:s}" ng-hide="c_lgth==0">
+                          ({{c_lgth=(blocks|filter:{foundry:foundry._id}|filter:{function:s}|filter:{class:definition._id}).length}})| {{definition.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
                   <div class="collapse show" id="collapseBlock">
                     <div class="row d-flex justify-content-center">
-                       <!-- Display the read blocks' documents by block scope | condition: match if the block foundry (from blocks collection) attribute with the block name attribute (from foundries collection)-->
-                      <div ng-repeat="block in blocks|filter:{class:d}|orderBy:'function'" ng-if="block.foundry==foundry._id">
-                        <!-- Link to redirect to the block by id -->
+                      <div ng-repeat="block in blocks|filter:{class:d}|filter:{function:s}|orderBy:'function'" ng-if="block.foundry==foundry._id">
                         <h5>
                           <a href="#/block/{{block._id}}" class="badge badge-dark" target="_blank">
                             {{block.name}}
@@ -95,14 +105,12 @@
                   </div>
                   <br>
                   <div class="float-left">
-                    <!-- Link to redirect to foundry editing view by id -->
                     <a href="#/foundry/edit/{{foundry._id}}" class="btn btn-warning btn-sm">
                       <span data-feather="edit" class="text-white" style="width: 15px; height: 15px;">
                       </span>
                     </a>
                   </div>
                   <div class="float-right">
-                    <!-- Link to display confirmation window for foundry deleting -->
                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#fModal" data-backdrop="false">
                       <span data-feather="trash-2" class="text-white" style="width: 15px; height: 15px;">
                       </span>
@@ -149,7 +157,6 @@
                           <button type="button" class="btn btn-elegant" data-dismiss="modal">
                             Cancel
                           </button>
-                          <!-- Call deleting a foundry service from the controller-->
                           <button type="button" class="btn btn-warning" ng-click="removeFoundry(foundry._id)">
                             Yes, delete !
                           </button>
@@ -165,14 +172,6 @@
       </div>
     </div>
 
-    <script>
-      $(function () {
-        $('[data-toggle="popover"]').popover()
-      })
-    </script>
-
-<!-- Icons -->
-<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 <script>
   feather.replace()
 </script>
