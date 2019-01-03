@@ -82,7 +82,7 @@
     <div class="card">
       <div class="card">
         <div class="card-body" style="background-color:#3E4551;">
-          <div class="table-responsive" style="background-color:#FBE9E7;">
+          <div class="table-responsive" style="background-color:#FBE9E7;max-height:50rem;">
             <table class="table table-bordered" id="copyConcise">
               <tbody>
                 <tr style="background-color:#2E2E2E;">
@@ -107,9 +107,9 @@
                     <div class="table-responsive">
                       <table class="table table-sm table-borderless mb-0">
                         <tr>
-                          <td ng-repeat="block in blocks|filter:{foundry:foundry._id}|filter:{class:definition._id}|filter:{source:g}|limitTo:1" style="background-color:#fbe9e7">
-                            <h4 class="text-dark">
-                              <span class="badge badge-pill">
+                          <td ng-repeat="block in blocks|filter:{foundry:foundry._id}|filter:{class:definition._id}|filter:{source:g}|limitTo:1" style="background-color:#FBE9E7;">
+                            <h4>
+                              <span class="badge badge-pill" style="background-color:#FFFF;">
                                 <a href="#/foundry/{{foundry._id}}" class="text-dark" target="_blank">
                                   {{(blocks|filter:{foundry:foundry._id}|filter:{class:definition._id}|filter:{source:g}).length}}
                                 </a>
@@ -147,7 +147,7 @@
           <form>
             <div class="form-row text-center">
               <div class="col">
-                <div class="mb-0 pb-0">
+                <div class="mb-0 pb-0" ng-init="block.reference='PDK'">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input class="custom-control-input" type="checkbox" ng-model="block.reference" name="inlineRadioOptions" id="inlineRadio1" ng-true-value="'PDK'" ng-false-value="">
                     <label class="custom-control-label text-light" for="inlineRadio1" data-toggle="tooltip" data-placement="right" title="Check to show PDK blocks only, uncheck to show all">
@@ -183,7 +183,7 @@
               </div>
             </div>
           </form>
-          <div class="table-responsive" style="background-color:#fbe9e7">
+          <div class="table-responsive" style="background-color:#fbe9e7;max-height:50rem;">
             <table class="table table-bordered" id="copyExhaustive">
               <tbody>
                 <tr style="background-color:#2E2E2E;">
@@ -240,8 +240,6 @@
     </div>
   </div>
 
-<!-- Icons -->
-<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 <script>
   feather.replace()
 </script>
