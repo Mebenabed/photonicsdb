@@ -1,6 +1,5 @@
-//import mongoose module
+//Mongoose
 const mongoose = require('mongoose');
-
 //components collection schema
 const componentSchema = mongoose.Schema({
 	name: {
@@ -29,7 +28,6 @@ const definitionSchema = mongoose.Schema({
 },
 { versionKey: false
 });
-
 //blocks collection schema
 const blockSchema = mongoose.Schema({
 	name: {
@@ -74,29 +72,23 @@ const foundrySchema = mongoose.Schema({
 { versionKey: false
 });
 
-// creating module for schema by passing document as argument
 const Foundry = module.exports = mongoose.model('Foundry', foundrySchema);
 const Block = module.exports = mongoose.model('Block', blockSchema);
 const Definition = module.exports = mongoose.model('Definition', definitionSchema);
 const Component = module.exports = mongoose.model('Component', componentSchema);
 
-
-//create a module assigining find function to GET method by passing callback argument
 module.exports.getFoundries = (callback, limit) => {
 	Foundry.find(callback).limit(limit);
 }
 
-//create a module assigining findById function to GET method by passing id and callback arguments
 module.exports.getFoundryById = (id, callback) => {
 	Foundry.findById(id, callback);
 }
 
-//create a module assigining create function to ADD method
 module.exports.addFoundry = (foundry, callback) => {
 	Foundry.create(foundry, callback);
 }
 
-//create a module assigning findOneAndUpdate function as an object and passing (document attributes: attributes paths) arguments
 module.exports.updateFoundry = (id, foundry, options, callback) => {
 	var query = {_id: id};
 	var update = {
@@ -110,7 +102,6 @@ module.exports.updateFoundry = (id, foundry, options, callback) => {
 	Foundry.findOneAndUpdate(query, update, options, callback);
 }
 
-//create a module assigining remove function by passing id argument
 module.exports.removeFoundry = (id, callback) => {
 	var query = {_id: id};
 	Foundry.remove(query, callback);
