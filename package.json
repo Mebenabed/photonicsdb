@@ -1,5 +1,5 @@
 {
-  "name": "photonicsdb",
+  "name": "Dephine",
   "version": "1.0.0",
   "description": ".",
   "main": "app.js",
@@ -8,14 +8,11 @@
   },
   "dependencies": {
     "body-parser": "1.18.3",
-    "clipboard": "^2.0.1",
     "express": "4.16.3",
-    "jquery": "^1.9.1",
-    "mongoose": "^5.2.7",
-    "popper.js": "^1.14.4",
+    "mongoose": "^5.2.7"
   },
-  "author": "MHDBNBD",
-  "license": "ISC",
+  "author": "mhdbnbd",
+  "license": "MIT",
   "devDependencies": {
     "nodemon": "^1.18.1"
   }
