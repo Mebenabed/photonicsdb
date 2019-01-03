@@ -50,10 +50,10 @@
                 </label>
               </div>
               <div class="custom-control custom-radio custom-control-inline">
-                <input class="custom-control-input" type="checkbox" ng-model="block.reference" name="inlineRadioOptions" id="inlineRadio3" ng-true-value="'VLC'" ng-false-value="">
-                <label class="custom-control-label text-light" for="inlineRadio3" data-toggle="tooltip" data-placement="right" title="Check to show VLC blocks only, uncheck to show all">
+                <input class="custom-control-input" type="checkbox" ng-model="block.reference" name="inlineRadioOptions" id="inlineRadio3" ng-true-value="'LOCAL'" ng-false-value="">
+                <label class="custom-control-label text-light" for="inlineRadio3" data-toggle="tooltip" data-placement="right" title="Check to show LOCAL blocks only, uncheck to show all">
                   <span class="badge badge-pill badge-warning">
-                    VLC
+                    LOCAL
                   </span>
                 </label>
               </div>
@@ -175,7 +175,7 @@
                   Source: {{component.name}}
                 </span>
               </h6>
-              <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='VLC'">
+              <h6 class="card-subtitle mb-2 text-muted" ng-if="block.reference=='LOCAL'">
                 <span class="badge badge-pill badge-warning">
                   Reference: {{block.reference}}
                 </span>
