@@ -1,8 +1,7 @@
-var myApp = angular.module('myApp');
-	//Load services required by module
-myApp.controller('MainsController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams){
+var dbApp = angular.module('dbApp');
+	//Load services
+dbApp.controller('MainsController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams){
 	console.log('MainsController loaded...');
-	//Reference to  application model (with scope) to create CRUD operations factory using http service to generate HTTP requests
 	//Get all foundries
 	$scope.getFoundries = function(){
 		$http.get('/api/foundries').success(function(response){
@@ -135,5 +134,4 @@ myApp.controller('MainsController', ['$scope', '$http', '$location', '$routePara
 			window.location.href='#/components';
 		});
 	}
-
 }]);
