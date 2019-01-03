@@ -3,26 +3,23 @@ const express = require('express');
 const app = express();
 //import middleware mudules
 const bodyParser = require('body-parser');
-//import mongoose module
+// Mongoose
 const mongoose = require('mongoose');
-//point out client-side to middleware
 app.use(express.static(__dirname+'/client'));
 // parse application/json
 app.use(bodyParser.json());
-//creating a module for documents in each collection
 Foundry =require('./models/main');
 Block =require('./models/main');
 Definition =require('./models/main');
 Component =require('./models/main');
-// Connect to Mongoose
-mongoose.connect('mongodb://localhost:27017/photonicsdb', { useNewUrlParser: true });
+// Mongoose
+mongoose.connect('mongodb://127.0.0.1:27017/photonicsdb', { useNewUrlParser: true });
 var db = mongoose.connection;
 // Routing
-// Setting a GET method to the index
 app.get('/', (req, res) => {
-	res.send('Photonicsdb: please use /api/...');
+	res.send('photonicsdb: please use /api/...');
 });
-// GET method route for a collection of foundry documents
+// A collection of foundry documents
 app.get('/api/foundries', (req, res) => {
 	Foundry.getFoundries((err, foundries) => {
 		if(err){
@@ -31,7 +28,7 @@ app.get('/api/foundries', (req, res) => {
 		res.json(foundries);
 	});
 });
-// GET method route for a foundry document
+// A foundry document
 app.get('/api/foundries/:_id', (req, res) => {
 	Foundry.getFoundryById(req.params._id, (err, foundry) => {
 		if(err){
@@ -40,7 +37,7 @@ app.get('/api/foundries/:_id', (req, res) => {
 		res.json(foundry);
 	});
 });
-// POST method route for a foundry document
+// A foundry document
 app.post('/api/foundries', (req, res) => {
 	var foundry = req.body;
 	Foundry.addFoundry(foundry, (err, foundry) => {
@@ -50,7 +47,7 @@ app.post('/api/foundries', (req, res) => {
 		res.json(foundry);
 	});
 });
-// PUT method route for a foundry document
+// A foundry document
 app.put('/api/foundries/:_id', (req, res) => {
 	var id = req.params._id;
 	var foundry = req.body;
@@ -61,7 +58,7 @@ app.put('/api/foundries/:_id', (req, res) => {
 		res.json(foundry);
 	});
 });
-// DELETE method route for a  foundry document
+// A foundry document
 app.delete('/api/foundries/:_id', (req, res) => {
 	var id = req.params._id;
 	Foundry.removeFoundry(id, (err, foundry) => {
@@ -224,6 +221,6 @@ app.delete('/api/components/:_id', (req, res) => {
 		res.json(component);
 	});
 });
-//setting 3000 as the port the app uses to listen to requests
+//setting 3000 as the port
 app.listen(3000);
 console.log('Running on port 3000...');
