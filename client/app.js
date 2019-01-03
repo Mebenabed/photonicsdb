@@ -1,7 +1,7 @@
-// importing ngRoute directive to provide routing services
-var dephineApp = angular.module('dephineApp',['ngRoute']);
+// ngRoute directive to provide routing services
+var dbApp = angular.module('dbApp',['ngRoute']);
 //configuring routes by specifying bound controller and view
-dephineApp.config(function($routeProvider){
+dbApp.config(function($routeProvider){
 	$routeProvider.when('/', {
 		controller:'MainsController',
 		templateUrl: 'views/home.html'
