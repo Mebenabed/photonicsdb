@@ -1,4 +1,4 @@
-  <div ng-init="[getFoundries(),getComponents()]"> <!-- Call reading foundries/components service-->
+  <div ng-init="[getFoundries(),getComponents()]">
     <main role="main" class="col-md-12">
       <div class="d-flex justify-content-center border-bottom">
         <button class="btn text-dark mb-4 mt-2" data-clipboard-target="#FoundriesCopy" style="background-color:#E4E4E4;" data-toggle="tooltip" data-placement="right" title="Copy the returned foundries on the clipboard">
@@ -21,7 +21,6 @@
                   </span>
                 </div>
               </div>
-              <!-- Search within the read foundries documents-->
               <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q1" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a foundry. Only subsequent expressions, combine the neighboring fields for sparse expressions">
               <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q2" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a foundry. Only subsequent expressions, combine the neighboring fields for sparse expressions">
               <input type="text" class="form-control form-control-sm" id="inlineFormInputGroupAll" ng-model="q3" aria-label="filter blocks" placeholder="" data-toggle="tooltip" data-placement="right" title="Search within all the attributes of a foundry. Only subsequent expressions, combine the neighboring fields for sparse expressions">
@@ -31,7 +30,7 @@
       </div>
       <br>
       <div class="row d-flex justify-content-center" id="FoundriesCopy">
-        <div ng-repeat="foundry in foundries | orderBy : 'name' | filter:q1  | filter:q2  | filter:q3"> <!-- Display the read documents by foundry scope | filter with reference to searched keywords-->
+        <div ng-repeat="foundry in foundries|orderBy:'name'|filter:q1|filter:q2|filter:q3">
           <div class="card border-elegant" style="width: 23.5rem; height: 100%;">
             <div class="card-body">
               <h3 class="card-title text-center">
@@ -68,8 +67,7 @@
                 </h6>
               </div>
               <div class="card-footer bg-transparent border-elegant">
-                <!-- Link to redirect to the foundry by id -->
-                <a href="#/foundry/{{foundry._id}}" class="btn btn-sm btn-lg btn-block btn-outline-elegant waves-effect" role="button" aria-pressed="true" data-toggle="tooltip" data-placement="right" title="View blocks by {{foundry.name}}">
+                <a href="#/foundry/{{foundry._id}}" class="btn btn-sm btn-block btn-outline-elegant " role="button" aria-pressed="true" data-toggle="tooltip" data-placement="right" title="View blocks by {{foundry.name}}">
                   More info
                 </a>
               </div>
@@ -79,8 +77,6 @@
       </div>
     </div>
 
-<!-- Icons -->
-<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 <script>
   feather.replace()
 </script>
