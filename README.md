@@ -3,6 +3,5 @@ DEPHINE is an online application that allows the creation and management of tech
 The original intended use of DEPHINE is to collect all foundries, foundry processes, and process building blocks available for the development of photonic integrated circuits.
 
 ## Usage ##
-Clone or download and run **npm install**, MongoDB acts as a data store through 4 collections that needs to be created : 'foundries', 'blocks', 'definitions' and 'components'. Run **node app** to start the app on port 33000
-
+Clone or download and run **npm install**, MongoDB acts as a data store. Run with **node app**.
 Note: A user's guide is provided in /client/views/user/users_guide.pdf
